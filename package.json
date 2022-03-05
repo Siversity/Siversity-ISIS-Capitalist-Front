@@ -1,0 +1,30 @@
+{
+  "name": "tptest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run bundle && npm-run-all --parallel watch serve",
+    "stop": "taskkill -F -IM node.exe",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "webpack",
+    "watch": "webpack --watch",
+    "serve": "cd dist && live-server --port=3000",
+    "dev": "next -p 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.5.14",
+    "live-server": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "ts-loader": "^9.2.7",
+    "typescript": "^4.6.2",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}
