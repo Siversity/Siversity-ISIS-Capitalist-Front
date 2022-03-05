@@ -1,4 +1,4 @@
-export const barList = [];
+import {progressBarList} from "../index";
 
 export function addProgressBar(server, product, col) {
     // Barre de progression (ligne)
@@ -20,11 +20,12 @@ export function addProgressBar(server, product, col) {
         }
     });
 
-    barList[product.id] = bar;
+    progressBarList[product.id] = bar;
     bar.animate(0);
 }
 
 
 export function setProgressBar(id, pourcentage) {
-    barList[id].set(pourcentage/100)
+    progressBarList[id].set(pourcentage / 100)
+    console.log(pourcentage/100)
 }

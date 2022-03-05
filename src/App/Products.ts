@@ -1,5 +1,7 @@
 import { World, Product, Pallier } from "../Classes/world";
-import { barList, addProgressBar, setProgressBar } from "./ProgressBar";
+import { addProgressBar, setProgressBar } from "./ProgressBar";
+
+import { progressBarList, lastUpdateList } from "..";
 
 // Fonction principale d'appel des produits
 export function showProducts(server: string, world: World) {
@@ -73,6 +75,8 @@ export function showProducts(server: string, world: World) {
 function startProduct(product: Product) {
     if (product.quantite > -1) {
         console.log("Lancement de la production de " + product.name);
+        product.timeleft = product.vitesse;
+        lastUpdateList[product.id] = Date.now();
         setProgressBar(product.id, 100);
     }
     

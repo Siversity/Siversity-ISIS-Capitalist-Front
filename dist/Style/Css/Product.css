@@ -81,3 +81,8 @@
     background-color: rgb(224, 133, 15);
     color: white;
   }
+
+  #products{
+    margin-left: auto;
+    margin-right: auto;
+  }
