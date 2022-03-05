@@ -73,11 +73,20 @@ export function showProducts(server: string, world: World) {
 
 
 function startProduct(product: Product) {
-    if (product.quantite > -1) {
+    if (verifProduct(product)) {
         console.log("Lancement de la production de " + product.name);
         product.timeleft = product.vitesse;
         lastUpdateList[product.id] = Date.now();
         setProgressBar(product.id, 100);
     }
     
+}
+
+function verifProduct(product: Product): boolean {
+    if ((product.quantite > -1) && (product.timeleft == 0)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
