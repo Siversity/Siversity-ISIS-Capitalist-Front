@@ -12,7 +12,8 @@ body {
   background-position: top;
   background-size: 100em;
 
-
+  height: 100%;
+  overflow: hidden;
 }
 
 code {

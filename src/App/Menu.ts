@@ -7,7 +7,7 @@ export function displayMenu(world: World, server: string) {
     //création navbar
     let navbar = document.createElement("div");
     container.appendChild(navbar);
-    navbar.classList.add("navbar");
+    navbar.classList.add("navbar", "fixed-bottom");
 
     //création unlocks
     let unlocks = document.createElement("div");
