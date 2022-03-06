@@ -1,5 +1,6 @@
 import { showProducts } from "./App/Products";
 import { displayHeader} from "./App/Header"
+import { displayMenu } from "./App/Menu";
 
 var serveurUrl = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld;
@@ -17,6 +18,7 @@ $(document).ready(function () {
         });
         displayHeader(world, serveurUrl);
         showProducts(serveurUrl, world);
+        displayMenu(world,serveurUrl)
 
     });
 });
