@@ -1,0 +1,76 @@
+
+
+#sideMenu {
+    position: absolute;
+    background: #363433;
+    border: 3px solid rgb(224, 133, 15);
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: none;
+    border-bottom-right-radius: none;
+    border-right: 3px solid rgb(56, 36, 10); ;
+    width: 75px;
+    height: 300px;
+    color: white;
+    font-size: large;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#sideMenu:hover {
+    color: rgb(224, 133, 15);
+
+}
+
+.sideContainer {
+    display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.addButton {
+  align-items: center; 
+  display: inline-flex;
+        width: 70px;
+        height: 60px;
+        color: #eb9d39;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+          border-top-color: transparent;
+          border-right-color: transparent;
+          border-bottom-color: transparent;
+          border-left-color: transparent;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        border-radius: .25rem;
+          border-bottom-right-radius: 0.25rem;
+          border-bottom-left-radius: 0.25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+
+.btn-check:active + .addButtonOutline, .btn-check:checked + .addButtonOutline, .addButtonOutline.active, .addButtonOutline.dropdown-toggle.show, .addButtonOutline:active {
+    color: #fff;
+    background-color: #eb9d39;
+    border-color: #eb9d39;
+  }
+
+.addButtonOutline:hover {
+    color: #fff;
+    background-color: #eb9d39;
+    border-color: #eb9d39;
+  }
+
+.addButtonOutline {
+    color: #eb9d39;
+    border-color: #eb9d39;
+    text-align: left;
+  }

@@ -1,11 +1,13 @@
 import { World, Product, Pallier } from "../Classes/world";
+import { addProgressBar, setProgressBar } from "./ProgressBar";
+
+import { progressBarList, lastUpdateList } from "..";
 
 // Fonction principale d'appel des produits
 export function showProducts(server: string, world: World) {
     let container = document.getElementById("products");
 
     $.each(world.products.product, function (index, product) {
-        console.log(product.name)
 
         // Container (colonne)
         let col = document.createElement("div");
@@ -26,14 +28,18 @@ export function showProducts(server: string, world: World) {
         let image = document.createElement("img");
         productImage.appendChild(image);
         image.classList.add("productIcons")
+        if (product.quantite == 0) {
+            console.log("Pas débloqué")
+            image.classList.add("disabledProduct");
+        }
         image.src = server + product.logo
+        // Ajout event production
+        $(image).click(function () {
+            startProduct(product)
+        });
 
-        // Barre de progression (ligne)
-        let productProgress = document.createElement("div");
-        col.appendChild(productProgress);
-        productProgress.classList.add("row");
-
-
+        // Barre de progression
+        addProgressBar(server, product, col);
 
         // Level --> Quantité (colonne)
         let productQte = document.createElement("div");
@@ -66,7 +72,25 @@ export function showProducts(server: string, world: World) {
         productContainer.appendChild(productCost);
         productCost.classList.add("col", "bccFont", "text-center");
         productCost.innerHTML = product.cout.toString();
-
-
     });
+}
+
+
+function startProduct(product: Product) {
+    if (verifProduct(product)) {
+        console.log("Lancement de la production de " + product.name);
+        product.timeleft = product.vitesse;
+        lastUpdateList[product.id] = Date.now();
+        setProgressBar(product.id, 100);
+    }
+    
+}
+
+function verifProduct(product: Product): boolean {
+    if ((product.quantite > 0) && (product.timeleft == 0)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
