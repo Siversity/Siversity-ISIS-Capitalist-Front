@@ -76,6 +76,7 @@ function listManagers(world: World, server: string) {
     })
     
 }
+
 /*
 <div id="managers" class="modal fade">
  <div>
