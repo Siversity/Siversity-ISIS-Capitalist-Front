@@ -28,6 +28,10 @@ export function showProducts(server: string, world: World) {
         let image = document.createElement("img");
         productImage.appendChild(image);
         image.classList.add("productIcons")
+        if (product.quantite == 0) {
+            console.log("Pas débloqué")
+            image.classList.add("disabledProduct");
+        }
         image.src = server + product.logo
         // Ajout event production
         $(image).click(function () {
@@ -83,7 +87,7 @@ function startProduct(product: Product) {
 }
 
 function verifProduct(product: Product): boolean {
-    if ((product.quantite > -1) && (product.timeleft == 0)) {
+    if ((product.quantite > 0) && (product.timeleft == 0)) {
         return true;
     }
     else {

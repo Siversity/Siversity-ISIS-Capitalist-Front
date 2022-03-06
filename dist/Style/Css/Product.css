@@ -1,4 +1,9 @@
 /* Icones produits */
+#products {
+  margin-top: 50px;
+  padding-right: 75px;
+}
+
 .productIcons {
     width: 300px;
     height: 300px;
@@ -6,8 +11,15 @@
     overflow: hidden;
   }
 
+  .disabledProduct {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+  }
+
   .productImage {
       position: relative;
+      cursor: cell;
   }
 
   .productLevel {

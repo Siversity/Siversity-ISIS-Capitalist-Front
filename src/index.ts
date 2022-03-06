@@ -1,7 +1,9 @@
 import {World, Product, Pallier} from "./Classes/world";
 import { showProducts } from "./App/Products";
-import { displayHeader} from "./App/Header"
+import { displayHeader, transform} from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
+import { showSideBar } from "./App/SideBar";
+
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld: World;
@@ -16,8 +18,9 @@ $(document).ready(function () {
         $.each(world.products.product, function (index, product) {
 
         });
-        displayHeader(world, serveurUrl);
+        displayHeader(serveurUrl, world);
         showProducts(serveurUrl, world);
+        showSideBar(serveurUrl, world);
 
         setInterval(function() { calcScore(serveurUrl, currentWorld); }, 100);
 
@@ -39,9 +42,16 @@ function calcScore(server: string, world: World) {
             
             if (this.timeleft <= 0) {
                 console.log("Le produit " + product.name + " a rapporté " + product.revenu);
+                addScore(world, product.revenu);
                 product.timeleft = 0;
                 setProgressBar(product.id, 0);
             }
         }
     });
+}
+
+
+function addScore(world: World, score: number) {
+    world.money = world.money + score;
+    document.getElementById("worldMoney").innerHTML = transform(world.money);
 }
