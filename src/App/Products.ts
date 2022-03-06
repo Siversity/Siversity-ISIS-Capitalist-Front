@@ -2,6 +2,7 @@ import { World, Product, Pallier } from "../Classes/world";
 import { addProgressBar, setProgressBar } from "./ProgressBar";
 
 import { progressBarList, lastUpdateList } from "..";
+import {setAddProduct} from "./SideBar";
 
 // Fonction principale d'appel des produits
 export function showProducts(server: string, world: World) {
@@ -65,14 +66,17 @@ export function showProducts(server: string, world: World) {
         productButton.id = "add" + product.id
         productButton.type = "button";
         productButton.classList.add("addProduct", "align-middle");
-        productButton.innerHTML = "+" + 1;
+
+
 
         // Coût ajout level (colonne)
         let productCost = document.createElement("div");
         productContainer.appendChild(productCost);
+        productCost.id = "cost" + product.id;
         productCost.classList.add("col", "bccFont", "text-center");
         productCost.innerHTML = product.cout.toString();
     });
+    setAddProduct(world, 1);
 }
 
 
