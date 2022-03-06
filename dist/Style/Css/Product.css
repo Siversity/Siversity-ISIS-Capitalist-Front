@@ -91,6 +91,7 @@
 
   .addProduct:disabled {
     background-color: gray;
+    cursor: not-allowed;
   }
 
   .addProduct:hover:enabled {
