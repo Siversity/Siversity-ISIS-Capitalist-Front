@@ -3,6 +3,7 @@ import { showProducts } from "./App/Products";
 import { displayHeader, transform} from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
 import { showSideBar } from "./App/SideBar";
+import { displayMenu } from "./App/Menu";
 
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
@@ -18,8 +19,10 @@ $(document).ready(function () {
         $.each(world.products.product, function (index, product) {
 
         });
+        
         displayHeader(serveurUrl, world);
         showProducts(serveurUrl, world);
+        displayMenu(world,serveurUrl)
         showSideBar(serveurUrl, world);
 
         setInterval(function() { calcScore(serveurUrl, currentWorld); }, 100);
