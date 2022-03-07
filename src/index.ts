@@ -36,9 +36,9 @@ $(document).ready(function () {
             // On calcule en permanence le score
             calcScore(serveurUrl, currentWorld);
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
-            if (addSelected == "Max") {
-                setAddProduct(world);
-            }
+            //if (addSelected == "Max") {
+                //setAddProduct(world);
+            //}
         }, 100);
 
     });

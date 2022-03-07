@@ -56,7 +56,7 @@ mf.classList.add("modal-footer");
 //Ajout bouton fermer dans le footer
 let buttonClose=document.createElement("button");
 mf.appendChild(buttonClose);
-buttonClose.classList.add("btn btn-default");
+buttonClose.classList.add("btn","btn-default");
 buttonClose.setAttribute("type","button");
 buttonClose.setAttribute("data-dismiss","modal");
 buttonClose.innerHTML="Close !!";
@@ -95,7 +95,7 @@ function listManagers(server: string,world: World) {
         //Bouton Hire!
         let buttonHire = document.createElement("button");
         ligne.appendChild(buttonHire);
-        buttonHire.classList.add("class","btn btn-secondary");
+        buttonHire.classList.add("class","btn","btn-secondary");
         buttonHire.setAttribute("type","button");
         buttonHire.innerText="Achète Moi !";
 
