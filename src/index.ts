@@ -9,6 +9,7 @@ import { displayModal } from "./App/Modal";
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld: World;
+var ourWorld: boolean = true;
 
 $(document).ready(function () {
     $.getJSON(serveurUrl + "adventureisis/generic/world", function (world) {
@@ -17,7 +18,6 @@ $(document).ready(function () {
 
 
         world.money = 200;
-
 
         // remplir le layout avec les informations globales
         // (nom du monde, argent total....)
