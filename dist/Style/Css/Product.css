@@ -89,7 +89,12 @@
     border: 2px solid rgb(224, 133, 15);
   }
 
-  .addProduct:hover {
+  .addProduct:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+
+  .addProduct:hover:enabled {
     background-color: rgb(224, 133, 15);
     color: white;
   }
