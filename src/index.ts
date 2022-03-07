@@ -4,6 +4,7 @@ import { displayHeader, transform} from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
 import { showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
+import { displayModal } from "./App/Modal";
 
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
@@ -24,6 +25,7 @@ $(document).ready(function () {
         showProducts(serveurUrl, world);
         displayMenu(world,serveurUrl)
         showSideBar(serveurUrl, world);
+        displayModal(serveurUrl, world)
 
         setInterval(function() { calcScore(serveurUrl, currentWorld); }, 100);
 
