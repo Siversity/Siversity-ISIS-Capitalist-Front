@@ -76,7 +76,6 @@ export function showProducts(server: string, world: World) {
         });
 
 
-
         // Coût ajout level (colonne)
         let productCost = document.createElement("div");
         productContainer.appendChild(productCost);
