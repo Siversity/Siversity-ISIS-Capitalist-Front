@@ -31,7 +31,7 @@ export function displayMenu(world: World, server: string) {
     let managers = document.createElement("div");
     navbar.appendChild(managers);
     managers.classList.add("managers");
-    managers.innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalManager">Managers</button>';
+    managers.innerHTML = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalManager">Managers</button>';
 
 
     //Création investors
@@ -41,35 +41,3 @@ export function displayMenu(world: World, server: string) {
     investors.innerHTML = "Investors";
 
 }
-<<<<<<< HEAD
-=======
-
-/*
-<div id="managers" class="modal fade">
- <div>
-
-
-
- </div>
-
- <div class="modal-dialog" role="document">
- <div class="modal-content">
- <div class="modal-header">
- <button type="button" class="close" data-dismiss="modal"
-aria-label="Close"><span aria-hidden="true">&times;</span>
- </button>
- <h4 class="modal-title" id="myModalLabel">Titre principal</h4>
- </div>
- <div class="modal-body">
- </div>
- <div class="modal-footer">
- <button type="button" class="btn btn-default"
-data-dismiss="modal">Close
- </button>
- </div>
- </div>
- </div>
-</div>
-
-*/
->>>>>>> bb09bd5b29b06c4481cdaa091fc3d5d6d1eb3788
