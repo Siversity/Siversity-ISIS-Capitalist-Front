@@ -1,7 +1,7 @@
 import { World, Product, Pallier } from "../Classes/world";
 
 // Création container du header
-export function displayMenu(world: World, server: string) {
+export function displayMenu(world: World) {
     let container = document.getElementById("menu");
 
     //création navbar

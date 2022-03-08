@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "displayMenu": () => (/* binding */ displayMenu)
 /* harmony export */ });
 // Création container du header
-function displayMenu(world, server) {
+function displayMenu(world) {
     var container = document.getElementById("menu");
     //création navbar
     var navbar = document.createElement("div");
@@ -162,14 +162,19 @@ function displayMenu(world, server) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "displayModal": () => (/* binding */ displayModal)
+/* harmony export */   "displayModal": () => (/* binding */ displayModal),
+/* harmony export */   "verifManager": () => (/* binding */ verifManager)
 /* harmony export */ });
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .. */ "./src/index.ts");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header */ "./src/App/Header.ts");
+
+
 function displayModal(server, world) {
     var m = document.getElementById("modalManager");
     //Balise Modal Dialogue
     var md = document.createElement("div");
     m.appendChild(md);
-    md.classList.add("modal-dialog");
+    md.classList.add("modal-dialog", "modal-lg");
     md.setAttribute("role", "document");
     //Balise Modal Content
     var mc = document.createElement("div");
@@ -182,11 +187,10 @@ function displayModal(server, world) {
     //Bouton Fermer la fenêtre
     var b = document.createElement("button");
     mh.appendChild(b);
-    b.classList.add("close");
+    b.classList.add("btn-close");
     b.setAttribute("type", "button");
-    b.setAttribute("data-dismiss", "modal");
+    b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");
-    b.innerHTML = '<span aria-hidden="true">&times;</span>'; //&times; ==> X
     //Titre de la fenêtre
     var t = document.createElement("h4");
     mh.appendChild(t);
@@ -200,46 +204,109 @@ function displayModal(server, world) {
     bodyM.setAttribute("id", "modalBody");
     //Remplissage du body avec les differrents managers
     listManagers(server, world);
-    //Balise Modal Footer
-    var mf = document.createElement("div");
-    mc.appendChild(mf);
-    mf.classList.add("modal-footer");
-    //Ajout bouton fermer dans le footer
-    var buttonClose = document.createElement("button");
-    mf.appendChild(buttonClose);
-    buttonClose.classList.add("btn", "btn-default");
-    buttonClose.setAttribute("type", "button");
-    buttonClose.setAttribute("data-dismiss", "modal");
-    buttonClose.innerHTML = "Close !!";
-    //m.innerHTML='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Modal title</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">...</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div>'
 }
 function listManagers(server, world) {
-    var container = document.getElementById("modalBody");
+    var body = document.getElementById("modalBody");
+    var container = document.createElement("div");
+    body.appendChild(container);
+    container.classList.add("container");
+    var grid = document.createElement("div");
+    container.appendChild(grid);
+    grid.classList.add("row", "row-cols-2"); //"row", "row-cols-2"
     $.each(world.managers.pallier, function (index, pallier) {
-        var ligne = document.createElement("div");
-        container.appendChild(ligne);
-        ligne.id = "p" + pallier.name;
-        ligne.classList.add("row");
-        // Titre (ligne)
-        var managerName = document.createElement("div");
-        ligne.appendChild(managerName);
-        managerName.classList.add("row");
-        managerName.innerHTML = pallier.name;
-        // Image (ligne)
-        var managerImage = document.createElement("div");
-        ligne.appendChild(managerImage);
-        managerImage.classList.add("row");
-        var image = document.createElement("img");
-        managerImage.appendChild(image);
-        image.classList.add("managerImage");
-        image.src = server + pallier.logo;
-        //Bouton Hire!
+        var col = document.createElement("div");
+        grid.appendChild(col);
+        col.classList.add("row");
+        col.id = "manager" + pallier.idcible.toString();
+        //Partie Image et nom du managers
+        var imageName = document.createElement("div");
+        col.appendChild(imageName);
+        imageName.classList.add("col"); //"col-4", "col-lg-2"
+        //Partie Image
+        var image = document.createElement("div");
+        imageName.appendChild(image);
+        image.classList.add("row");
+        var imageManager = document.createElement("img");
+        image.appendChild(imageManager);
+        imageManager.id = "img" + pallier.idcible;
+        imageManager.src = server + pallier.logo;
+        imageManager.classList.add("img-fluid", "rounded");
+        //Partie Nom et prix
+        var namePrice = document.createElement("div");
+        imageName.appendChild(namePrice);
+        namePrice.classList.add("row");
+        //Partie Nom
+        var nameManager = document.createElement("div");
+        namePrice.appendChild(nameManager);
+        nameManager.classList.add("col");
+        nameManager.innerText = pallier.name;
+        //Partie Prix
+        var priceManager = document.createElement("div");
+        namePrice.appendChild(priceManager);
+        priceManager.classList.add("col");
+        //priceManager.innerHTML=world.managers.pallier[i].seuil.toString();
+        var cost = (0,_Header__WEBPACK_IMPORTED_MODULE_1__.transform)(pallier.seuil);
+        priceManager.innerHTML = cost;
+        //<span dangerouslySetInnerHTML={{__html: transform(world.money)}}/></span>
+        //priceManager.innerText=transform(world.managers.pallier[i].seuil);
+        //Partie bouton d'embauche
+        var hire = document.createElement("div");
+        col.appendChild(hire);
+        hire.classList.add("col"); //"col-4", "col-lg-2"
         var buttonHire = document.createElement("button");
-        ligne.appendChild(buttonHire);
-        buttonHire.classList.add("class", "btn", "btn-secondary");
-        buttonHire.setAttribute("type", "button");
-        buttonHire.innerText = "Achète Moi !";
+        hire.appendChild(buttonHire);
+        buttonHire.id = "hire" + pallier.idcible;
+        world.managers.pallier[3].unlocked = true;
+        // Le Manager a t il déja été acheté ?
+        if (pallier.unlocked == true) {
+            buttonHire.classList.add("btn", "btn-secondary");
+            buttonHire.setAttribute("disabled", "true");
+            buttonHire.innerText = "Acheté";
+        }
+        else {
+            buttonHire.classList.add("btn", "btn-primary", "buttonHire");
+            buttonHire.innerText = "Achète Moi !";
+            $(buttonHire).click(function () {
+                //console.log(world.managers.pallier[i].idcible);
+                console.log("je tente d'acheter un manager :)");
+                acheterManager(pallier, world);
+            });
+        }
     });
+}
+// Un manager est-il achetable ?
+function verifManager(world) {
+    //console.log(world.money);
+    $.each(world.managers.pallier, function (index, pallier) {
+        //console.log(pallier.seuil);
+        var button = document.getElementById("hire" + pallier.idcible);
+        if (pallier.seuil > world.money) {
+            button.setAttribute("disabled", "true");
+        }
+    });
+}
+function acheterManager(manager, world) {
+    //Le manager est-il achetable ?
+    if (manager.seuil <= world.money) {
+        console.log("le manager est achetable");
+        //Soustraction du prix du manager à l'argent du monde
+        world.money -= manager.seuil;
+        //Manager ==> Unlocked
+        manager.unlocked = true;
+        (0,___WEBPACK_IMPORTED_MODULE_0__.matchId)(manager.idcible, world);
+        //world.products.product=true;
+        //Changement du bouton Hire en Acheté et disabled
+        var button = document.getElementById("hire" + manager.idcible);
+        button.setAttribute("disabled", "true");
+        button.innerText = "Acheté";
+        button.classList.remove();
+        button.classList.add("btn", "btn-secondary");
+        //Modification Calcscore
+        console.log("Modification de CalcScore");
+    }
+    else {
+        console.log("le manager n'est pas achetable \b fin de transation");
+    }
 }
 
 
@@ -253,7 +320,8 @@ function listManagers(server, world) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "showProducts": () => (/* binding */ showProducts)
+/* harmony export */   "showProducts": () => (/* binding */ showProducts),
+/* harmony export */   "startProduct": () => (/* binding */ startProduct)
 /* harmony export */ });
 /* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProgressBar */ "./src/App/ProgressBar.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .. */ "./src/index.ts");
@@ -529,7 +597,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "lastUpdateList": () => (/* binding */ lastUpdateList),
 /* harmony export */   "progressBarList": () => (/* binding */ progressBarList),
 /* harmony export */   "setUsername": () => (/* binding */ setUsername),
-/* harmony export */   "username": () => (/* binding */ username)
+/* harmony export */   "username": () => (/* binding */ username),
+/* harmony export */   "matchId": () => (/* binding */ matchId),
 /* harmony export */ });
 /* harmony import */ var _App_Products__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App/Products */ "./src/App/Products.ts");
 /* harmony import */ var _App_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App/Header */ "./src/App/Header.ts");
@@ -563,16 +632,17 @@ $(document).ready(function () {
         });
         (0,_App_Header__WEBPACK_IMPORTED_MODULE_1__.displayHeader)(serveurUrl, world);
         (0,_App_Products__WEBPACK_IMPORTED_MODULE_0__.showProducts)(serveurUrl, world);
-        (0,_App_Menu__WEBPACK_IMPORTED_MODULE_4__.displayMenu)(world, serveurUrl);
+        (0,_App_Menu__WEBPACK_IMPORTED_MODULE_4__.displayMenu)(world);
         (0,_App_SideBar__WEBPACK_IMPORTED_MODULE_3__.showSideBar)(serveurUrl, world);
         (0,_App_Modal__WEBPACK_IMPORTED_MODULE_5__.displayModal)(serveurUrl, world);
         setInterval(function () {
             // On calcule en permanence le score
             calcScore(serveurUrl, currentWorld);
+            (0,_App_Modal__WEBPACK_IMPORTED_MODULE_5__.verifManager)(world);
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
-            if (_App_SideBar__WEBPACK_IMPORTED_MODULE_3__.addSelected == "Max") {
-                (0,_App_SideBar__WEBPACK_IMPORTED_MODULE_3__.setAddProduct)(world);
-            }
+            //if (addSelected == "Max") {
+            //setAddProduct(world);
+            //}
         }, 100);
     });
 });
@@ -593,11 +663,24 @@ function calcScore(server, world) {
                 (0,_App_ProgressBar__WEBPACK_IMPORTED_MODULE_2__.setProgressBar)(product.id, 0);
             }
         }
+        else if ((product.timeleft = 0) && (product.managerUnlocked == true)) {
+            (0,_App_Products__WEBPACK_IMPORTED_MODULE_0__.startProduct)(product);
+        }
     });
 }
 function addScore(world, score) {
     world.money = world.money + score;
     document.getElementById("worldMoney").innerHTML = (0,_App_Header__WEBPACK_IMPORTED_MODULE_1__.transform)(world.money);
+}
+function matchId(id, world) {
+    var idProduct;
+    var newproduct;
+    $.each(world.products.product, function (index, product) {
+        idProduct = product.id;
+        if (idProduct == id) {
+            product.managerUnlocked = true;
+        }
+    });
 }
 
 

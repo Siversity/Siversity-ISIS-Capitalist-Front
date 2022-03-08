@@ -1,10 +1,10 @@
 import {World, Product, Pallier} from "./Classes/world";
-import { showProducts } from "./App/Products";
+import { showProducts, startProduct } from "./App/Products";
 import { displayHeader, transform} from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
 import { addSelected, setAddProduct, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
-import { displayModal } from "./App/Modal";
+import { displayModal, verifManager } from "./App/Modal";
 
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
@@ -36,17 +36,18 @@ $(document).ready(function () {
 
         displayHeader(serveurUrl, world);
         showProducts(serveurUrl, world);
-        displayMenu(world,serveurUrl)
+        displayMenu(world);
         showSideBar(serveurUrl, world);
-        displayModal(serveurUrl, world)
+        displayModal(serveurUrl, world);
 
         setInterval(function() {
             // On calcule en permanence le score
             calcScore(serveurUrl, currentWorld);
+            verifManager(world);
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
-            if (addSelected == "Max") {
-                setAddProduct(world);
-            }
+            //if (addSelected == "Max") {
+                //setAddProduct(world);
+            //}
         }, 100);
 
     });
@@ -73,6 +74,9 @@ function calcScore(server: string, world: World) {
                 setProgressBar(product.id, 0);
             }
         }
+        else if ((product.timeleft =0) && (product.managerUnlocked==true)){
+            startProduct(product);
+        }
     });
 }
 
@@ -80,4 +84,16 @@ function calcScore(server: string, world: World) {
 function addScore(world: World, score: number) {
     world.money = world.money + score;
     document.getElementById("worldMoney").innerHTML = transform(world.money);
+}
+
+export function matchId(id:number,world:World){
+    let idProduct
+    let newproduct : Product ;
+    $.each(world.products.product, function(index,product){
+         idProduct = product.id;
+        if(idProduct==id){
+            product.managerUnlocked=true;
+        }
+    })
+
 }

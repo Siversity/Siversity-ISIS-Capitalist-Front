@@ -1,104 +1,181 @@
+import { matchId } from "..";
 import { World, Product, Pallier } from "../Classes/world";
+import { transform } from "./Header";
 
-export function displayModal(server: string,world: World ) {
+export function displayModal(server: string, world: World) {
 
+    let m = document.getElementById("modalManager");
 
+    //Balise Modal Dialogue
+    let md = document.createElement("div");
+    m.appendChild(md);
+    md.classList.add("modal-dialog", "modal-lg");
+    md.setAttribute("role", "document");
 
-let m =document.getElementById("modalManager");
+    //Balise Modal Content
+    let mc = document.createElement("div");
+    md.appendChild(mc);
+    mc.classList.add("modal-content");
 
-//Balise Modal Dialogue
-let md = document.createElement("div");
-m.appendChild(md);
-md.classList.add("modal-dialog");
-md.setAttribute("role","document");
+    //Balise Modal header
+    let mh = document.createElement("div");
+    mc.appendChild(mh);
+    mh.classList.add("modal-header");
 
-//Balise Modal Content
-let mc = document.createElement("div");
-md.appendChild(mc);
-mc.classList.add("modal-content");
+    //Bouton Fermer la fenêtre
+    let b = document.createElement("button");
+    mh.appendChild(b);
+    b.classList.add("btn-close")
+    b.setAttribute("type", "button");
+    b.setAttribute("data-bs-dismiss", "modal");
+    b.setAttribute("aria-label", "Close");
 
-//Balise Modal header
-let mh = document.createElement("div");
-mc.appendChild(mh);
-mh.classList.add("modal-header");
-
-//Bouton Fermer la fenêtre
-let b = document.createElement("button");
-mh.appendChild(b);
-b.classList.add("close")
-b.setAttribute("type", "button");
-b.setAttribute("data-dismiss", "modal");
-b.setAttribute("aria-label", "Close");
-b.innerHTML='<span aria-hidden="true">&times;</span>'  ; //&times; ==> X
-
-//Titre de la fenêtre
-let t = document.createElement("h4");
-mh.appendChild(t);
-t.classList.add("modal-title");
-t.setAttribute("id", "myModalLabel");
-t.innerText="Les Managers";
+    //Titre de la fenêtre
+    let t = document.createElement("h4");
+    mh.appendChild(t);
+    t.classList.add("modal-title");
+    t.setAttribute("id", "myModalLabel");
+    t.innerText = "Les Managers";
 
 
-//Création Body
-let bodyM = document.createElement("div");
-mc.appendChild(bodyM);
-bodyM.classList.add("modal-body");
-bodyM.setAttribute("id", "modalBody");
+    //Création Body
+    let bodyM = document.createElement("div");
+    mc.appendChild(bodyM);
+    bodyM.classList.add("modal-body");
+    bodyM.setAttribute("id", "modalBody");
 
-//Remplissage du body avec les differrents managers
-listManagers(server,world);
-
-//Balise Modal Footer
-let mf =document.createElement("div");
-mc.appendChild(mf);
-mf.classList.add("modal-footer");
-
-//Ajout bouton fermer dans le footer
-let buttonClose=document.createElement("button");
-mf.appendChild(buttonClose);
-buttonClose.classList.add("btn", "btn-default");
-buttonClose.setAttribute("type", "button");
-buttonClose.setAttribute("data-dismiss", "modal");
-buttonClose.innerHTML="Close !!";
-
-//m.innerHTML='<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Modal title</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">...</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Save changes</button></div></div></div>'
+    //Remplissage du body avec les differrents managers
+    listManagers(server, world);
 }
 
 
 
-function listManagers(server: string,world: World) {
-    let container = document.getElementById("modalBody");
+function listManagers(server: string, world: World) {
+    let body = document.getElementById("modalBody");
+    let container = document.createElement("div");
+    body.appendChild(container);
+    container.classList.add("container");
 
-    $.each(world.managers.pallier, function (index, pallier) {
+    let grid = document.createElement("div");
+    container.appendChild(grid);
+    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
 
+    $.each(world.managers.pallier, function(index,pallier){
+        let col = document.createElement("div");
+        grid.appendChild(col);
+        col.classList.add("row");
+        col.id = "manager" + pallier.idcible.toString();
 
-        let ligne = document.createElement("div");
-        container.appendChild(ligne);
-        ligne.id = "p" + pallier.name
-        ligne.classList.add("row");
+        //Partie Image et nom du managers
+        let imageName = document.createElement("div");
+        col.appendChild(imageName);
+        imageName.classList.add("col");//"col-4", "col-lg-2"
 
-        // Titre (ligne)
-        let managerName = document.createElement("div");
-        ligne.appendChild(managerName);
-        managerName.classList.add("row");
-        managerName.innerHTML = pallier.name;
+        //Partie Image
+        let image = document.createElement("div");
+        imageName.appendChild(image);
+        image.classList.add("row");
 
-        // Image (ligne)
-        let managerImage = document.createElement("div");
-        ligne.appendChild(managerImage);
-        managerImage.classList.add("row");
-        let image = document.createElement("img");
-        managerImage.appendChild(image);
-        image.classList.add("managerImage")
-        image.src = server + pallier.logo
+        let imageManager = document.createElement("img");
+        image.appendChild(imageManager);
+        imageManager.id = "img" + pallier.idcible;
+        imageManager.src = server + pallier.logo;
+        imageManager.classList.add("img-fluid", "rounded")
 
-        //Bouton Hire!
+        //Partie Nom et prix
+        let namePrice = document.createElement("div")
+        imageName.appendChild(namePrice);
+        namePrice.classList.add("row")
+
+        //Partie Nom
+        let nameManager = document.createElement("div");
+        namePrice.appendChild(nameManager);
+        nameManager.classList.add("col");
+        nameManager.innerText = pallier.name;
+
+        //Partie Prix
+        let priceManager = document.createElement("div");
+        namePrice.appendChild(priceManager);
+        priceManager.classList.add("col");
+        //priceManager.innerHTML=world.managers.pallier[i].seuil.toString();
+        let cost = transform(pallier.seuil)
+        priceManager.innerHTML=cost;
+        //<span dangerouslySetInnerHTML={{__html: transform(world.money)}}/></span>
+        //priceManager.innerText=transform(world.managers.pallier[i].seuil);
+
+        //Partie bouton d'embauche
+        let hire = document.createElement("div");
+        col.appendChild(hire);
+        hire.classList.add("col"); //"col-4", "col-lg-2"
+
         let buttonHire = document.createElement("button");
-        ligne.appendChild(buttonHire);
-        buttonHire.classList.add("class", "btn", "btn-secondary");
-        buttonHire.setAttribute("type", "button");
-        buttonHire.innerText="Achète Moi !";
+        hire.appendChild(buttonHire);
+        buttonHire.id = "hire" + pallier.idcible;
 
+        world.managers.pallier[3].unlocked = true;
+
+        // Le Manager a t il déja été acheté ?
+        if (pallier.unlocked == true) {
+            buttonHire.classList.add("btn", "btn-secondary");
+            buttonHire.setAttribute("disabled", "true");
+            buttonHire.innerText = "Acheté";
+        }
+        else {
+            buttonHire.classList.add("btn", "btn-primary", "buttonHire");
+            buttonHire.innerText = "Achète Moi !";
+            $(buttonHire).click(function () {
+                //console.log(world.managers.pallier[i].idcible);
+                console.log("je tente d'acheter un manager :)");
+                acheterManager(pallier,world);
+            });
+        }
+
+
+
+    });
+
+}
+
+
+
+// Un manager est-il achetable ?
+export function verifManager(world: World) {
+    //console.log(world.money);
+    $.each(world.managers.pallier, function (index, pallier) {
+        //console.log(pallier.seuil);
+        let button = document.getElementById("hire" + pallier.idcible);
+        if (pallier.seuil > world.money) {
+            button.setAttribute("disabled", "true");
+        }
     })
+}
+
+
+
+function acheterManager(manager: Pallier, world: World) {
+    //Le manager est-il achetable ?
+    if (manager.seuil <= world.money) {
+        console.log("le manager est achetable");
+        //Soustraction du prix du manager à l'argent du monde
+        world.money-=manager.seuil;
+        //Manager ==> Unlocked
+        manager.unlocked=true;
+        matchId(manager.idcible,world);
+        //world.products.product=true;
+
+        //Changement du bouton Hire en Acheté et disabled
+        let button = document.getElementById("hire"+manager.idcible);
+        button.setAttribute("disabled","true");
+        button.innerText="Acheté"
+        button.classList.remove();
+        button.classList.add("btn","btn-secondary");
+        //Modification Calcscore
+        console.log("Modification de CalcScore")
+    }
+    else{
+        console.log("le manager n'est pas achetable \b fin de transation");
+    }
+
+
 
 }
