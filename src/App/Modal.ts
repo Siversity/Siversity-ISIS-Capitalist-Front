@@ -47,9 +47,6 @@ export function displayModal(server: string, world: World) {
     //Remplissage du body avec les differrents managers
     listManagers(server, world);
 }
-
-
-
 function listManagers(server: string, world: World) {
     let body = document.getElementById("modalBody");
     let container = document.createElement("div");
@@ -97,11 +94,8 @@ function listManagers(server: string, world: World) {
         let priceManager = document.createElement("div");
         namePrice.appendChild(priceManager);
         priceManager.classList.add("col");
-        //priceManager.innerHTML=world.managers.pallier[i].seuil.toString();
         let cost = transform(pallier.seuil)
         priceManager.innerHTML=cost;
-        //<span dangerouslySetInnerHTML={{__html: transform(world.money)}}/></span>
-        //priceManager.innerText=transform(world.managers.pallier[i].seuil);
 
         //Partie bouton d'embauche
         let hire = document.createElement("div");
@@ -111,10 +105,15 @@ function listManagers(server: string, world: World) {
         let buttonHire = document.createElement("button");
         hire.appendChild(buttonHire);
         buttonHire.id = "hire" + pallier.idcible;
-
-        world.managers.pallier[3].unlocked = true;
+        buttonHire.classList.add("btn", "btn-primary", "buttonHire");
+        buttonHire.innerText = "Achete Moi !";
+        $(buttonHire).click(function () {
+            console.log("je tente d'acheter un manager :)");
+            acheterManager(pallier,world);
+        });
 
         // Le Manager a t il déja été acheté ?
+        /*
         if (pallier.unlocked == true) {
             buttonHire.classList.add("btn", "btn-secondary");
             buttonHire.setAttribute("disabled", "true");
@@ -122,13 +121,13 @@ function listManagers(server: string, world: World) {
         }
         else {
             buttonHire.classList.add("btn", "btn-primary", "buttonHire");
-            buttonHire.innerText = "Achète Moi !";
+            buttonHire.innerText = "Achete Moi !";
             $(buttonHire).click(function () {
-                //console.log(world.managers.pallier[i].idcible);
                 console.log("je tente d'acheter un manager :)");
                 acheterManager(pallier,world);
+                
             });
-        }
+        }*/
 
 
 
@@ -140,14 +139,33 @@ function listManagers(server: string, world: World) {
 
 // Un manager est-il achetable ?
 export function verifManager(world: World) {
-    //console.log(world.money);
     $.each(world.managers.pallier, function (index, pallier) {
-        //console.log(pallier.seuil);
         let button = document.getElementById("hire" + pallier.idcible);
         if (pallier.seuil > world.money) {
             button.setAttribute("disabled", "true");
         }
+        else{
+            button.removeAttribute("disabled");
+        }
     })
+}
+
+
+export function anyNews(world:World){
+    let managerDispo =0;
+    $.each(world.managers.pallier,function(index,manager){
+        if(manager.seuil <= world.money && manager.unlocked==false){
+            managerDispo ++;
+        };
+    })
+    console.log(managerDispo);
+    let notifManager=document.getElementById("badgeManager");
+    if(managerDispo==0){
+        notifManager.innerText=null;
+    }
+    else{
+        notifManager.innerText=""+managerDispo;  
+    }
 }
 
 
@@ -161,7 +179,6 @@ function acheterManager(manager: Pallier, world: World) {
         //Manager ==> Unlocked
         manager.unlocked=true;
         matchId(manager.idcible,world);
-        //world.products.product=true;
 
         //Changement du bouton Hire en Acheté et disabled
         let button = document.getElementById("hire"+manager.idcible);

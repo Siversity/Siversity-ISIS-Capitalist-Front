@@ -31,8 +31,21 @@ export function displayMenu(world: World) {
     let managers = document.createElement("div");
     navbar.appendChild(managers);
     managers.classList.add("managers");
-    managers.innerHTML = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalManager">Managers</button>';
 
+    //Bouton Manager
+    let buttonManager = document.createElement("button")
+    managers.appendChild(buttonManager);
+    buttonManager.classList.add("btn","btn-primary")
+    buttonManager.setAttribute("data-bs-toggle","modal")
+    buttonManager.setAttribute("data-bs-target","#modalManager")
+    buttonManager.innerText="Managers ";
+
+    //Création badge
+    let badgeManager =document.createElement("span");
+    buttonManager.appendChild(badgeManager);
+    badgeManager.id="badgeManager"
+    badgeManager.classList.add("badge","bg-secondary");
+    
 
     //Création investors
     let investors = document.createElement("div");
