@@ -1,4 +1,5 @@
 import { World, Product, Pallier } from "../Classes/world";
+import { username, setUsername } from "../index";
 
 // Création container du header
 export function displayHeader(server: string, world: World) {
@@ -35,15 +36,61 @@ export function displayHeader(server: string, world: World) {
     money.innerHTML = transform(world.money);
 
     //Création dernier entète, User ID
-    let idCol = document.createElement("div");
-    container.appendChild(idCol);
-    idCol.classList.add("col", "bccFont");
+    let userCol = document.createElement("div");
+    container.appendChild(userCol);
+    userCol.classList.add("col");
 
+    /*
     //User ID
     let userId = document.createElement("div");
     idCol.appendChild(userId);
     userId.classList.add("userId");
     userId.innerHTML = "ID:";
+    */
+
+    let userRow = document.createElement("div");
+    userCol.appendChild(userRow);
+    userRow.classList.add("row");
+
+    let labelUser = document.createElement("label");
+    userRow.appendChild(labelUser);
+    labelUser.htmlFor = "inputUser";
+    labelUser.classList.add("form-label")
+
+    let inputUser = document.createElement("input");
+    userRow.appendChild(inputUser);
+    inputUser.id = "inputUser"
+    inputUser.classList.add("form-control");
+    inputUser.type = "text";
+    inputUser.placeholder = "Pseudo";
+    inputUser.value = username;
+    inputUser.readOnly = true;
+
+    let buttonUserDiv = document.createElement("div");
+    userRow.appendChild(buttonUserDiv);
+
+    let buttonInput = document.createElement("input");
+    buttonUserDiv.appendChild(buttonInput);
+    buttonInput.id = "userButtonCheck";
+    buttonInput.type = "checkbox";
+    buttonInput.classList.add("btn-check");
+
+    let buttonLabel = document.createElement("label");
+    buttonUserDiv.appendChild(buttonLabel);
+    buttonLabel.classList.add("btn", "btn-primary");
+    buttonLabel.htmlFor = "userButtonCheck";
+    buttonLabel.innerHTML = "<i class='bi bi-check-square'></i>";
+    $(buttonLabel).click(function () {
+        if (inputUser.readOnly) {
+            inputUser.readOnly = false; 
+        }
+        else {
+            inputUser.readOnly = true;
+            setUsername(inputUser.value);
+            window.location.reload();
+        }
+    });
+
 }
 
 export function transform(valeur: number): string {

@@ -11,7 +11,15 @@ var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld: World;
 var ourWorld: boolean = true;
 
+export var username = localStorage.getItem("username");
+export function setUsername(newUsername: string) {
+    username = newUsername;
+    localStorage.setItem("username", newUsername);
+}
+
+
 $(document).ready(function () {
+
     $.getJSON(serveurUrl + "adventureisis/generic/world", function (world) {
         currentWorld = world;
         console.log(currentWorld)
