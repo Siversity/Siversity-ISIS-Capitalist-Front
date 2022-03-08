@@ -88,7 +88,7 @@ export function showProducts(server: string, world: World) {
 
 
 // Fonction permettant de lancer la production d'un produit
-function startProduct(product: Product) {
+export function startProduct(product: Product) {
     // On vérifie que l'on peut activer le produit
     if (verifProduct(product)) {
         console.log("Lancement de la production de " + product.name);
