@@ -32,7 +32,8 @@ export function displayHeader(server: string, world: World) {
     moneyCol.appendChild(money);
     money.id = "worldMoney";
     money.classList.add("money");
-    money.innerHTML = transform(world.money);
+    let argent = transform(world.money);
+    money.innerHTML = argent;
 
     //Création dernier entète, User ID
     let idCol = document.createElement("div");
