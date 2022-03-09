@@ -8,6 +8,19 @@
     margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
+.imgUnlock{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
+.imageManagers{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
+
 /*.modal-bg{
     position:fixed;
     width: 100%;

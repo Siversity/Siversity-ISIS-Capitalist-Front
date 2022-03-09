@@ -1,4 +1,4 @@
-import { World, Product, Pallier } from "../Classes/world";
+                                                import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "./Header"
 
 export const listAddProducts: any[] = [1, 10, 100, "Max"];
@@ -74,6 +74,7 @@ export function setAddProduct(world: World) {
             }
             // Sinon on l'active
             else {
+                addProduct.removeAttribute("disabled");
             }
         });
     }
@@ -85,6 +86,7 @@ export function setAddProduct(world: World) {
 
             // Changement affichage bouton
             let addProduct: HTMLElement = document.getElementById("add" + product.id);
+            addProduct.removeAttribute("disabled");
             addProduct.innerHTML = "+" + max;
 
             // Changement affichage coût

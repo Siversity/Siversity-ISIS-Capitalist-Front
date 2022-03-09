@@ -5,6 +5,7 @@ import { setProgressBar } from "./App/ProgressBar";
 import { addSelected, setAddProduct, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { anyNews, displayModal, verifManager } from "./App/Modal";
+import { displayModalUnlock } from "./App/ModalUnlock";
 
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
@@ -25,7 +26,7 @@ $(document).ready(function () {
         console.log(currentWorld)
 
 
-        world.money = 20000;
+        world.money = 2000000;
 
         // remplir le layout avec les informations globales
         // (nom du monde, argent total....)
@@ -39,6 +40,7 @@ $(document).ready(function () {
         displayMenu(world);
         showSideBar(serveurUrl, world);
         displayModal(serveurUrl, world);
+        displayModalUnlock(serveurUrl,world);
 
         setInterval(function() {
             // On calcule en permanence le score

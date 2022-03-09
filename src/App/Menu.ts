@@ -13,7 +13,14 @@ export function displayMenu(world: World) {
     let unlocks = document.createElement("div");
     navbar.appendChild(unlocks);
     unlocks.classList.add("unlocks");
-    unlocks.innerHTML = "Unlocks";
+
+    //Bouton Unlocks
+    let buttonUnlock = document.createElement("button")
+    unlocks.appendChild(buttonUnlock);
+    buttonUnlock.classList.add("btn","btn-primary")
+    buttonUnlock.setAttribute("data-bs-toggle","modal")
+    buttonUnlock.setAttribute("data-bs-target","#modalUnlock")
+    buttonUnlock.innerText="Unlocks ";
 
     //création cash upgrades
     let cash = document.createElement("div");
