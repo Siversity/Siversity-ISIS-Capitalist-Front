@@ -4,7 +4,7 @@ import { displayHeader, transform} from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
 import { addSelected, setAddProduct, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
-import { displayModal, verifManager } from "./App/Modal";
+import { anyNews, displayModal, verifManager } from "./App/Modal";
 
 
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
@@ -25,7 +25,7 @@ $(document).ready(function () {
         console.log(currentWorld)
 
 
-        world.money = 200;
+        world.money = 20000;
 
         // remplir le layout avec les informations globales
         // (nom du monde, argent total....)
@@ -44,6 +44,7 @@ $(document).ready(function () {
             // On calcule en permanence le score
             calcScore(serveurUrl, currentWorld);
             verifManager(world);
+            anyNews(world);
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
             //if (addSelected == "Max") {
                 //setAddProduct(world);
@@ -74,7 +75,8 @@ function calcScore(server: string, world: World) {
                 setProgressBar(product.id, 0);
             }
         }
-        else if ((product.timeleft =0) && (product.managerUnlocked==true)){
+        else if ((product.timeleft==0) && (product.managerUnlocked==true)){
+            console.log("Lancement produit");
             startProduct(product);
         }
     });
@@ -88,11 +90,11 @@ function addScore(world: World, score: number) {
 
 export function matchId(id:number,world:World){
     let idProduct
-    let newproduct : Product ;
     $.each(world.products.product, function(index,product){
          idProduct = product.id;
         if(idProduct==id){
             product.managerUnlocked=true;
+            console.log("produit: "+product.name+" unlocked:"+product.managerUnlocked);
         }
     })
 
