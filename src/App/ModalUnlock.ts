@@ -27,6 +27,29 @@ export function displayModalUnlock(server: string, world: World) {
     b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");
 
+    //Création select barre
+    let selectBarre = document.createElement("select")
+    mh.appendChild(selectBarre)
+    selectBarre.id="selectBarreUnlocks"
+    $.each(world.products.product, function(index,product){
+        let opt = document.createElement("option")
+        selectBarre.appendChild(opt)
+        opt.id="optProduit"+product.id
+        opt.value=""+product.id
+        opt.text=product.name
+    })
+    let opt = document.createElement("option")
+    selectBarre.appendChild(opt)
+    opt.id="optProduit"+0
+    opt.value=""+0
+    opt.text="Tous les produits"
+
+    $( selectBarre ).change(function() {
+        console.log(this.value)
+        affichageUnlock(parseInt(this.value),server,world)
+      });
+
+
     //Titre de la fenêtre
     let t = document.createElement("h4");
     mh.appendChild(t);
@@ -41,7 +64,7 @@ export function displayModalUnlock(server: string, world: World) {
     bodyM.id="modalUnlockBody";
 
     //Remplissage du body avec les differrents managers
-    fillingBodyModalUnlock(server,world)
+    //fillingBodyModalUnlock(server,world)
 }
 
 
@@ -57,6 +80,7 @@ function fillingBodyModalUnlock(server: string, world: World) {
     let grid = document.createElement("div");
     body.appendChild(grid);
     grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
+
 
     $.each(world.allunlocks.pallier,function(index,unlock){
         //Création des lignes de chaque unlock
@@ -95,6 +119,8 @@ function fillingBodyModalUnlock(server: string, world: World) {
 
 
 }
+
+
 //On cherche à savoir si un Unlock est déverrouillable.x
 function verifUnlock(id:number,world:World){
     //let idProduct
@@ -105,6 +131,7 @@ function verifUnlock(id:number,world:World){
             
         }
         else if(unlock.idcible==0){
+            //check si tous les produits ont atteint le seuil pour activer l'unlock
             // On doit regarder si chaque produit à atteint le seuil nécessaire pour ensuite activer le bonus
         }
     })
@@ -123,4 +150,92 @@ function verifSeuilUnlock(id1:number,id2:number,world:World){
     //})
 
 
+}
+
+
+function affichageUnlock(id:number,server:String,world:World){
+    console.log("remplissage modal unlock")
+
+    let body = document.getElementById("modalUnlockBody");
+    body.innerHTML=""
+
+    let grid = document.createElement("div");
+    body.appendChild(grid);
+    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
+
+    $.each(world.allunlocks.pallier,function(index,unlock){
+
+        if(unlock.idcible==id){
+            console.log("="+id)
+            
+        //Création des lignes de chaque unlock
+        let col = document.createElement("div");
+        grid.appendChild(col);
+        col.classList.add("col");
+        col.id = "unlock" + unlock.idcible;
+
+        //division de la ligne en deux parties (Image+Description // Unlocked ou non)
+        let colImageDesc = document.createElement("div")//Image Description
+        let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
+        col.appendChild(colImageDesc)
+        col.appendChild(colUnlocked)
+        colImageDesc.classList.add("col")
+        colUnlocked.classList.add("col")
+        
+
+        //Affichage Icon Unlock
+        let iconUnlock = document.createElement("img")
+        colImageDesc.appendChild(iconUnlock)
+        iconUnlock.src=server+unlock.logo
+        iconUnlock.classList.add("imgUnlock")
+
+        let nomUnlock = document.createElement("h3")
+        colImageDesc.appendChild(nomUnlock)
+        nomUnlock.innerText=unlock.name
+
+        let descrUnlock = document.createElement("span")
+        colImageDesc.appendChild(descrUnlock)
+        descrUnlock.innerText="Augmentation de "+unlock.typeratio+" x"+unlock.ratio
+
+        let seuilUnlock = document.createElement("span")
+        colImageDesc.appendChild(seuilUnlock)
+        seuilUnlock.innerText="Seuil: "+unlock.seuil
+        }
+        else if(id==0){
+            console.log("=")
+            
+        //Création des lignes de chaque unlock
+        let col = document.createElement("div");
+        grid.appendChild(col);
+        col.classList.add("col");
+        col.id = "unlock" + unlock.idcible;
+
+        //division de la ligne en deux parties (Image+Description // Unlocked ou non)
+        let colImageDesc = document.createElement("div")//Image Description
+        let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
+        col.appendChild(colImageDesc)
+        col.appendChild(colUnlocked)
+        colImageDesc.classList.add("col")
+        colUnlocked.classList.add("col")
+        
+
+        //Affichage Icon Unlock
+        let iconUnlock = document.createElement("img")
+        colImageDesc.appendChild(iconUnlock)
+        iconUnlock.src=server+unlock.logo
+        iconUnlock.classList.add("imgUnlock")
+
+        let nomUnlock = document.createElement("h3")
+        colImageDesc.appendChild(nomUnlock)
+        nomUnlock.innerText=unlock.name
+
+        let descrUnlock = document.createElement("span")
+        colImageDesc.appendChild(descrUnlock)
+        descrUnlock.innerText="Augmentation de "+unlock.typeratio+" x"+unlock.ratio
+
+        let seuilUnlock = document.createElement("span")
+        colImageDesc.appendChild(seuilUnlock)
+        seuilUnlock.innerText="Seuil: "+unlock.seuil
+        }
+    })
 }

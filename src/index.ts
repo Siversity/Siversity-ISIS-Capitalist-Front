@@ -7,8 +7,8 @@ import { displayMenu } from "./App/Menu";
 import { anyNews, displayModal, verifManager } from "./App/Modal";
 import { displayModalUnlock } from "./App/ModalUnlock";
 
-// var serveurUrl: string = "http://localhost:8080/";
-var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
+var serveurUrl: string = "http://localhost:8080/";
+// var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld: World;
 var ourWorld: boolean = true;
 
