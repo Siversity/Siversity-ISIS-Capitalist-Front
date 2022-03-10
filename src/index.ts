@@ -29,6 +29,7 @@ export const serveurUrl: string = "http://localhost:8080/";
 
 $(document).ready(function () {
     // Chargement du pseudo du joueur
+    console.log(username);
     setUsername(username);
 
     // Affichage du monde du joueur
