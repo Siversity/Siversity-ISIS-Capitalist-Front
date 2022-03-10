@@ -1,5 +1,5 @@
 import {World, Product, Pallier} from "./Classes/world";
-import { serveurUrl } from ".";
+import { serverUrl } from ".";
 
 /*
 // Envoi au serveur

@@ -22,9 +22,18 @@ export function setUsername(newUsername: string) {
 }
 
 
-// Url serveur
-export const serveurUrl: string = "http://localhost:8080/";
-// export const serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
+// Url serveur local
+const serverLocal: string = "http://localhost:8080/";
+
+// Url serveur heroku
+const serverHeroku: string = "https://isiscapitalist.herokuapp.com/"
+
+// Url serveur test
+const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
+
+
+// Serveur utilisé
+export var serverUrl = serverHeroku;
 
 
 $(document).ready(function () {
@@ -33,7 +42,7 @@ $(document).ready(function () {
     setUsername(username);
 
     // Affichage du monde du joueur
-    $.getJSON(serveurUrl + "adventureisis/generic/world", function (world: World) {
+    $.getJSON(serverUrl + "adventureisis/generic/world", function (world: World) {
         // Affichage du monde chargé
         console.log(world)
 
@@ -41,17 +50,17 @@ $(document).ready(function () {
         world.money = 0;
 
         // Affichage HTML
-        displayHeader(serveurUrl, world);
-        showProducts(serveurUrl, world);
-        showSideBar(serveurUrl, world);
+        displayHeader(serverUrl, world);
+        showProducts(serverUrl, world);
+        showSideBar(serverUrl, world);
         displayMenu(world);
-        displayManager(serveurUrl, world);
-        displayUnlocks(serveurUrl, world);
+        displayManager(serverUrl, world);
+        displayUnlocks(serverUrl, world);
 
         // Actions dynamiques
         setInterval(function () {
             // Calcul du score
-            calcScore(serveurUrl, world);
+            calcScore(serverUrl, world);
 
             // Vérification achats managers
             if (document.getElementById("modalManager").classList.contains("show")) {
