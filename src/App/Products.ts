@@ -1,9 +1,12 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { addProgressBar, setProgressBar } from "./ProgressBar";
 
-import { progressBarList, lastUpdateList } from "..";
-import {addSelected, setAddProduct, getCostProduct, getMaxProduct} from "./SideBar";
+import {addSelected, buyableProducts, getCostProduct, getMaxProduct} from "./SideBar";
 import { transform } from "./Header";
+
+
+export const progressBarList: any[] = [];
+export const lastUpdateList : number[] = [];
 
 
 // Fonction principale d'appel des produits
@@ -83,7 +86,7 @@ export function showProducts(server: string, world: World) {
         productCost.classList.add("col", "bccFont", "text-center");
         productCost.innerHTML = (product.cout + Math.pow(product.croissance, product.quantite)).toString();
     });
-    setAddProduct(world);
+    buyableProducts(world);
 }
 
 
@@ -150,7 +153,7 @@ function modifyProduct(world: World, product: Product, quantity: number, cost: n
             // On recalcule le max
             quantity = getMaxProduct(world, product);
             // On change l'affichage sur chaque produit en fonction du nouveau solde
-            setAddProduct(world);
+            buyableProducts(world);
         }
         // On calcule le nouveau coût après achat
         let newCost = getCostProduct(product, quantity);

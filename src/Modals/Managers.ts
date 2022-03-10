@@ -1,9 +1,11 @@
 import { matchId } from "..";
 import { World, Product, Pallier } from "../Classes/world";
-import { transform } from "./Header";
+import { transform } from "../App/Header";
 
-export function displayModal(server: string, world: World) {
 
+// Affichage des managers
+export function displayManager(server: string, world: World) {
+    // Container
     let m = document.getElementById("modalManager");
 
     //Balise Modal Dialogue
@@ -47,6 +49,9 @@ export function displayModal(server: string, world: World) {
     //Remplissage du body avec les differrents managers
     listManagers(server, world);
 }
+
+
+// Affichage de la liste des managers
 function listManagers(server: string, world: World) {
     let body = document.getElementById("modalBody");
     let container = document.createElement("div");
@@ -109,7 +114,7 @@ function listManagers(server: string, world: World) {
         buttonHire.innerText = "Achete Moi !";
         $(buttonHire).click(function () {
             console.log("je tente d'acheter un manager :)");
-            acheterManager(pallier, world);
+            buyManager(pallier, world);
         });
 
         /*
@@ -123,64 +128,72 @@ function listManagers(server: string, world: World) {
 }
 
 
-
-// Un manager est-il achetable ?
-export function verifManager(world: World) {
+// Affichage dynamiquement si un manager est achetable
+export function verifManagers(world: World) {
+    // Pour chaque manager
     $.each(world.managers.pallier, function (index, pallier) {
+        // On récupère son bouton d'achat
         let button = document.getElementById("hire" + pallier.idcible);
-        if (pallier.seuil > world.money || button.innerText=="Acheté") {
+
+        // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
+        if (pallier.seuil > world.money || button.innerText == "Acheté") {
+            // Si c'est le cas, on l'active
             button.setAttribute("disabled", "true");
         }
         else {
+            // Sinon on le désactive
             button.removeAttribute("disabled");
         }
     })
 }
 
 
-export function anyNews(world: World) {
+// Calcule dynamiquement le nombre de managers achetables
+export function buyableManagers(world: World) {
+    // Variables
     let managerDispo = 0;
+    let notifManager = document.getElementById("badgeManager");
+
+    // Pour chaque manager
     $.each(world.managers.pallier, function (index, manager) {
+        // On vérifie que l'on a la possibilité d'en acheter
         if (manager.seuil <= world.money && manager.unlocked == false) {
             managerDispo++;
         };
     })
-    let notifManager = document.getElementById("badgeManager");
+    
+    // S'il n'y a aucun manager achetable, on affiche rien
     if (managerDispo == 0) {
         notifManager.innerText = null;
     }
+    // Sinon on affiche leur quantité achetable
     else {
-        notifManager.innerText = "" + managerDispo;
+        notifManager.innerText = managerDispo.toString();
     }
 }
 
 
-
-function acheterManager(manager: Pallier, world: World) {
-    //Le manager est-il achetable ?
+// Achat d'un manager
+function buyManager(manager: Pallier, world: World) {
+    // On vérifie que l'on a assez d'argent pour acheter le manager
     if (manager.seuil <= world.money) {
-        //Soustraction du prix du manager à l'argent du monde
+        // Si c'est le cas, on soustrait son coût
         world.money -= manager.seuil;
-        console.log("soustraction a l'argent => "+world.money);
-        let money = document.getElementById("worldMoney")
-        money.innerHTML = transform(world.money);
-        //Manager ==> Unlocked
+
+        // On affiche ensuite le nouveau solde
+        document.getElementById("worldMoney").innerHTML = transform(world.money);
+
+        // On débloque le manager
         manager.unlocked = true;
         matchId(manager.idcible, world);
 
-        //Changement du bouton Hire en Acheté et disabled
+        // Changement du bouton Hire en acheté et disabled
         let button = document.getElementById("hire" + manager.idcible);
         button.innerText = "Acheté"
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
     }
-    else {
-        console.log("le manager n'est pas achetable \b fin de transation");
-    }
-
-
-
 }
 
 function getImage(id:number,world:World){

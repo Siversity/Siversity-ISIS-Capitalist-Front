@@ -48,13 +48,14 @@ export function showSideBar(server: string, world: World) {
         // Event : modification du sélecteur au clic
         $(addNumberButton).click(function () {
             addSelected = addNumber;
-            setAddProduct(world);
+            buyableProducts(world);
         });
     });
 }
 
+
 // Fonction changeant l'affichage lié à l'achat d'un produit
-export function setAddProduct(world: World) {
+export function buyableProducts(world: World) {
 
     // Si l'option est une valeur constante
     if (addSelected != "Max") {
