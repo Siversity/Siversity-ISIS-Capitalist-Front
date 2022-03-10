@@ -123,8 +123,6 @@ function fillingBodyModalUnlock(server: string, world: World) {
 
 //On cherche à savoir si un Unlock est déverrouillable.x
 function verifUnlock(id:number,world:World){
-    //let idProduct
-    //idProduct = unlock.idcible;
     $.each(world.allunlocks.pallier, function(index,unlock){
         if(unlock.idcible != 0){    //On doit regarder individuellement pour chaque unlock si son seuil a été atteint pour activer le bonus
             let idRecherche = unlock.idcible
@@ -166,7 +164,7 @@ function affichageUnlock(id:number,server:String,world:World){
     $.each(world.allunlocks.pallier,function(index,unlock){
 
         if(unlock.idcible==id){
-            console.log("="+id)
+
             
         //Création des lignes de chaque unlock
         let col = document.createElement("div");
@@ -202,7 +200,6 @@ function affichageUnlock(id:number,server:String,world:World){
         seuilUnlock.innerText="Seuil: "+unlock.seuil
         }
         else if(id==0){
-            console.log("=")
             
         //Création des lignes de chaque unlock
         let col = document.createElement("div");
