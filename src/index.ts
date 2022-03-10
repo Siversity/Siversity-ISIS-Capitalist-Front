@@ -1,56 +1,79 @@
-import {World, Product, Pallier} from "./Classes/world";
-import { showProducts, startProduct } from "./App/Products";
-import { displayHeader, transform} from "./App/Header"
+import { World, Product, Pallier } from "./Classes/world";
+import { lastUpdateList, showProducts, startProduct } from "./App/Products";
+import { displayHeader, transform } from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
-import { addSelected, setAddProduct, showSideBar } from "./App/SideBar";
+import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
-import { anyNews, displayModal, verifManager } from "./App/Modal";
-import { displayModalUnlock } from "./App/ModalUnlock";
+import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
+import { displayUnlocks } from "./Modals/Unlocks";
 
 
-var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
-var currentWorld: World;
-var ourWorld: boolean = true;
-
+// Username
 export var username = localStorage.getItem("username");
+
+// Changement du pseudo
 export function setUsername(newUsername: string) {
     username = newUsername;
     localStorage.setItem("username", newUsername);
+
+    $.ajaxSetup({
+        headers: {"X-user": username}
+        });
 }
 
 
+// Url serveur local
+const serverLocal: string = "http://localhost:8080/";
+
+// Url serveur heroku
+const serverHeroku: string = "https://isiscapitalist.herokuapp.com/"
+
+// Url serveur test
+const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
+
+
+// Serveur utilisé
+export var serverUrl = serverHeroku;
+
+
 $(document).ready(function () {
+    // Chargement du pseudo du joueur
+    console.log(username);
+    setUsername(username);
 
-    $.getJSON(serveurUrl + "adventureisis/generic/world", function (world) {
-        currentWorld = world;
-        console.log(currentWorld)
+    // Affichage du monde du joueur
+    $.getJSON(serverUrl + "adventureisis/generic/world", function (world: World) {
+        // Affichage du monde chargé
+        console.log(world)
 
+        // Initialisation argent de base
+        world.money = 0;
 
-        world.money = 2000000;
-
-        // remplir le layout avec les informations globales
-        // (nom du monde, argent total....)
-        // puis boucler sur chaque produit
-        $.each(world.products.product, function (index, product) {
-
-        });
-
-        displayHeader(serveurUrl, world);
-        showProducts(serveurUrl, world);
+        // Affichage HTML
+        displayHeader(serverUrl, world);
+        showProducts(serverUrl, world);
+        showSideBar(serverUrl, world);
         displayMenu(world);
-        showSideBar(serveurUrl, world);
-        displayModal(serveurUrl, world);
-        displayModalUnlock(serveurUrl,world);
+        displayManager(serverUrl, world);
+        displayUnlocks(serverUrl, world);
 
-        setInterval(function() {
-            // On calcule en permanence le score
-            calcScore(serveurUrl, currentWorld);
-            verifManager(world);
-            anyNews(world);
-            setAddProduct(currentWorld)
+        // Actions dynamiques
+        setInterval(function () {
+            // Calcul du score
+            calcScore(serverUrl, world);
+
+            // Vérification achats managers
+            if (document.getElementById("modalManager").classList.contains("show")) {
+                verifManagers(world);
+            }
+
+            // Affichage achetables
+            buyableProducts(world)
+            buyableManagers(world);
+
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
             //if (addSelected == "Max") {
-                //setAddProduct(world);
+            //setAddProduct(world);
             //}
         }, 100);
 
@@ -58,46 +81,62 @@ $(document).ready(function () {
 });
 
 
-export const progressBarList: any[] = [];
-export const lastUpdateList : number[] = [];
-
+// Calcul du score
 function calcScore(server: string, world: World) {
+    // Pour chaque produit
     $.each(world.products.product, function (index, product) {
+        // On vérifie que le produit est en cours de production
         if (product.timeleft != 0) {
+            // On calcule le temps de production restant
             let timeRemaining: number = Date.now() - lastUpdateList[product.id];
             product.timeleft = product.timeleft - timeRemaining;
 
+            // On calcule le pourcentage de production restant et on actualise la bar de progression
             let pourcentage: number = (product.timeleft * 100) / product.vitesse;
             setProgressBar(product.id, pourcentage);
-            
-            if (this.timeleft <= 0) {
-                console.log("Le produit " + product.name + " a rapporté " + product.revenu);
-                let revenu: number = product.revenu;
+
+            // Si le nouveau temps restant est inférieur ou égal à 0
+            if (product.timeleft <= 0) {
+                // On ajoute le revenu du produit
+                let revenu: number = product.revenu * product.quantite;
                 addScore(world, revenu);
+
+                // On réinitialise la progression de la production
                 product.timeleft = 0;
                 setProgressBar(product.id, 0);
             }
         }
-        else if ((product.timeleft==0) && (product.managerUnlocked==true)){
-            console.log("Lancement produit");
+
+        // Si le produit n'est pas en cours de production et a un manager
+        else if ((product.timeleft == 0) && (product.managerUnlocked == true)) {
+            // On lance la production du produit
             startProduct(product);
         }
     });
 }
 
 
+// Calcul du score
 function addScore(world: World, score: number) {
-    world.money = world.money + score;
+    // Ajout de l'argent
+    world.money += score;
+
+    // Ajout du score
+    world.score += score;
+
+    // Affiche du nouveau solde
     document.getElementById("worldMoney").innerHTML = transform(world.money);
 }
 
-export function matchId(id:number,world:World){
+
+
+export function matchId(id: number, world: World) {
     let idProduct
-    $.each(world.products.product, function(index,product){
-         idProduct = product.id;
-        if(idProduct==id){
-            product.managerUnlocked=true;
-            console.log("produit: "+product.name+" unlocked:"+product.managerUnlocked);
+    $.each(world.products.product, function (index, product) {
+        idProduct = product.id;
+        if (idProduct == id) {
+            product.managerUnlocked = true;
+            console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
         }
     })
 

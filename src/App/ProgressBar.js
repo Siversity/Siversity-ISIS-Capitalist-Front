@@ -1,4 +1,4 @@
-import {progressBarList} from "../index";
+import {progressBarList} from "./Products";
 
 export function addProgressBar(server, product, col) {
     // Barre de progression (ligne)

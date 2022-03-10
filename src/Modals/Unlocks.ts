@@ -1,6 +1,9 @@
 import { World, Product, Pallier } from "../Classes/world";
 
-export function displayModalUnlock(server: string, world: World) {
+
+// Affichage des unlocks
+export function displayUnlocks(server: string, world: World) {
+    // Container
     let m = document.getElementById("modalUnlock");
 
     //Balise Modal Dialogue
@@ -46,7 +49,7 @@ export function displayModalUnlock(server: string, world: World) {
 
     $( selectBarre ).change(function() {
         console.log(this.value)
-        affichageUnlock(parseInt(this.value),server,world)
+        listUnlocks(parseInt(this.value),server,world)
       });
 
 
@@ -151,7 +154,7 @@ function verifSeuilUnlock(id1:number,id2:number,world:World){
 }
 
 
-function affichageUnlock(id:number,server:String,world:World){
+function listUnlocks(id:number,server:String,world:World){
     console.log("remplissage modal unlock")
 
     let body = document.getElementById("modalUnlockBody");
