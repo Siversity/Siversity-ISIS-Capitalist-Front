@@ -7,7 +7,7 @@ import { displayMenu } from "./App/Menu";
 import { anyNews, displayModal, verifManager } from "./App/Modal";
 import { displayModalUnlock } from "./App/ModalUnlock";
 
-
+// var serveurUrl: string = "http://localhost:8080/";
 var serveurUrl: string = "https://isiscapitalist.kk.kurasawa.fr/";
 var currentWorld: World;
 var ourWorld: boolean = true;
@@ -72,7 +72,7 @@ function calcScore(server: string, world: World) {
             
             if (this.timeleft <= 0) {
                 console.log("Le produit " + product.name + " a rapporté " + product.revenu);
-                let revenu: number = product.revenu;
+                let revenu: number = product.revenu * product.quantite;
                 addScore(world, revenu);
                 product.timeleft = 0;
                 setProgressBar(product.id, 0);
