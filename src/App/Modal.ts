@@ -121,7 +121,7 @@ function listManagers(server: string, world: World) {
 export function verifManager(world: World) {
     $.each(world.managers.pallier, function (index, pallier) {
         let button = document.getElementById("hire" + pallier.idcible);
-        if (pallier.seuil > world.money) {
+        if (pallier.seuil > world.money || button.innerText=="Acheté") {
             button.setAttribute("disabled", "true");
         }
         else {
@@ -163,10 +163,10 @@ function acheterManager(manager: Pallier, world: World) {
 
         //Changement du bouton Hire en Acheté et disabled
         let button = document.getElementById("hire" + manager.idcible);
-        button.setAttribute("disabled", "true");
         button.innerText = "Acheté"
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
+        button.setAttribute("disabled", "true");
     }
     else {
         console.log("le manager n'est pas achetable \b fin de transation");

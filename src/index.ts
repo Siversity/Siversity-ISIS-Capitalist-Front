@@ -47,6 +47,7 @@ $(document).ready(function () {
             calcScore(serveurUrl, currentWorld);
             verifManager(world);
             anyNews(world);
+            setAddProduct(currentWorld)
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
             //if (addSelected == "Max") {
                 //setAddProduct(world);
@@ -101,3 +102,32 @@ export function matchId(id:number,world:World){
     })
 
 }
+/*
+function updateButton(addSelected:any){
+    switch(addSelected) { 
+        case 1: { 
+           //statements; 
+           break; 
+        } 
+        case 10: { 
+           //statements; 
+           break; 
+        } 
+        case 100: { 
+            //statements; 
+            break; 
+         } 
+         case "Max": { 
+            //statements; 
+            break; 
+         } 
+        default: { 
+           //statements; 
+           break; 
+        } 
+     } 
+}*/
+/*
+function comparaison(world:World,multiplier:any){
+
+}*/
