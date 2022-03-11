@@ -1,5 +1,6 @@
-import { findProduct } from "..";
+import { findProduct } from "../index";
 import { World, Product, Pallier } from "../Classes/world";
+import {applyBonusProduct} from "../index";
 
 
 // Affichage des unlocks
@@ -12,6 +13,11 @@ export function displayUnlocks(server: string, world: World) {
     m.appendChild(md);
     md.classList.add("modal-dialog", "modal-lg");
     md.setAttribute("role", "document");
+
+    $(m).on('hidden.bs.modal', function () {
+        $('#selectBarreUnlocks').val(0);
+        listUnlocks(0, server, world);
+      });
 
     //Balise Modal Content
     let mc = document.createElement("div");
@@ -159,15 +165,7 @@ export function verifUnlock(world: World) {
                     console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
 
                     // Appliquer les changements
-                    switch(unlock.typeratio) {
-                        case "VITESSE":
-                            product.vitesse = product.vitesse / unlock.ratio;
-                            product.timeleft = product.timeleft / unlock.ratio;
-                            break;
-                        case "GAIN":
-                            product.revenu = product.revenu * unlock.ratio;
-                            break;
-                    } 
+                    applyBonusProduct(product, unlock.ratio, unlock.typeratio);
                 }
             }
             
@@ -184,18 +182,17 @@ export function verifUnlock(world: World) {
 
                 // Si tous les produits valident les seuils, on applique le changement
                 if (status == true) {
+                    unlock.unlocked = true;
                     console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
                     $.each(world.products.product, function(index, product) {
-                        switch(unlock.typeratio) {
-                            case "VITESSE":
-                                product.vitesse = product.vitesse / unlock.ratio;
-                                product.timeleft = product.timeleft / unlock.ratio;
-                            case "GAIN":
-                                product.revenu = product.revenu * unlock.ratio;
-                        } 
+                        applyBonusProduct(product, unlock.ratio, unlock.typeratio);
                     })
                 }
             }
         }
     })
 }
+
+
+
+
