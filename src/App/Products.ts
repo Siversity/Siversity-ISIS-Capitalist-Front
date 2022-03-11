@@ -3,10 +3,18 @@ import { addProgressBar, setProgressBar } from "./ProgressBar";
 
 import {addSelected, buyableProducts, getCostProduct, getMaxProduct} from "./SideBar";
 import { transform } from "./Header";
+import { sendToServer } from "../RestCalls";
 
 
 export const progressBarList: any[] = [];
 export const lastUpdateList : number[] = [];
+
+
+export function fillLastUpdate(world: World) {
+    for (let i = 1; i < world.products.product.length; i++) {
+        lastUpdateList[i] = Date.now();
+    }
+}
 
 
 // Fonction principale d'appel des produits
@@ -94,10 +102,10 @@ export function showProducts(server: string, world: World) {
 export function startProduct(product: Product) {
     // On vérifie que l'on peut activer le produit
     if (verifProduct(product)) {
-        console.log("Lancement de la production de " + product.name);
         product.timeleft = product.vitesse;
         lastUpdateList[product.id] = Date.now();
         setProgressBar(product.id, 100);
+        sendToServer("product", product);
     }
     
 }
@@ -121,6 +129,7 @@ function addProduct(world: World, product: Product) {
         // On calcule le coût
         let cost = getCostProduct(product, addSelected);
 
+        // On modifie l'affichage du produit
         modifyProduct(world, product, addSelected, cost);
     }
 
@@ -133,6 +142,9 @@ function addProduct(world: World, product: Product) {
         // On modifie l'affichage du produit
         modifyProduct(world, product, max, cost);
     }
+
+    // On envoie les données au serveur
+    sendToServer("product", product);
 }
 
 

@@ -1,6 +1,7 @@
 import { matchId } from "..";
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
+import { sendToServer } from "../RestCalls";
 
 
 // Affichage des managers
@@ -112,6 +113,11 @@ function listManagers(server: string, world: World) {
         buttonHire.id = "hire" + pallier.idcible;
         buttonHire.classList.add("btn", "btn-primary", "buttonHire");
         buttonHire.innerText = "Achete Moi !";
+        console.log(pallier.idcible + " " + pallier.unlocked);
+        if (pallier.unlocked == true) {
+            console.log("DISABLED")
+            buttonHire.setAttribute("disabled", "true");
+        }
         $(buttonHire).click(function () {
             console.log("je tente d'acheter un manager :)");
             buyManager(pallier, world);
@@ -129,8 +135,9 @@ export function verifManagers(world: World) {
         let button = document.getElementById("hire" + pallier.idcible);
 
         // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
-        if (pallier.seuil > world.money || button.innerText == "Acheté") {
+        if ((pallier.seuil > world.money) || (pallier.unlocked == true)) {
             // Si c'est le cas, on l'active
+            button.innerHTML = "Acheté";
             button.setAttribute("disabled", "true");
         }
         else {
@@ -178,7 +185,7 @@ function buyManager(manager: Pallier, world: World) {
 
         // On débloque le manager
         manager.unlocked = true;
-        matchId(manager.idcible, world);
+        matchId(manager, world);
 
         // Changement du bouton Hire en acheté et disabled
         let button = document.getElementById("hire" + manager.idcible);
@@ -186,5 +193,7 @@ function buyManager(manager: Pallier, world: World) {
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
+
+        ;
     }
 }

@@ -1,12 +1,16 @@
 import { World, Product, Pallier } from "./Classes/world";
-import { lastUpdateList, showProducts, startProduct } from "./App/Products";
+import { lastUpdateList, showProducts, startProduct, fillLastUpdate } from "./App/Products";
 import { displayHeader, transform } from "./App/Header"
 import { setProgressBar } from "./App/ProgressBar";
 import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
+<<<<<<< HEAD
 import { displayCashUpgrades } from "./Modals/CashUpgrades";
+=======
+import { sendToServer } from "./RestCalls";
+>>>>>>> 7f5b6316c555752231d380b5c65061823517f8f1
 
 
 // Username
@@ -34,7 +38,7 @@ const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = serverHeroku;
+export var serverUrl = serverLocal;
 
 
 $(document).ready(function () {
@@ -46,9 +50,11 @@ $(document).ready(function () {
     $.getJSON(serverUrl + "adventureisis/generic/world", function (world: World) {
         // Affichage du monde chargé
         console.log(world)
+        console.log("TIMELEFT = " + world.products.product[4].timeleft);
+        fillLastUpdate(world);
 
         // Initialisation argent de base
-        world.money = 0;
+        // world.money = 0;
 
         // Affichage HTML
         displayHeader(serverUrl, world);
@@ -90,11 +96,13 @@ function calcScore(server: string, world: World) {
         // On vérifie que le produit est en cours de production
         if (product.timeleft != 0) {
             // On calcule le temps de production restant
-            let timeRemaining: number = Date.now() - lastUpdateList[product.id];
-            product.timeleft = product.timeleft - timeRemaining;
+            let timePassed: number = Date.now() - lastUpdateList[product.id];
+            product.timeleft = product.timeleft - timePassed;
 
             // On calcule le pourcentage de production restant et on actualise la bar de progression
-            let pourcentage: number = (product.timeleft * 100) / product.vitesse;
+            let pourcentage: number = product.timeleft / product.vitesse;
+            console.log(product.timeleft)
+            console.log(pourcentage);
             setProgressBar(product.id, pourcentage);
 
             // Si le nouveau temps restant est inférieur ou égal à 0
@@ -114,6 +122,7 @@ function calcScore(server: string, world: World) {
             // On lance la production du produit
             startProduct(product);
         }
+        lastUpdateList[product.id] = Date.now();
     });
 }
 
@@ -131,14 +140,14 @@ function addScore(world: World, score: number) {
 }
 
 
-
-export function matchId(id: number, world: World) {
-    let idProduct
+// Débloque manager pour un produit
+export function matchId(manager: Pallier, world: World) {
     $.each(world.products.product, function (index, product) {
-        idProduct = product.id;
-        if (idProduct == id) {
+        if (manager.idcible == product.id) {
             product.managerUnlocked = true;
             console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
+            
+            sendToServer("manager", manager);
         }
     })
 

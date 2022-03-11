@@ -26,6 +26,5 @@ export function addProgressBar(server, product, col) {
 
 
 export function setProgressBar(id, pourcentage) {
-    progressBarList[id].set(pourcentage / 100)
-    console.log(pourcentage/100)
+    progressBarList[id].set(pourcentage)
 }
