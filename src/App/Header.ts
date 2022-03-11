@@ -1,5 +1,5 @@
 import { World, Product, Pallier } from "../Classes/world";
-import { username, setUsername } from "../index";
+import { username, setUsername } from "..";
 
 // Création container du header
 export function displayHeader(server: string, world: World) {

@@ -4,6 +4,7 @@ import { addProgressBar, setProgressBar } from "./ProgressBar";
 import {addSelected, buyableProducts, getCostProduct, getMaxProduct} from "./SideBar";
 import { transform } from "./Header";
 import { sendToServer } from "../RestCalls";
+import { verifUnlock } from "../Modals/Unlocks";
 
 
 export const progressBarList: any[] = [];
@@ -92,7 +93,8 @@ export function showProducts(server: string, world: World) {
         productContainer.appendChild(productCost);
         productCost.id = "cost" + product.id;
         productCost.classList.add("col", "bccFont", "text-center");
-        productCost.innerHTML = (product.cout + Math.pow(product.croissance, product.quantite)).toString();
+        // productCost.innerHTML = (product.cout + Math.pow(product.croissance, product.quantite)).toString();
+        productCost.innerHTML = product.cout.toString();
     });
     buyableProducts(world);
 }
@@ -128,6 +130,7 @@ function addProduct(world: World, product: Product) {
     if (addSelected != "Max") {
         // On calcule le coût
         let cost = getCostProduct(product, addSelected);
+        product.cout = product.cout * Math.pow(product.croissance, addSelected);
 
         // On modifie l'affichage du produit
         modifyProduct(world, product, addSelected, cost);
@@ -139,9 +142,15 @@ function addProduct(world: World, product: Product) {
         let max = getMaxProduct(world, product);
         let cost = getCostProduct(product, max);
 
+        product.cout = product.cout * Math.pow(product.croissance, max);
+
         // On modifie l'affichage du produit
         modifyProduct(world, product, max, cost);
     }
+
+    verifUnlock(world);
+    console.log(product.vitesse);
+    console.log(product.timeleft);
 
     // On envoie les données au serveur
     sendToServer("product", product);

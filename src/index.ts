@@ -143,34 +143,18 @@ export function matchId(manager: Pallier, world: World) {
             sendToServer("manager", manager);
         }
     })
-
 }
-/*
-function updateButton(addSelected:any){
-    switch(addSelected) { 
-        case 1: { 
-           //statements; 
-           break; 
-        } 
-        case 10: { 
-           //statements; 
-           break; 
-        } 
-        case 100: { 
-            //statements; 
-            break; 
-         } 
-         case "Max": { 
-            //statements; 
-            break; 
-         } 
-        default: { 
-           //statements; 
-           break; 
-        } 
-     } 
-}*/
-/*
-function comparaison(world:World,multiplier:any){
 
-}*/
+
+// Retrouver un produit à partir d'un id
+export function findProduct(world: World, idProduct: number): Product {
+    let p: Product = null;
+    $.each(world.products.product, function(index, product) {
+        if (product.id.toString() == idProduct.toString()) {
+            p = product
+            return p;
+        }
+    })
+
+    return p;
+}

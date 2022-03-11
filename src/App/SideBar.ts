@@ -105,7 +105,8 @@ export function buyableProducts(world: World) {
 // Fonction calculant le coût d'un groupe de produits
 export function getCostProduct(product: Product, addNumber: number): number {
     // Calcul des termes
-    let un = product.cout * Math.pow(product.croissance, product.quantite);
+    // let un = product.cout * Math.pow(product.croissance, product.quantite);
+    let un = product.cout;
     let numerator = 1 - Math.pow(product.croissance, addNumber);
     let denominator = 1 - product.croissance
     let cout = (un * numerator) / denominator;
@@ -117,7 +118,8 @@ export function getCostProduct(product: Product, addNumber: number): number {
 // Fonction calculant le nombre max de produits achetable
 export function getMaxProduct(world: World, product: Product): number {
     // Calcul des termes
-    let un = product.cout * Math.pow(product.croissance, product.quantite); 
+    // let un = product.cout * Math.pow(product.croissance, product.quantite);
+    let un = product.cout;
     let numerator: number = Math.log(-(world.money - world.money * product.croissance - un) / un);
     let denominator: number = Math.log(product.croissance);
     let max: number = (numerator / denominator)
