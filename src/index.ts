@@ -6,7 +6,7 @@ import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
-//import { displayCashUpgrades } from "./Modals/CashUpgrades";
+import { buyableCashUp, displayCashUpgrades} from "./Modals/CashUpgrades";
 import { sendToServer } from "./RestCalls";
 
 
@@ -31,7 +31,7 @@ const serverLocal: string = "http://localhost:8080/";
 const serverHeroku: string = "https://isiscapitalist.herokuapp.com/"
 
 // Url serveur test
-const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
+const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
@@ -51,7 +51,7 @@ $(document).ready(function () {
         fillLastUpdate(world);
 
         // Initialisation argent de base
-        // world.money = 0;
+        // world.money = 2000;
 
         // Affichage HTML
         displayHeader(serverUrl, world);
@@ -60,7 +60,7 @@ $(document).ready(function () {
         displayMenu(world);
         displayManager(serverUrl, world);
         displayUnlocks(serverUrl, world);
-        //displayCashUpgrades(serverUrl, world);
+        displayCashUpgrades(serverUrl, world);
 
         // Actions dynamiques
         setInterval(function () {
@@ -69,12 +69,13 @@ $(document).ready(function () {
 
             // Vérification achats managers
             if (document.getElementById("modalManager").classList.contains("show")) {
-                verifManagers(world);
+                verifManagers(world); 
             }
 
             // Affichage achetables
             buyableProducts(world)
-            buyableManagers(world);
+            buyableManagers(world)
+            buyableCashUp(world)
 
             // Si l'option d'ajout sélectionnée est le max achetable, on synchronise avec en fonction du score
             //if (addSelected == "Max") {
@@ -147,5 +148,4 @@ export function matchId(manager: Pallier, world: World) {
             sendToServer("manager", manager);
         }
     })
-
 }

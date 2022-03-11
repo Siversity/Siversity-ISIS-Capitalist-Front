@@ -28,13 +28,20 @@ export function displayMenu(world: World) {
     navbar.appendChild(cash);
     cash.classList.add("cash");
 
-    //Bouton Unlocks
+    //Bouton Upgrades
     let buttonCashUp = document.createElement("button")
     cash.appendChild(buttonCashUp);
     buttonCashUp.classList.add("btn", "btn-primary")
     buttonCashUp.setAttribute("data-bs-toggle", "modal")
     buttonCashUp.setAttribute("data-bs-target", "#modalCashUp")
     buttonCashUp.innerText = "CashUpgrades ";
+
+    //Création badge
+    let badgeCashUp = document.createElement("span");
+    buttonCashUp.appendChild(badgeCashUp);
+    badgeCashUp.id = "badgeCashUp"
+    badgeCashUp.classList.add("badge", "bg-secondary");
+
 
     //Création angels upgrades
     let angels = document.createElement("div");

@@ -81,138 +81,142 @@ function creationModal(server: string, world: World) {
     });
 }
 
-function creationBodyCash(server: string, world: World) {
-    let body = document.getElementById("modalCashUpBody");
-    let container = document.createElement("div");
-    body.appendChild(container);
-    container.classList.add("container");
-
-    let grid = document.createElement("div");
-    container.appendChild(grid);
-    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
-
-    $.each(world.upgrades.pallier, function (index, pallier) {
-        let col = document.createElement("div");
-        grid.appendChild(col);
-        col.classList.add("row");
-        col.id = "cashUpgrade" + pallier.idcible.toString();
-
-        //Partie Image et nom du managers
-        let imageName = document.createElement("div");
-        col.appendChild(imageName);
-        imageName.classList.add("col");//"col-4", "col-lg-2"
-
-        //Partie Image
-        let image = document.createElement("div");
-        imageName.appendChild(image);
-        image.classList.add("row", "imageCashUp");
-
-        let imageManager = document.createElement("img");
-        image.appendChild(imageManager);
-        imageManager.id = "img" + pallier.idcible;
-        imageManager.src = server + pallier.logo;
-        imageManager.classList.add("img-fluid", "rounded")
-
-        //Partie Nom et prix
-        let namePrice = document.createElement("div")
-        imageName.appendChild(namePrice);
-        namePrice.classList.add("row")
-
-        //Partie Nom
-        let nameManager = document.createElement("div");
-        namePrice.appendChild(nameManager);
-        nameManager.classList.add("col");
-        nameManager.innerText = pallier.name;
-
-        //Partie Prix
-        let priceManager = document.createElement("div");
-        namePrice.appendChild(priceManager);
-        priceManager.classList.add("col");
-        let cost = transform(pallier.seuil)
-        priceManager.innerHTML = cost;
-
-        //Partie bouton d'embauche
-        let hire = document.createElement("div");
-        col.appendChild(hire);
-        hire.classList.add("col");
-
-        let buttonHire = document.createElement("button");
-        hire.appendChild(buttonHire);
-        buttonHire.id = "hire" + pallier.idcible;
-        buttonHire.classList.add("btn", "btn-primary", "buttonHire");
-        buttonHire.innerText = "Achete Moi !";
-
-        $(buttonHire).click(function () {
-            console.log("je tente d'acheter un cashUp :)");
-            //buyManager(pallier, world);
-        });
-    });
-}
-
 function affichageCashUp(id: number, server: string, world: World) {
     let bodyCashUp = document.getElementById("modalCashUpBody")
     bodyCashUp.innerHTML = ""
 
-    let gridCashUp = document.createElement("div")
-    bodyCashUp.appendChild(gridCashUp)
-    gridCashUp.id = "gridCashUp"
-    gridCashUp.classList.add("row", "row-cols-2")
-
     $.each(world.upgrades.pallier, function (index, cashUp) {
 
         if (cashUp.idcible == id) {
-            selectCashUp(server, cashUp)
+            selectCashUp(server, cashUp, world)
         }
         else if (id == 7) {
-            selectCashUp(server, cashUp)
+            selectCashUp(server, cashUp, world)
         }
     })
 }
 
 
-function selectCashUp(server: string, cashUp: Pallier) {
+function selectCashUp(server: string, cashUp: Pallier, world: World) {
+    let rowCashUp = document.createElement("div")
+    let bodyCashUp = document.getElementById("modalCashUpBody")
+    bodyCashUp.appendChild(rowCashUp)
+    bodyCashUp.classList.add("row")
 
-    let gridCashUp = document.getElementById("gridCashUp")
-    let col = document.createElement("div");
-    gridCashUp.appendChild(col);
-    col.classList.add("col","cols-2");
-    col.id = "unlock" + cashUp.idcible;
+    let container = document.createElement("div")
+    bodyCashUp.appendChild(container)
+    container.classList.add("row", "row-cols-3")
 
-    //division de la ligne en deux parties (Image+Description // Unlocked ou non)
-    let colImageDesc = document.createElement("div")//Image Description
-    let colBuyable = document.createElement("div")//Affichage est il dévérouillé ?
-    col.appendChild(colImageDesc)
-    col.appendChild(colBuyable)
-    colImageDesc.classList.add("col")
-    colBuyable.classList.add("col")
+    //Colonne 1 : Image
+    let imgCol = document.createElement("div")
+    container.appendChild(imgCol)
+    imgCol.classList.add("col")
 
-    //Affichage Icon CashUp
     let iconCashUp = document.createElement("img")
-    colImageDesc.appendChild(iconCashUp)
+    imgCol.appendChild(iconCashUp)
     iconCashUp.src = server + cashUp.logo
-    iconCashUp.classList.add("imgUnlock")
+    iconCashUp.classList.add("imgCashUp")
 
-    //Affichage nom
-    let nomUnlock = document.createElement("h3")
-    colImageDesc.appendChild(nomUnlock)
-    nomUnlock.innerText = cashUp.name
+    //Colonne 2 : Description ( Prix + Nom + Bonus )
+    let secondCol = document.createElement("div")
+    container.appendChild(secondCol)
+    secondCol.classList.add("row")
 
-    //Partie bouton d'embauche
-    let buy = document.createElement("div");
-    colBuyable.appendChild(buy);
-    buy.classList.add("col");
+    let priceCashUp = document.createElement("div")
+    secondCol.appendChild(priceCashUp)
+    priceCashUp.innerHTML = transform(cashUp.seuil) + "$"
 
-    let buttonBuyCashUp = document.createElement("button");
-    buy.appendChild(buttonBuyCashUp);
+    let nameCashUp = document.createElement("div")
+    secondCol.appendChild(nameCashUp)
+    nameCashUp.innerText = cashUp.name
+
+    let bonusCashUp = document.createElement("div")
+    secondCol.appendChild(bonusCashUp)
+    bonusCashUp.innerText = cashUp.typeratio + " x" + cashUp.ratio
+
+    //Colonne 3 : Bouton d'achat
+    let butCol = document.createElement("div")
+    container.appendChild(butCol)
+    butCol.classList.add("col")
+
+    let buttonBuyCashUp = document.createElement("button")
+    butCol.appendChild(buttonBuyCashUp)
     buttonBuyCashUp.id = "buy" + cashUp.idcible;
     buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
     buttonBuyCashUp.innerText = "Achete Moi !";
 
     $(buttonBuyCashUp).click(function () {
         console.log("je tente d'acheter un cashUp :)");
-        //buyManager(pallier, world);
+        buyCashUp(cashUp, world)
     });
+}
+
+// Achat d'un cashUpgrade
+function buyCashUp(cashUp: Pallier, world: World) {
+    // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
+    if (cashUp.seuil <= world.money) {
+        // Si c'est le cas, on soustrait son coût
+        world.money -= cashUp.seuil;
 
 
+        //Il faut modifier la valeur du calculScore
+        console.log("Il faut modifier la valeur du calcul score après l'achat d'un CashUp")
 
+        // On affiche ensuite le nouveau solde
+        document.getElementById("worldMoney").innerHTML = transform(world.money);
+
+        // Changement du bouton Hire en acheté et disabled
+        let button = document.getElementById("buy" + cashUp.idcible);
+        button.innerText = "Acheté"
+        button.classList.remove();
+        button.classList.add("btn", "btn-secondary");
+        button.setAttribute("disabled", "true");
+    }
+    else {
+        console.log("pas assez de sous")
+    }
+}
+
+// Calcule dynamiquement le nombre de managers achetables
+export function buyableCashUp(world: World) {
+    // Variables
+    let cashUpDispo = 0;
+    let notifCashUp = document.getElementById("badgeCashUp");
+
+    // Pour chaque CashUp
+    $.each(world.upgrades.pallier, function (index, cashUp) {
+        // On vérifie que l'on a la possibilité d'en acheter
+        if (cashUp.seuil <= world.money && cashUp.unlocked == false) {
+            cashUpDispo++;
+        };
+    })
+    
+    // S'il n'y a aucun CashUp achetable, on affiche rien
+    if (cashUpDispo == 0) {
+        notifCashUp.innerText = null;
+    }
+    // Sinon on affiche leur quantité achetable
+    else {
+        notifCashUp.innerText = cashUpDispo.toString();
+    }
+}
+
+// Affichage dynamiquement si un manager est achetable
+function verifCashUp(world: World) {
+    // Pour chaque manager
+    $.each(world.upgrades.pallier, function (index, cashUp) {
+        // On récupère son bouton d'achat
+        let button = document.getElementById("buy" + cashUp.idcible);
+
+        // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
+        if ((cashUp.seuil > world.money) || (cashUp.unlocked == true)) {
+            // Si c'est le cas, on l'active
+            button.innerHTML = "Acheté";
+            button.setAttribute("disabled", "true");
+        }
+        else {
+            // Sinon on le désactive
+            button.removeAttribute("disabled");
+        }
+    })
 }
