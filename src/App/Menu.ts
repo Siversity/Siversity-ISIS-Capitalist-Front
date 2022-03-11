@@ -17,16 +17,24 @@ export function displayMenu(world: World) {
     //Bouton Unlocks
     let buttonUnlock = document.createElement("button")
     unlocks.appendChild(buttonUnlock);
-    buttonUnlock.classList.add("btn","btn-primary")
-    buttonUnlock.setAttribute("data-bs-toggle","modal")
-    buttonUnlock.setAttribute("data-bs-target","#modalUnlock")
-    buttonUnlock.innerText="Unlocks ";
+    buttonUnlock.classList.add("btn", "btn-primary")
+    buttonUnlock.setAttribute("data-bs-toggle", "modal")
+    buttonUnlock.setAttribute("data-bs-target", "#modalUnlock")
+    buttonUnlock.innerText = "Unlocks ";
+
 
     //création cash upgrades
     let cash = document.createElement("div");
     navbar.appendChild(cash);
     cash.classList.add("cash");
-    cash.innerHTML = "Cash Upgrades";
+
+    //Bouton Unlocks
+    let buttonCashUp = document.createElement("button")
+    cash.appendChild(buttonCashUp);
+    buttonCashUp.classList.add("btn", "btn-primary")
+    buttonCashUp.setAttribute("data-bs-toggle", "modal")
+    buttonCashUp.setAttribute("data-bs-target", "#modalCashUp")
+    buttonCashUp.innerText = "CashUpgrades ";
 
     //Création angels upgrades
     let angels = document.createElement("div");
@@ -42,17 +50,17 @@ export function displayMenu(world: World) {
     //Bouton Manager
     let buttonManager = document.createElement("button")
     managers.appendChild(buttonManager);
-    buttonManager.classList.add("btn","btn-primary")
-    buttonManager.setAttribute("data-bs-toggle","modal")
-    buttonManager.setAttribute("data-bs-target","#modalManager")
-    buttonManager.innerText="Managers ";
+    buttonManager.classList.add("btn", "btn-primary")
+    buttonManager.setAttribute("data-bs-toggle", "modal")
+    buttonManager.setAttribute("data-bs-target", "#modalManager")
+    buttonManager.innerText = "Managers ";
 
     //Création badge
-    let badgeManager =document.createElement("span");
+    let badgeManager = document.createElement("span");
     buttonManager.appendChild(badgeManager);
-    badgeManager.id="badgeManager"
-    badgeManager.classList.add("badge","bg-secondary");
-    
+    badgeManager.id = "badgeManager"
+    badgeManager.classList.add("badge", "bg-secondary");
+
 
     //Création investors
     let investors = document.createElement("div");

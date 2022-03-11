@@ -33,24 +33,29 @@ export function displayUnlocks(server: string, world: World) {
     //Création select barre
     let selectBarre = document.createElement("select")
     mh.appendChild(selectBarre)
-    selectBarre.id="selectBarreUnlocks"
-    $.each(world.products.product, function(index,product){
+    selectBarre.id = "selectBarreUnlocks"
+
+    let opt1 = document.createElement("option")
+    selectBarre.appendChild(opt1)
+    opt1.id = "optProduit" + 7
+    opt1.value = "" + 7
+    opt1.text = "Tous les produits"
+    opt1.setAttribute("selected","")
+
+    $.each(world.products.product, function (index, product) {
+
         let opt = document.createElement("option")
         selectBarre.appendChild(opt)
-        opt.id="optProduit"+product.id
-        opt.value=""+product.id
-        opt.text=product.name
+        opt.id = "optProduit" + product.id
+        opt.value = "" + product.id
+        opt.text = product.name
     })
-    let opt = document.createElement("option")
-    selectBarre.appendChild(opt)
-    opt.id="optProduit"+0
-    opt.value=""+0
-    opt.text="Tous les produits"
 
-    $( selectBarre ).change(function() {
-        console.log(this.value)
-        listUnlocks(parseInt(this.value),server,world)
-      });
+    let opt2 = document.createElement("option")
+    selectBarre.appendChild(opt2)
+    opt2.id = "optProduit" + 0
+    opt2.value = "" + 0
+    opt2.text = "Unlocks globaux"
 
 
     //Titre de la fenêtre
@@ -64,178 +69,71 @@ export function displayUnlocks(server: string, world: World) {
     let bodyM = document.createElement("div");
     mc.appendChild(bodyM);
     bodyM.classList.add("modal-body");
-    bodyM.id="modalUnlockBody";
+    bodyM.id = "modalUnlockBody";
 
-    //Remplissage du body avec les differrents managers
-    //fillingBodyModalUnlock(server,world)
-}
+ 
+    $(selectBarre).change(function () {
+        console.log(this.value)
+        listUnlocks(parseInt(this.value), server, world)
+    });
 
-
-function fillingBodyModalUnlock(server: string, world: World) {
-    console.log("remplissage modal unlock")
-
-    let body = document.getElementById("modalUnlockBody");
-    /*
-    let container = document.createElement("div");
-    body.appendChild(container);
-    container.classList.add("container");*/
-
-    let grid = document.createElement("div");
-    body.appendChild(grid);
-    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
-
-
-    $.each(world.allunlocks.pallier,function(index,unlock){
-        //Création des lignes de chaque unlock
-        let col = document.createElement("div");
-        grid.appendChild(col);
-        col.classList.add("col");
-        col.id = "unlock" + unlock.idcible;
-
-        //division de la ligne en deux parties (Image+Description // Unlocked ou non)
-        let colImageDesc = document.createElement("div")//Image Description
-        let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
-        col.appendChild(colImageDesc)
-        col.appendChild(colUnlocked)
-        colImageDesc.classList.add("col")
-        colUnlocked.classList.add("col")
-        
-
-        //Affichage Icon Unlock
-        let iconUnlock = document.createElement("img")
-        colImageDesc.appendChild(iconUnlock)
-        iconUnlock.src=server+unlock.logo
-        iconUnlock.classList.add("imgUnlock")
-
-        let nomUnlock = document.createElement("h3")
-        colImageDesc.appendChild(nomUnlock)
-        nomUnlock.innerText=unlock.name
-
-        let descrUnlock = document.createElement("span")
-        colImageDesc.appendChild(descrUnlock)
-        descrUnlock.innerText="Augmentation de "+unlock.typeratio+" x"+unlock.ratio
-
-        let seuilUnlock = document.createElement("span")
-        colImageDesc.appendChild(seuilUnlock)
-        seuilUnlock.innerText="Seuil: "+unlock.seuil
-    })
-
-
-}
-
-
-//On cherche à savoir si un Unlock est déverrouillable.x
-function verifUnlock(id:number,world:World){
-    $.each(world.allunlocks.pallier, function(index,unlock){
-        if(unlock.idcible != 0){    //On doit regarder individuellement pour chaque unlock si son seuil a été atteint pour activer le bonus
-            let idRecherche = unlock.idcible
-            
-        }
-        else if(unlock.idcible==0){
-            //check si tous les produits ont atteint le seuil pour activer l'unlock
-            // On doit regarder si chaque produit à atteint le seuil nécessaire pour ensuite activer le bonus
-        }
-    })
-
-}
-
-function verifSeuilUnlock(id1:number,id2:number,world:World){
-    //id1 ==> id de l'unlock (idRechercé)
-    //id2 ==> id du produit
-
-    //$.each(world.products.product,function(index,product){
-        //if(idRecherche==product.id){
-
-        //}
-
+    //$.each(world.allunlocks.pallier, function(index,unlock){
+    //    affichage(server,unlock);
     //})
 
 
 }
 
+function listUnlocks(id: number, server: String, world: World) {
+    let bodyUnlock = document.getElementById("modalUnlockBody")
+    bodyUnlock.innerHTML = ""
 
-function listUnlocks(id:number,server:String,world:World){
-    console.log("remplissage modal unlock")
+    let gridUnlock = document.createElement("div")
+    bodyUnlock.appendChild(gridUnlock)
+    gridUnlock.id = "gridUnlock"
+    gridUnlock.classList.add("row", "row-cols-2")
 
-    let body = document.getElementById("modalUnlockBody");
-    body.innerHTML=""
+    $.each(world.allunlocks.pallier, function (index, unlock) {
 
-    let grid = document.createElement("div");
-    body.appendChild(grid);
-    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
-
-    $.each(world.allunlocks.pallier,function(index,unlock){
-
-        if(unlock.idcible==id){
-
-            
-        //Création des lignes de chaque unlock
-        let col = document.createElement("div");
-        grid.appendChild(col);
-        col.classList.add("col");
-        col.id = "unlock" + unlock.idcible;
-
-        //division de la ligne en deux parties (Image+Description // Unlocked ou non)
-        let colImageDesc = document.createElement("div")//Image Description
-        let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
-        col.appendChild(colImageDesc)
-        col.appendChild(colUnlocked)
-        colImageDesc.classList.add("col")
-        colUnlocked.classList.add("col")
-        
-
-        //Affichage Icon Unlock
-        let iconUnlock = document.createElement("img")
-        colImageDesc.appendChild(iconUnlock)
-        iconUnlock.src=server+unlock.logo
-        iconUnlock.classList.add("imgUnlock")
-
-        let nomUnlock = document.createElement("h3")
-        colImageDesc.appendChild(nomUnlock)
-        nomUnlock.innerText=unlock.name
-
-        let descrUnlock = document.createElement("span")
-        colImageDesc.appendChild(descrUnlock)
-        descrUnlock.innerText="Augmentation de "+unlock.typeratio+" x"+unlock.ratio
-
-        let seuilUnlock = document.createElement("span")
-        colImageDesc.appendChild(seuilUnlock)
-        seuilUnlock.innerText="Seuil: "+unlock.seuil
+        if (unlock.idcible == id) {
+            affichage(server,unlock)
         }
-        else if(id==0){
-            
-        //Création des lignes de chaque unlock
-        let col = document.createElement("div");
-        grid.appendChild(col);
-        col.classList.add("col");
-        col.id = "unlock" + unlock.idcible;
-
-        //division de la ligne en deux parties (Image+Description // Unlocked ou non)
-        let colImageDesc = document.createElement("div")//Image Description
-        let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
-        col.appendChild(colImageDesc)
-        col.appendChild(colUnlocked)
-        colImageDesc.classList.add("col")
-        colUnlocked.classList.add("col")
-        
-
-        //Affichage Icon Unlock
-        let iconUnlock = document.createElement("img")
-        colImageDesc.appendChild(iconUnlock)
-        iconUnlock.src=server+unlock.logo
-        iconUnlock.classList.add("imgUnlock")
-
-        let nomUnlock = document.createElement("h3")
-        colImageDesc.appendChild(nomUnlock)
-        nomUnlock.innerText=unlock.name
-
-        let descrUnlock = document.createElement("span")
-        colImageDesc.appendChild(descrUnlock)
-        descrUnlock.innerText="Augmentation de "+unlock.typeratio+" x"+unlock.ratio
-
-        let seuilUnlock = document.createElement("span")
-        colImageDesc.appendChild(seuilUnlock)
-        seuilUnlock.innerText="Seuil: "+unlock.seuil
+        else if (id == 7) {
+            affichage(server,unlock)
         }
     })
+}
+
+function affichage(server: String, unlock: Pallier) {
+    let gridUnlock = document.getElementById("gridUnlock")
+    let col = document.createElement("div");
+    gridUnlock.appendChild(col);
+    col.classList.add("col");
+    col.id = "unlock" + unlock.idcible;
+
+    //division de la ligne en deux parties (Image+Description // Unlocked ou non)
+    let colImageDesc = document.createElement("div")//Image Description
+    let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
+    col.appendChild(colImageDesc)
+    col.appendChild(colUnlocked)
+    colImageDesc.classList.add("col")
+    colUnlocked.classList.add("col")
+
+    //Affichage Icon Unlock
+    let iconUnlock = document.createElement("img")
+    colImageDesc.appendChild(iconUnlock)
+    iconUnlock.src = server + unlock.logo
+    iconUnlock.classList.add("imgUnlock")
+
+    let nomUnlock = document.createElement("h3")
+    colImageDesc.appendChild(nomUnlock)
+    nomUnlock.innerText = unlock.name
+
+    let descrUnlock = document.createElement("span")
+    colImageDesc.appendChild(descrUnlock)
+    descrUnlock.innerText = "Augmentation de " + unlock.typeratio + " x" + unlock.ratio
+
+    let seuilUnlock = document.createElement("span")
+    colImageDesc.appendChild(seuilUnlock)
+    seuilUnlock.innerText = "Seuil: " + unlock.seuil
 }

@@ -6,6 +6,7 @@ import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
+import { displayCashUpgrades } from "./Modals/CashUpgrades";
 
 
 // Username
@@ -56,6 +57,7 @@ $(document).ready(function () {
         displayMenu(world);
         displayManager(serverUrl, world);
         displayUnlocks(serverUrl, world);
+        displayCashUpgrades(serverUrl, world);
 
         // Actions dynamiques
         setInterval(function () {

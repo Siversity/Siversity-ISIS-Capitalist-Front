@@ -116,13 +116,6 @@ function listManagers(server: string, world: World) {
             console.log("je tente d'acheter un manager :)");
             buyManager(pallier, world);
         });
-
-        /*
-        let imageProduct = document.createElement("img")
-        hire.appendChild(imageProduct)
-        imageProduct.classList.add("imageProductManager")
-        let srcImg=getImage(pallier.idcible,world)
-        imageProduct.src=server+srcImg;*/
     });
 
 }
@@ -194,15 +187,4 @@ function buyManager(manager: Pallier, world: World) {
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
     }
-}
-
-function getImage(id:number,world:World){
-$.each(world.products.product, function(index,produit){
-    let src=""
-    if(produit.id==id){
-        src=produit.logo
-        console.log("Source image:"+produit.logo)
-        return src;
-    }
-})
 }
