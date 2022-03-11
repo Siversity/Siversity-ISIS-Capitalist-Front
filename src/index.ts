@@ -149,3 +149,20 @@ export function matchId(manager: Pallier, world: World) {
         }
     })
 }
+<<<<<<< HEAD
+=======
+
+
+// Retrouver un produit à partir d'un id
+export function findProduct(world: World, idProduct: number): Product {
+    let p: Product = null;
+    $.each(world.products.product, function(index, product) {
+        if (product.id.toString() == idProduct.toString()) {
+            p = product
+            return p;
+        }
+    })
+
+    return p;
+}
+>>>>>>> dfa3c49cec656ea219f70f4453d9c4af18030968

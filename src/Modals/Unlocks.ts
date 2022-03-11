@@ -1,3 +1,4 @@
+import { findProduct } from "..";
 import { World, Product, Pallier } from "../Classes/world";
 
 
@@ -59,8 +60,6 @@ export function displayUnlocks(server: string, world: World) {
     optAll.value = "7";
     optAll.text = "Tous les produits"
     
-
-
     //Titre de la fenêtre
     let t = document.createElement("h4");
     mh.appendChild(t);
@@ -123,6 +122,9 @@ function affichage(server: String, unlock: Pallier) {
     colImageDesc.appendChild(iconUnlock)
     iconUnlock.src = server + unlock.logo
     iconUnlock.classList.add("imgUnlock")
+    if (unlock.unlocked == false) {
+        iconUnlock.classList.add("disabledUnlock");
+    }
 
     let nomUnlock = document.createElement("h3")
     colImageDesc.appendChild(nomUnlock)
@@ -135,4 +137,65 @@ function affichage(server: String, unlock: Pallier) {
     let seuilUnlock = document.createElement("span")
     colImageDesc.appendChild(seuilUnlock)
     seuilUnlock.innerText = "Seuil: " + unlock.seuil
+}
+
+
+// Vérifie si un unlock doit être dévérouille
+export function verifUnlock(world: World) {
+    // Pour tous les unlocks
+    $.each(world.allunlocks.pallier, function(index, unlock){
+        // On vérifie que l'unlock n'est pas déjà dévérouillé
+        if (unlock.unlocked == false) {
+            // Si c'est un unlock pour un produit particulier
+            if (unlock.idcible != 0) {
+                // On récupère le produit
+                let product: Product = findProduct(world, unlock.idcible);
+
+                // On vérifie que l'on a dépassé le seuil produit
+                if (product.quantite >= unlock.seuil) {
+                    // Dévérouiller l'unlock
+                    unlock.unlocked = true;
+                    
+                    console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
+
+                    // Appliquer les changements
+                    switch(unlock.typeratio) {
+                        case "VITESSE":
+                            product.vitesse = product.vitesse / unlock.ratio;
+                            product.timeleft = product.timeleft / unlock.ratio;
+                            break;
+                        case "GAIN":
+                            product.revenu = product.revenu * unlock.ratio;
+                            break;
+                    } 
+                }
+            }
+            
+            // Si c'est un unlock global
+            else if (unlock.idcible == 0) {
+                let status: boolean = true;
+                
+                // On vérifie que tous les produits valident les seuils
+                $.each(world.products.product, function(index, product) {
+                    if (product.quantite < unlock.seuil) {
+                        status = false;
+                    }
+                })
+
+                // Si tous les produits valident les seuils, on applique le changement
+                if (status == true) {
+                    console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
+                    $.each(world.products.product, function(index, product) {
+                        switch(unlock.typeratio) {
+                            case "VITESSE":
+                                product.vitesse = product.vitesse / unlock.ratio;
+                                product.timeleft = product.timeleft / unlock.ratio;
+                            case "GAIN":
+                                product.revenu = product.revenu * unlock.ratio;
+                        } 
+                    })
+                }
+            }
+        }
+    })
 }
