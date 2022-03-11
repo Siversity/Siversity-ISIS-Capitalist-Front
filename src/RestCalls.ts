@@ -3,8 +3,6 @@ import { serverUrl } from ".";
 
 // Envoi au serveur
 export function sendToServer(type: string, content: any) {
-    console.log(type + " :");
-    console.log(content);
     $.ajax(serverUrl + "adventureisis/generic/" + type, {
         type: "PUT",
         contentType: "application/json",

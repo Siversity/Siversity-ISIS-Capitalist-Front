@@ -6,11 +6,8 @@ import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
-<<<<<<< HEAD
 import { displayCashUpgrades } from "./Modals/CashUpgrades";
-=======
 import { sendToServer } from "./RestCalls";
->>>>>>> 7f5b6316c555752231d380b5c65061823517f8f1
 
 
 // Username
@@ -101,8 +98,6 @@ function calcScore(server: string, world: World) {
 
             // On calcule le pourcentage de production restant et on actualise la bar de progression
             let pourcentage: number = product.timeleft / product.vitesse;
-            console.log(product.timeleft)
-            console.log(pourcentage);
             setProgressBar(product.id, pourcentage);
 
             // Si le nouveau temps restant est inférieur ou égal à 0
@@ -145,8 +140,6 @@ export function matchId(manager: Pallier, world: World) {
     $.each(world.products.product, function (index, product) {
         if (manager.idcible == product.id) {
             product.managerUnlocked = true;
-            console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
-            
             sendToServer("manager", manager);
         }
     })
