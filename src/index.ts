@@ -163,8 +163,6 @@ export function findProduct(world: World, idProduct: number): Product {
 
     return p;
 }
-<<<<<<< HEAD
-=======
 
 
 // Applique un bonus 
@@ -177,4 +175,3 @@ export function applyBonusProduct(product: Product, ratio: number, type: string)
             product.revenu = product.revenu * ratio;
     }
 }
->>>>>>> 404b93d5b208d81613126cd712a63b52ec7c49f3
