@@ -35,12 +35,14 @@ export function displayUnlocks(server: string, world: World) {
     mh.appendChild(selectBarre)
     selectBarre.id = "selectBarreUnlocks"
 
-    let opt1 = document.createElement("option")
-    selectBarre.appendChild(opt1)
-    opt1.id = "optProduit" + 7
-    opt1.value = "" + 7
-    opt1.text = "Tous les produits"
-    opt1.setAttribute("selected","")
+    let optGlobal = document.createElement("option")
+    selectBarre.appendChild(optGlobal)
+    optGlobal.id = "optProduit" + 0
+    optGlobal.value = "" + 0
+    optGlobal.text = "Unlocks globaux"
+    optGlobal.setAttribute("selected","")
+
+    
 
     $.each(world.products.product, function (index, product) {
 
@@ -51,11 +53,12 @@ export function displayUnlocks(server: string, world: World) {
         opt.text = product.name
     })
 
-    let opt2 = document.createElement("option")
-    selectBarre.appendChild(opt2)
-    opt2.id = "optProduit" + 0
-    opt2.value = "" + 0
-    opt2.text = "Unlocks globaux"
+    let optAll = document.createElement("option")
+    selectBarre.appendChild(optAll)
+    optAll.id = "optProduit" + 7
+    optAll.value = "7";
+    optAll.text = "Tous les produits"
+    
 
 
     //Titre de la fenêtre
@@ -77,11 +80,7 @@ export function displayUnlocks(server: string, world: World) {
         listUnlocks(parseInt(this.value), server, world)
     });
 
-    //$.each(world.allunlocks.pallier, function(index,unlock){
-    //    affichage(server,unlock);
-    //})
-
-
+    listUnlocks(0, server, world);
 }
 
 function listUnlocks(id: number, server: String, world: World) {
