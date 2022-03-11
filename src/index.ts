@@ -149,8 +149,6 @@ export function matchId(manager: Pallier, world: World) {
         }
     })
 }
-<<<<<<< HEAD
-=======
 
 
 // Retrouver un produit à partir d'un id
@@ -165,4 +163,3 @@ export function findProduct(world: World, idProduct: number): Product {
 
     return p;
 }
->>>>>>> dfa3c49cec656ea219f70f4453d9c4af18030968

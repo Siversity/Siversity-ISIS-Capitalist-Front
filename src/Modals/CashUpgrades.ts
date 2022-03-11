@@ -1,6 +1,8 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
 
+const listbutton: string[] = []
+
 export function displayCashUpgrades(server: string, world: World) {
     creationModal(server, world);
     //creationBodyCash(server, world)
@@ -10,6 +12,12 @@ export function displayCashUpgrades(server: string, world: World) {
 function creationModal(server: string, world: World) {
     // Container
     let m = document.getElementById("modalCashUp");
+
+    $(m).on('hidden.bs.modal', function () {
+        $('#selectBarreCashUp').val(0)
+        affichageCashUp(0,server,world)
+    });
+
 
     //Balise Modal Dialogue
     let md = document.createElement("div");
@@ -42,8 +50,8 @@ function creationModal(server: string, world: World) {
 
     let optAll = document.createElement("option")
     selectBarre.appendChild(optAll)
-    optAll.id = "optProduit" + 7
-    optAll.value = "" + 7
+    optAll.id = "optProduit" + -1
+    optAll.value = "-1"
     optAll.text = "Tous les produits"
     optAll.setAttribute("selected", "")
 
@@ -61,6 +69,7 @@ function creationModal(server: string, world: World) {
     optGlob.id = "optProduit" + 0
     optGlob.value = "" + 0
     optGlob.text = "CashUp globaux"
+
 
     //Titre de la fenêtre
     let t = document.createElement("h4");
@@ -90,7 +99,7 @@ function affichageCashUp(id: number, server: string, world: World) {
         if (cashUp.idcible == id) {
             selectCashUp(server, cashUp, world)
         }
-        else if (id == 7) {
+        else if (id == -1) {
             selectCashUp(server, cashUp, world)
         }
     })
@@ -145,6 +154,14 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
     buttonBuyCashUp.innerText = "Achete Moi !";
 
+
+    if (cashUp.seuil > world.money) {
+        buttonBuyCashUp.setAttribute("disabled", "true")
+    }
+    else {
+        buttonBuyCashUp.removeAttribute("disabled")
+    }
+
     $(buttonBuyCashUp).click(function () {
         console.log("je tente d'acheter un cashUp :)");
         buyCashUp(cashUp, world)
@@ -190,7 +207,7 @@ export function buyableCashUp(world: World) {
             cashUpDispo++;
         };
     })
-    
+
     // S'il n'y a aucun CashUp achetable, on affiche rien
     if (cashUpDispo == 0) {
         notifCashUp.innerText = null;

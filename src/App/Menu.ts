@@ -68,11 +68,4 @@ export function displayMenu(world: World) {
     badgeManager.id = "badgeManager"
     badgeManager.classList.add("badge", "bg-secondary");
 
-
-    //Création investors
-    let investors = document.createElement("div");
-    navbar.appendChild(investors);
-    investors.classList.add("investors");
-    investors.innerHTML = "Investors";
-
 }

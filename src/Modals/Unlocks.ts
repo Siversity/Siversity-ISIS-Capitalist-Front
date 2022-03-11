@@ -56,8 +56,8 @@ export function displayUnlocks(server: string, world: World) {
 
     let optAll = document.createElement("option")
     selectBarre.appendChild(optAll)
-    optAll.id = "optProduit" + 7
-    optAll.value = "7";
+    optAll.id = "optProduit" + -1
+    optAll.value = "-1";
     optAll.text = "Tous les produits"
     
     //Titre de la fenêtre
@@ -96,7 +96,7 @@ function listUnlocks(id: number, server: String, world: World) {
         if (unlock.idcible == id) {
             affichage(server,unlock)
         }
-        else if (id == 7) {
+        else if (id == -1) {
             affichage(server,unlock)
         }
     })
