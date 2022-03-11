@@ -6,7 +6,7 @@ import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
-import { displayCashUpgrades } from "./Modals/CashUpgrades";
+//import { displayCashUpgrades } from "./Modals/CashUpgrades";
 import { sendToServer } from "./RestCalls";
 
 
@@ -35,7 +35,7 @@ const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = serverLocal;
+export var serverUrl = servertest;
 
 
 $(document).ready(function () {
@@ -60,7 +60,7 @@ $(document).ready(function () {
         displayMenu(world);
         displayManager(serverUrl, world);
         displayUnlocks(serverUrl, world);
-        displayCashUpgrades(serverUrl, world);
+        //displayCashUpgrades(serverUrl, world);
 
         // Actions dynamiques
         setInterval(function () {
@@ -98,6 +98,8 @@ function calcScore(server: string, world: World) {
 
             // On calcule le pourcentage de production restant et on actualise la bar de progression
             let pourcentage: number = product.timeleft / product.vitesse;
+            console.log(product.timeleft)
+            console.log(pourcentage);
             setProgressBar(product.id, pourcentage);
 
             // Si le nouveau temps restant est inférieur ou égal à 0
@@ -140,37 +142,10 @@ export function matchId(manager: Pallier, world: World) {
     $.each(world.products.product, function (index, product) {
         if (manager.idcible == product.id) {
             product.managerUnlocked = true;
+            console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
+            
             sendToServer("manager", manager);
         }
     })
 
 }
-/*
-function updateButton(addSelected:any){
-    switch(addSelected) { 
-        case 1: { 
-           //statements; 
-           break; 
-        } 
-        case 10: { 
-           //statements; 
-           break; 
-        } 
-        case 100: { 
-            //statements; 
-            break; 
-         } 
-         case "Max": { 
-            //statements; 
-            break; 
-         } 
-        default: { 
-           //statements; 
-           break; 
-        } 
-     } 
-}*/
-/*
-function comparaison(world:World,multiplier:any){
-
-}*/
