@@ -31,7 +31,7 @@ const serverLocal: string = "http://localhost:8080/";
 const serverHeroku: string = "https://isiscapitalist.herokuapp.com/"
 
 // Url serveur test
-const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
+const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
