@@ -31,11 +31,11 @@ const serverLocal: string = "http://localhost:8080/";
 const serverHeroku: string = "https://isiscapitalist.herokuapp.com/"
 
 // Url serveur test
-const servertest: string = "https://isiscapitalist.kk.kurasawa.fr/";
+const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = servertest;
+export var serverUrl = serverLocal;
 
 
 $(document).ready(function () {
@@ -163,3 +163,18 @@ export function findProduct(world: World, idProduct: number): Product {
 
     return p;
 }
+<<<<<<< HEAD
+=======
+
+
+// Applique un bonus 
+export function applyBonusProduct(product: Product, ratio: number, type: string) {
+    switch(type) {
+        case "VITESSE":
+            product.vitesse = product.vitesse / ratio;
+            product.timeleft = product.timeleft / ratio;
+        case "GAIN":
+            product.revenu = product.revenu * ratio;
+    }
+}
+>>>>>>> 404b93d5b208d81613126cd712a63b52ec7c49f3
