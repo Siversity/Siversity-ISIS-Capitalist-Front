@@ -109,7 +109,8 @@ function listManagers(server: string, world: World) {
         hire.appendChild(priceManager);
         priceManager.classList.add("col","priceManager");
         let cost = transform(pallier.seuil)
-        priceManager.innerHTML = cost;
+
+        priceManager.innerHTML = cost + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
 
         let buttonHire = document.createElement("button");
         hire.appendChild(buttonHire);
