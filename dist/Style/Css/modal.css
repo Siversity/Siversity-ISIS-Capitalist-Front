@@ -4,9 +4,11 @@
     margin: -0.5rem -0.5rem -0.5rem !important;
 }
 
-#modalManager-backdrop{
-    background-color:#292827 ;
+.modal-body{
+    background-color:#292827 !important;
+    color:white;
 }
+
 
 
 .buttonHire{
@@ -31,7 +33,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
-    width: 150px;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 /*.modal-bg{

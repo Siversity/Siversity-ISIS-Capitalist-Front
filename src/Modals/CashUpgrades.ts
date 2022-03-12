@@ -155,11 +155,18 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     buttonBuyCashUp.innerText = "Achete Moi !";
 
 
-    if (cashUp.seuil > world.money) {
+    if (cashUp.seuil > world.money || cashUp.unlocked==true) {
         buttonBuyCashUp.setAttribute("disabled", "true")
     }
     else {
         buttonBuyCashUp.removeAttribute("disabled")
+    }
+
+    if(cashUp.unlocked==true){
+        buttonBuyCashUp.innerText="Acheté"
+    }
+    else {
+        buttonBuyCashUp.innerText="Achete moi"
     }
 
     $(buttonBuyCashUp).click(function () {
@@ -189,6 +196,8 @@ function buyCashUp(cashUp: Pallier, world: World) {
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
+
+        console.log(cashUp)
     }
     else {
         console.log("pas assez de sous")

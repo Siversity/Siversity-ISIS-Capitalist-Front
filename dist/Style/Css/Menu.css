@@ -17,17 +17,22 @@
   }
 
   .btn-primary{
-    background-color:orangered !important;
-    border-color: orange !important;
+    background-color:rgb(184, 51, 3) !important;
+    border-color: rgb(238, 85, 39) !important;
 }
 
 .btn-primary:hover{
-    background-color:yellow !important;
-    border-color: orange !important;
+    background-color:rgb(245, 123, 23) !important;
+    border-color: rgb(250, 126, 44) !important;
 }
 
 .btn-Menu{
-  width: 150px;
+  width: 170px;
   height: 40px;
   border-radius: 5%;
+ 
+}
+
+.btn-Menu:focus{
+   box-shadow: 0 0 0 0.25rem rgba(252, 133, 36, 0.5) !important ;
 }
