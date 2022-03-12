@@ -76,7 +76,7 @@ function listManagers(server: string, world: World) {
         // Titre (ligne)
         let managerTitle = document.createElement("div");
         col.appendChild(managerTitle);
-        managerTitle.classList.add("row", "justify-content-center", "text-center", "bccFont");
+        managerTitle.classList.add("row", "justify-content-center", "text-center", "bsFont");
         managerTitle.innerHTML = manager.name;
 
         // Image (ligne)
