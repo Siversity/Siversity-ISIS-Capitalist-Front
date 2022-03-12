@@ -1,5 +1,6 @@
 
 .modal-header .btn-close {
+    color:white;
     padding: 0.5rem 0.5rem;
     margin: -0.5rem -0.5rem -0.5rem !important;
 }
@@ -10,35 +11,38 @@
     color:white;
 }
 
+.modal-header{
+    background-color: #292827;
+    color: rgb(245, 111, 22);
+}
+
 
 
 .buttonHire{
-    position: absolute;
-    right:    0;
-    bottom:   0;
     margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
 .imgUnlock{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
 }
 
 .imgCashUp{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
 }
 
 .imageManagers{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 100px !important;
     height: 100px !important;
+}
+
+.modalCashUpBody{
+    overflow: hidden;
 }
 
 /*.modal-bg{
