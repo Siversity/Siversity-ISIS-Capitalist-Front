@@ -85,7 +85,7 @@ function listManagers(server: string, world: World) {
         managerImage.classList.add("row", "productImage");
         let image = document.createElement("img");
         managerImage.appendChild(image);
-        image.id = "img" + manager.idcible;
+        image.id = "imgMan" + manager.idcible;
         image.classList.add("managerIcon")
 
         // Si ce produit n'a pas été débloqué, on l'affiche en gris
@@ -202,7 +202,7 @@ function buyManager(manager: Pallier, world: World) {
         console.log("Unlocked" + " imgMan" + manager.idcible)
 
         // Affichage en clair de l'image
-        document.getElementById("imgMan" + manager.idcible).classList.remove("disabledManager");
+        document.getElementById("imgMan" + manager.idcible).classList.remove("disabledProduct");
 
         displayToaster("success", "New manager hired !");
     }
