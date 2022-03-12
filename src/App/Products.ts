@@ -1,14 +1,17 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { addProgressBar, setProgressBar } from "./ProgressBar";
 
-import {addSelected, buyableProducts, getCostProduct, getMaxProduct} from "./SideBar";
+import { addSelected, buyableProducts, getCostProduct, getMaxProduct } from "./SideBar";
 import { transform } from "./Header";
 import { sendToServer } from "../RestCalls";
 import { verifUnlock } from "../Modals/Unlocks";
 
+import type { ajaxRequest } from "../RestCalls";
+import { ajaxRequests } from "../RestCalls";
+
 
 export const progressBarList: any[] = [];
-export const lastUpdateList : number[] = [];
+export const lastUpdateList: number[] = [];
 
 
 export function fillLastUpdate(world: World) {
@@ -86,7 +89,6 @@ export function showProducts(server: string, world: World) {
         productButton.type = "button";
         productButton.classList.add("addProduct", "align-middle");
         $(productButton).click(function () {
-            console.log("click");
             addProduct(world, product);
         });
 
@@ -110,9 +112,15 @@ export function startProduct(product: Product) {
         product.timeleft = product.vitesse;
         lastUpdateList[product.id] = Date.now();
         setProgressBar(product.id, 100);
-        sendToServer("product", product);
+
+        if (product.managerUnlocked == false) {
+            // sendToServer("product", product);
+            let newRequest: ajaxRequest = { type: "product", content: product };
+            ajaxRequests.push(newRequest);
+        }
+
     }
-    
+
 }
 
 
@@ -151,14 +159,16 @@ function addProduct(world: World, product: Product) {
         modifyProduct(world, product, max, cost);
     }
 
-    
+
     displayRevenu(product);
     verifUnlock(world);
-    console.log(product.vitesse);
-    console.log(product.timeleft);
 
     // On envoie les données au serveur
-    sendToServer("product", product);
+    // sendToServer("product", product);
+    let newRequest: ajaxRequest = { type: "product", content: product };
+    ajaxRequests.push(newRequest);
+
+
 }
 
 
@@ -184,7 +194,7 @@ function modifyProduct(world: World, product: Product, quantity: number, cost: n
         // On calcule le nouveau coût après achat
         let newCost = getCostProduct(product, quantity);
         document.getElementById("cost" + product.id).innerHTML = transform(newCost);
-        
+
         // S'il s'agit du 1er achat sur un produit, on l'affiche en clair
         let imageProduct = document.getElementById("img" + product.id);
         if (imageProduct.classList.contains("disabledProduct")) {

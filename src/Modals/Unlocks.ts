@@ -83,7 +83,6 @@ export function displayUnlocks(server: string, world: World) {
 
  
     $(selectBarre).change(function () {
-        console.log(this.value)
         listUnlocks(parseInt(this.value), server, world)
     });
 
