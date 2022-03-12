@@ -36,6 +36,13 @@
     -webkit-text-fill-color: #000000;
 }
 
+#userButtonCheck{
+    margin-top: 10px;
+}
+
+#userDiv {
+    padding-top: 8px;
+}
 .buttonUserDiv{
     margin-top: 0.5rem !important;
 }
