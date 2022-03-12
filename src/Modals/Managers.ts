@@ -114,9 +114,7 @@ function listManagers(server: string, world: World) {
         buttonHire.id = "hire" + pallier.idcible;
         buttonHire.classList.add("btn", "btn-primary", "buttonHire");
         buttonHire.innerText = "Achete Moi !";
-        console.log(pallier.idcible + " " + pallier.unlocked);
         if (pallier.unlocked == true) {
-            console.log("DISABLED")
             buttonHire.innerText="Acheté"
             buttonHire.setAttribute("disabled", "true");
         }
@@ -124,7 +122,6 @@ function listManagers(server: string, world: World) {
             buttonHire.innerText="Achete moi !"
         }
         $(buttonHire).click(function () {
-            console.log("je tente d'acheter un manager :)");
             buyManager(pallier, world);
         });
     });

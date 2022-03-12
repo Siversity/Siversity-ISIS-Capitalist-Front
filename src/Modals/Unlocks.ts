@@ -83,7 +83,6 @@ export function displayUnlocks(server: string, world: World) {
 
  
     $(selectBarre).change(function () {
-        console.log(this.value)
         listUnlocks(parseInt(this.value), server, world)
     });
 
@@ -168,8 +167,8 @@ export function verifUnlock(world: World) {
                     console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
 
                     // Appliquer les changements
-                    displayRevenu(product);
                     applyBonusProduct(product, unlock.ratio, unlock.typeratio);
+                    displayRevenu(product);
                 }
             }
             
@@ -190,8 +189,8 @@ export function verifUnlock(world: World) {
                     unlock.unlocked = true;
                     console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
                     $.each(world.products.product, function(index, product) {
-                        displayRevenu(product);
                         applyBonusProduct(product, unlock.ratio, unlock.typeratio);
+                        displayRevenu(product);
                     })
                 }
             }

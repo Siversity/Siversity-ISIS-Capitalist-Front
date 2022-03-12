@@ -9,6 +9,9 @@ import { displayUnlocks } from "./Modals/Unlocks";
 import { buyableCashUp, displayCashUpgrades } from "./Modals/CashUpgrades";
 import { sendToServer } from "./RestCalls";
 import * as bootstrap from "bootstrap"
+import { nextAjaxCall } from "./RestCalls";
+import {ajaxRequests} from "./RestCalls";
+import type { ajaxRequest } from "./RestCalls";
 import { displayAngel } from "./Modals/Angel";
 
 // Username
@@ -17,7 +20,7 @@ export var username = localStorage.getItem("username");
 // Changement du pseudo
 export function setUsername(newUsername: string) {
     username = newUsername;
-    localStorage.setItem("username", newUsername);
+    localStorage.setItem("username", "test");
 
     $.ajaxSetup({
         headers: { "X-user": username }
@@ -36,7 +39,11 @@ const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
+<<<<<<< HEAD
 export var serverUrl = serverHeroku;
+=======
+export var serverUrl = serverLocal;
+>>>>>>> 0f46f84c4ab0eec1516a74eed5662f8c4f87cbae
 
 
 $(document).ready(function () {
@@ -51,7 +58,6 @@ $(document).ready(function () {
     $.getJSON(serverUrl + "adventureisis/generic/world", function (world: World) {
         // Affichage du monde chargé
         console.log(world)
-        console.log("TIMELEFT = " + world.products.product[4].timeleft);
         fillLastUpdate(world);
 
 
@@ -98,6 +104,12 @@ $(document).ready(function () {
             //}
         }, 100);
 
+
+
+        setInterval(function () {
+            nextAjaxCall();
+        }, 150)
+
     });
 });
 
@@ -114,9 +126,8 @@ function calcScore(server: string, world: World) {
 
             // On calcule le pourcentage de production restant et on actualise la bar de progression
             let pourcentage: number = product.timeleft / product.vitesse;
-            //console.log(product.timeleft)
-            //console.log(pourcentage);
             setProgressBar(product.id, pourcentage);
+            
 
             // Si le nouveau temps restant est inférieur ou égal à 0
             if (product.timeleft <= 0) {
@@ -160,7 +171,9 @@ export function matchId(manager: Pallier, world: World) {
             product.managerUnlocked = true;
             //console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
 
-            sendToServer("manager", manager);
+            // sendToServer("manager", manager);
+            let newRequest: ajaxRequest = {type: "manager", content: manager};
+            ajaxRequests.push(newRequest);
         }
     })
 }
@@ -182,7 +195,6 @@ export function findProduct(world: World, idProduct: number): Product {
 
 // Applique un bonus 
 export function applyBonusProduct(product: Product, ratio: number, type: string) {
-    console.log(type)
     switch (type) {
         case "VITESSE":
             product.vitesse = product.vitesse / ratio;
