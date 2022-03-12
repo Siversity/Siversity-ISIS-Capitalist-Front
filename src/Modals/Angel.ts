@@ -144,7 +144,7 @@ function showAngelsUpgrades(server: string, world: World) {
         let priceCashUp = document.createElement("div")
         secondCol.appendChild(priceCashUp)
         priceCashUp.classList.add("spanUpgrade")
-        priceCashUp.innerHTML = transform(angelUp.seuil) + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
+        priceCashUp.innerHTML = transform(angelUp.seuil) + '<img class="imgDeviseManager" src="../../Style/Images/deviseAngel.png"/>';
 
         let bonusCashUp = document.createElement("div")
         secondCol.appendChild(bonusCashUp)
