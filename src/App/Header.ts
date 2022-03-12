@@ -41,14 +41,6 @@ export function displayHeader(server: string, world: World) {
     container.appendChild(userCol);
     userCol.classList.add("col");
 
-    /*
-    //User ID
-    let userId = document.createElement("div");
-    idCol.appendChild(userId);
-    userId.classList.add("userId");
-    userId.innerHTML = "ID:";
-    */
-
     let userRow = document.createElement("div");
     userCol.appendChild(userRow);
     userRow.classList.add("row");
@@ -68,7 +60,7 @@ export function displayHeader(server: string, world: World) {
     inputUser.readOnly = true;
 
     let buttonUserDiv = document.createElement("div");
-    userRow.appendChild(buttonUserDiv);
+    container.appendChild(buttonUserDiv);
 
     let buttonInput = document.createElement("input");
     buttonUserDiv.appendChild(buttonInput);

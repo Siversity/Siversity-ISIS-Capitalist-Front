@@ -115,18 +115,15 @@ function listManagers(server: string, world: World) {
         buttonHire.classList.add("btn", "btn-primary", "buttonHire");
         buttonHire.innerText = "Achete Moi !";
         if (pallier.unlocked == true) {
+            buttonHire.innerText="Acheté"
             buttonHire.setAttribute("disabled", "true");
+        }
+        else {
+            buttonHire.innerText="Achete moi !"
         }
         $(buttonHire).click(function () {
             buyManager(pallier, world);
         });
-
-        /*
-        let imageProduct = document.createElement("img")
-        hire.appendChild(imageProduct)
-        imageProduct.classList.add("imageProductManager")
-        let srcImg=getImage(pallier.idcible,world)
-        imageProduct.src=server+srcImg;*/
     });
 }
 
@@ -141,7 +138,6 @@ export function verifManagers(world: World) {
         // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
         if ((pallier.seuil > world.money) || (pallier.unlocked == true)) {
             // Si c'est le cas, on l'active
-            button.innerHTML = "Acheté";
             button.setAttribute("disabled", "true");
         }
         else {

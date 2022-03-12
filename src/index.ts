@@ -12,6 +12,7 @@ import * as bootstrap from "bootstrap"
 import { nextAjaxCall } from "./RestCalls";
 import {ajaxRequests} from "./RestCalls";
 import type { ajaxRequest } from "./RestCalls";
+import { displayAngel } from "./Modals/Angel";
 
 // Username
 export var username = localStorage.getItem("username");
@@ -68,6 +69,7 @@ $(document).ready(function () {
         displayManager(serverUrl, world);
         displayUnlocks(serverUrl, world);
         displayCashUpgrades(serverUrl, world);
+        displayAngel(serverUrl,world)
 
 
         // Affichage revenus
@@ -163,7 +165,7 @@ export function matchId(manager: Pallier, world: World) {
     $.each(world.products.product, function (index, product) {
         if (manager.idcible == product.id) {
             product.managerUnlocked = true;
-            console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
+            //console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
 
             // sendToServer("manager", manager);
             let newRequest: ajaxRequest = {type: "manager", content: manager};

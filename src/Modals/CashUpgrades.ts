@@ -12,7 +12,6 @@ const listbutton: string[] = []
 
 export function displayCashUpgrades(server: string, world: World) {
     creationModal(server, world);
-    //creationBodyCash(server, world)
 
 }
 
@@ -60,7 +59,6 @@ function creationModal(server: string, world: World) {
     optAll.id = "optProduit" + -1
     optAll.value = "-1"
     optAll.text = "Tous les produits"
-    optAll.setAttribute("selected", "")
 
     $.each(world.products.product, function (index, product) {
 
@@ -76,7 +74,7 @@ function creationModal(server: string, world: World) {
     optGlob.id = "optProduit" + 0
     optGlob.value = "" + 0
     optGlob.text = "CashUp globaux"
-
+    optGlob.setAttribute("selected", "")
 
     //Titre de la fenêtre
     let t = document.createElement("h4");
@@ -94,6 +92,8 @@ function creationModal(server: string, world: World) {
     $(selectBarre).change(function () {
         affichageCashUp(parseInt(this.value), server, world)
     });
+
+    affichageCashUp(0,server,world)
 }
 
 function affichageCashUp(id: number, server: string, world: World) {
@@ -167,11 +167,18 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     }
 
 
-    if (cashUp.seuil > world.money) {
+    if (cashUp.seuil > world.money || cashUp.unlocked==true) {
         buttonBuyCashUp.setAttribute("disabled", "true")
     }
     else {
         buttonBuyCashUp.removeAttribute("disabled")
+    }
+
+    if(cashUp.unlocked==true){
+        buttonBuyCashUp.innerText="Acheté"
+    }
+    else {
+        buttonBuyCashUp.innerText="Achete moi"
     }
 
     $(buttonBuyCashUp).click(function () {
