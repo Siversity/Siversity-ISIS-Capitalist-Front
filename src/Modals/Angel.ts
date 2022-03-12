@@ -55,7 +55,7 @@ function creationModal(server: string, world: World) {
     mh.appendChild(t);
     t.classList.add("modal-title");
     t.setAttribute("id", "myModalLabel");
-    t.innerText = "Les Angels";
+    t.innerText = "Muzan";
 
     //Création Body
     let bodyM = document.createElement("div");
