@@ -75,19 +75,19 @@ function showResetAngel(world: World) {
     //1ere colonne
     let firstCol = document.createElement("div")
     container.appendChild(firstCol)
-    firstCol.classList.add("col", "justify-content-center", "d-block")
+    firstCol.classList.add("col")
 
     //Nbre total d'angel
     let angelNumber = document.createElement("span")
     firstCol.appendChild(angelNumber)
     angelNumber.id = "angelNumber"
-    angelNumber.classList.add("angelNumber", "row")
+    angelNumber.classList.add("angelNumber", "row","textAngel")
     angelNumber.innerHTML = transform(world.totalangels) + " Totals angels"
 
     //Description
     let angelDesc = document.createElement("span")
     firstCol.appendChild(angelDesc)
-    angelDesc.classList.add("row")
+    angelDesc.classList.add("row","textAngel")
     angelDesc.innerText = "2% Bonus per Angels"
 
     //Seconde colonne

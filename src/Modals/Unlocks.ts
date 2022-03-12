@@ -123,7 +123,7 @@ function affichage(server: String, unlock: Pallier) {
     let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
     col.appendChild(colImageDesc)
     col.appendChild(colUnlocked)
-    colImageDesc.classList.add("col")
+    colImageDesc.classList.add("col","box")
     colUnlocked.classList.add("col")
 
     //Affichage Icon Unlock
@@ -136,16 +136,16 @@ function affichage(server: String, unlock: Pallier) {
     }
 
     let nomUnlock = document.createElement("h3")
-    colImageDesc.appendChild(nomUnlock)
+    colUnlocked.appendChild(nomUnlock)
     nomUnlock.innerText = unlock.name
 
     let descrUnlock = document.createElement("span")
-    colImageDesc.appendChild(descrUnlock)
+    colUnlocked.appendChild(descrUnlock)
     descrUnlock.innerText = "Augmentation de " + unlock.typeratio + " x" + unlock.ratio
 
     let seuilUnlock = document.createElement("span")
-    colImageDesc.appendChild(seuilUnlock)
-    seuilUnlock.innerText = "Seuil: " + unlock.seuil
+    colUnlocked.appendChild(seuilUnlock)
+    seuilUnlock.innerText = "  Seuil: " + unlock.seuil
 }
 
 

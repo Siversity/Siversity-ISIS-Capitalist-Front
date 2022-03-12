@@ -18,31 +18,82 @@
 
 
 
-.buttonHire{
-    margin: -0.5rem -0.5rem -0.5rem auto;
+
+/*Modal Manager*/
+.hireSection{
+    position: relative;
 }
+.buttonHire{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.priceManager{
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+}
+.imgDeviseManager{
+    max-width: 30px;
+    max-height: 30px;
+}
+
+
+
+
+
+
+
+.imageSection{
+    display:inline;
+    align-items: center;
+    justify-content: center;
+}
+
+.nameManager{
+    text-align: center;
+}
+
+.imageManagers{
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+}
+
+
 
 .imgUnlock{
     border-radius: 4px;
     padding: 5px;
-    width: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .imgCashUp{
     border-radius: 4px;
     padding: 5px;
-    width: 150px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .imageManagers{
     border-radius: 4px;
     padding: 5px;
-    width: 100px !important;
-    height: 100px !important;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .modalCashUpBody{
     overflow: hidden;
+}
+
+.box{
+    width: 200px;
+    height:200px;
+    align-items: center;
 }
 
 /*.modal-bg{
@@ -62,3 +113,8 @@
     width: 70%;
     height: 80%;
 }*/
+
+/*Modal Angel*/
+.textAngel{
+    text-align: center !important;
+}

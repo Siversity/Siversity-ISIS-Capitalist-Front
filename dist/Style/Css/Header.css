@@ -12,8 +12,8 @@
 }
 
 .devise{
-    width: 9%;
-    height: 80%;
+    max-width: 40px;
+    max-height: 40px;
 }
 
 .name{
@@ -42,4 +42,7 @@
 
 #userDiv {
     padding-top: 8px;
+}
+.buttonUserDiv{
+    margin-top: 0.5rem !important;
 }
