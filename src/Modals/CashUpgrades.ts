@@ -44,7 +44,7 @@ function creationModal(server: string, world: World) {
     //Bouton Fermer la fenêtre
     let b = document.createElement("button");
     mh.appendChild(b);
-    b.classList.add("btn-close")
+    b.classList.add("btn-close","btn-close-white")
     b.setAttribute("type", "button");
     b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");

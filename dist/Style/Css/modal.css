@@ -6,9 +6,9 @@
 }
 
 .modal-body{
-    /*background-color:#292827 !important;
+    background-color:#292827 !important;
     overflow:  hidden !important ;
-    color:white;*/
+    color:white;
 }
 
 .modal-header{
@@ -23,21 +23,18 @@
 }
 
 .imgUnlock{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
 }
 
 .imgCashUp{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
 }
 
 .imageManagers{
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 100px !important;
