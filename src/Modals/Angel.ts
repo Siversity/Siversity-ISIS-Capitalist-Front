@@ -4,7 +4,7 @@ import { transform } from "../App/Header";
 export function displayAngel(server: string, world: World) {
     creationModal(server, world)
     showResetAngel(world)
-    showAngelsUpgrades(server,world)
+    showAngelsUpgrades(server, world)
 }
 /*
 function resetWorld(server:string) {
@@ -45,7 +45,7 @@ function creationModal(server: string, world: World) {
     //Bouton Fermer la fenêtre
     let b = document.createElement("button");
     mh.appendChild(b);
-    b.classList.add("btn-close","btn-close-white")
+    b.classList.add("btn-close", "btn-close-white")
     b.setAttribute("type", "button");
     b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");
@@ -76,33 +76,33 @@ function showResetAngel(world: World) {
     let firstCol = document.createElement("div")
     container.appendChild(firstCol)
     firstCol.classList.add("col")
-    firstCol.style.textAlign="center"
+    firstCol.style.textAlign = "center"
 
     //Nbre total d'angel
     let angelNumber = document.createElement("span")
     firstCol.appendChild(angelNumber)
     angelNumber.id = "angelNumber"
-    angelNumber.classList.add("angelNumber", "row","textAngel")
+    angelNumber.classList.add("angelNumber", "row", "textAngel")
     angelNumber.innerHTML = transform(world.totalangels) + " Totals angels"
 
     //Description
     let angelDesc = document.createElement("span")
     firstCol.appendChild(angelDesc)
-    angelDesc.classList.add("row","textAngel")
+    angelDesc.classList.add("row", "textAngel")
     angelDesc.innerText = "2% Bonus per Angels"
 
     //Seconde colonne
     let secondCol = document.createElement("div")
     container.appendChild(secondCol)
     secondCol.classList.add("col")
-    secondCol.style.textAlign="right"
+    secondCol.style.textAlign = "right"
 
     //Bouton reset partie
     let buttonReset = document.createElement("button")
     secondCol.appendChild(buttonReset)
-    buttonReset.classList.add("btn", "btn-primary", "buttonReset","bccFont")
-    let nbrAngels = 150 * Math.sqrt(world.score / Math.pow(10, 15)) - world.totalangels
-    buttonReset.innerHTML = "Reset your account for: " +transform(nbrAngels) + " Angels"
+    buttonReset.classList.add("btn", "btn-primary", "buttonReset", "bccFont")
+    let nbrAngels = 150 * Math.sqrt(world.score / Math.pow(10, 10)) - world.totalangels
+    buttonReset.innerHTML = "Reset your account for: " + transform(nbrAngels) + " Angels"
 }
 
 
@@ -115,7 +115,7 @@ function showAngelsUpgrades(server: string, world: World) {
 
     let container = document.createElement("div")
     body.appendChild(container)
-    container.classList.add("row","row-cols-3")
+    container.classList.add("row", "row-cols-3", "border", "rounded")
 
     $.each(world.angelupgrades.pallier, function (index, angelUp) {
         //Colonne 1 : Image
@@ -133,17 +133,22 @@ function showAngelsUpgrades(server: string, world: World) {
         container.appendChild(secondCol)
         secondCol.classList.add("row")
 
-        let priceCashUp = document.createElement("div")
-        secondCol.appendChild(priceCashUp)
-        priceCashUp.innerHTML = transform(angelUp.seuil) + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
 
         let nameCashUp = document.createElement("div")
         secondCol.appendChild(nameCashUp)
+        nameCashUp.classList.add("upgradeTitle")
         nameCashUp.innerText = angelUp.name
+        nameCashUp.style.marginTop="10px"
+
+        let priceCashUp = document.createElement("div")
+        secondCol.appendChild(priceCashUp)
+        priceCashUp.classList.add("spanUpgrade")
+        priceCashUp.innerHTML = transform(angelUp.seuil) + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
 
         let bonusCashUp = document.createElement("div")
         secondCol.appendChild(bonusCashUp)
         bonusCashUp.innerText = angelUp.typeratio + " x" + angelUp.ratio
+        bonusCashUp.classList.add("spanUpgrade")
 
         //Colonne 3 : Bouton d'achat
         let butCol = document.createElement("div")
