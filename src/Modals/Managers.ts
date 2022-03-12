@@ -102,7 +102,7 @@ function listManagers(server: string, world: World) {
         //Prix
         let priceManager = document.createElement("div");
         col.appendChild(priceManager);
-        priceManager.classList.add("col");
+        priceManager.classList.add("col","bccFont");
         priceManager.style.textAlign="center"
         let cost = transform(manager.seuil)
 
@@ -117,7 +117,7 @@ function listManagers(server: string, world: World) {
         let buttonHire = document.createElement("button");
         hire.appendChild(buttonHire);
         buttonHire.id = "hire" + manager.idcible;
-        buttonHire.classList.add("btn", "btn-primary", "buttonHire");
+        buttonHire.classList.add("btn", "btn-primary", "buttonHire","bccFont");
         buttonHire.innerText = "Recruter";
         if (manager.unlocked == true) {
             buttonHire.innerText="Recruté"

@@ -40,7 +40,7 @@ export function displayMenu(world: World) {
     let badgeCashUp = document.createElement("span");
     buttonCashUp.appendChild(badgeCashUp);
     badgeCashUp.id = "badgeCashUp"
-    badgeCashUp.classList.add("badge", "bg-secondary");
+    badgeCashUp.classList.add("badge", "bg-secondary", "bsFont");
 
 
     //Création angels upgrades
@@ -72,6 +72,6 @@ export function displayMenu(world: World) {
     let badgeManager = document.createElement("span");
     buttonManager.appendChild(badgeManager);
     badgeManager.id = "badgeManager"
-    badgeManager.classList.add("badge", "bg-secondary");
+    badgeManager.classList.add("badge", "bg-secondary", "bsFont");
 
 }
