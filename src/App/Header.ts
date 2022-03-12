@@ -66,6 +66,7 @@ export function displayHeader(server: string, world: World) {
 
     let buttonUserDiv = document.createElement("div");
     container.appendChild(buttonUserDiv);
+    buttonUserDiv.classList.add("buttonUserDiv")
 
     let buttonInput = document.createElement("input");
     buttonUserDiv.appendChild(buttonInput);
