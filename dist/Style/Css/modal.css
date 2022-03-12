@@ -6,6 +6,7 @@
 
 .modal-body{
     background-color:#292827 !important;
+    overflow:  hidden !important ;
     color:white;
 }
 

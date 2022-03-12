@@ -11,13 +11,19 @@
     padding: 8px;
 }
 
+.devise{
+    width: 9%;
+    height: 80%;
+}
+
 .name{
     text-align: left;
 }
 
 .money{
     padding: 5px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .userRow{

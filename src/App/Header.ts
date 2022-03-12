@@ -26,15 +26,19 @@ export function displayHeader(server: string, world: World) {
     //Création second entête, l'argent
     let moneyCol = document.createElement("div")
     container.appendChild(moneyCol)
-    moneyCol.classList.add("col", "bccFont")
+    moneyCol.classList.add("col", "bccFont", "money")
 
     //L'argent
     let money = document.createElement("div");
     moneyCol.appendChild(money);
     money.id = "worldMoney";
-    money.classList.add("money");
     let argent = transform(world.money);
     money.innerHTML = argent;
+
+    let devise = document.createElement("img")
+    moneyCol.appendChild(devise)
+    devise.classList.add("devise")
+    devise.src='../../Style/Images/devise.png'
 
     //Création dernier entète, User ID
     let userCol = document.createElement("div");

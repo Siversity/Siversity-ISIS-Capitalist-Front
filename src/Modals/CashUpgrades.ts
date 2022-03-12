@@ -156,7 +156,7 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
 
     let buttonBuyCashUp = document.createElement("button")
     butCol.appendChild(buttonBuyCashUp)
-    buttonBuyCashUp.id = "buy" + cashUp.idcible;
+    buttonBuyCashUp.id = cashUp.name+cashUp.idcible;
     buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
     buttonBuyCashUp.innerText = "Achete Moi !";
     if (cashUp.unlocked == true) {
@@ -222,8 +222,8 @@ function buyCashUp(cashUp: Pallier, world: World) {
         // On affiche ensuite le nouveau solde
         document.getElementById("worldMoney").innerHTML = transform(world.money);
 
-        // Changement du bouton Hire en acheté et disabled
-        let button = document.getElementById("buy" + cashUp.idcible);
+        //Changement du bouton Hire en acheté et disabled
+        let button = document.getElementById(cashUp.name+cashUp.idcible);
         button.innerText = "Acheté"
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
@@ -268,7 +268,7 @@ function verifCashUp(world: World) {
     // Pour chaque manager
     $.each(world.upgrades.pallier, function (index, cashUp) {
         // On récupère son bouton d'achat
-        let button = document.getElementById("buy" + cashUp.idcible);
+        let button = document.getElementById(cashUp.name+cashUp.idcible);
 
         // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
         if ((cashUp.seuil > world.money) || (cashUp.unlocked == true)) {
