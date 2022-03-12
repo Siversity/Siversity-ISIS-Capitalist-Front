@@ -35,7 +35,7 @@ const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = serverLocal;
+export var serverUrl = serverTest;
 
 
 $(document).ready(function () {

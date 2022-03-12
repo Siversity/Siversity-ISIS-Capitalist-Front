@@ -47,7 +47,13 @@ export function displayMenu(world: World) {
     let angels = document.createElement("div");
     navbar.appendChild(angels);
     angels.classList.add("angels");
-    angels.innerHTML = "Angels upgrades";
+
+    let buttonAngel = document.createElement("button")
+    angels.appendChild(buttonAngel);
+    buttonAngel.classList.add("btn", "btn-primary")
+    buttonAngel.setAttribute("data-bs-toggle", "modal")
+    buttonAngel.setAttribute("data-bs-target", "#modalAngel")
+    buttonAngel.innerText = "Angels ";
 
     //Création managers
     let managers = document.createElement("div");

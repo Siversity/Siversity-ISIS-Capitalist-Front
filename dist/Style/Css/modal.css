@@ -4,6 +4,11 @@
     margin: -0.5rem -0.5rem -0.5rem !important;
 }
 
+#modalManager-backdrop{
+    background-color:#292827 ;
+}
+
+
 .buttonHire{
     margin: -0.5rem -0.5rem -0.5rem auto;
 }

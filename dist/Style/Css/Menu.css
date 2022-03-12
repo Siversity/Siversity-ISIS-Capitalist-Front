@@ -4,6 +4,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    justify-content: space-around !important;
   }
 
   .navbar div {
@@ -11,12 +12,18 @@
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
+    
   }
 
-  .navbar div:hover {
-    background-color: #ddd;
-    color: black;
-  }
+  .btn-primary{
+    background-color:orangered !important;
+    border-color: orange !important;
+    border-radius: 0% !important;
+}
+
+.btn-primary:hover{
+    background-color:yellow !important;
+    border-color: orange !important;
+}
+

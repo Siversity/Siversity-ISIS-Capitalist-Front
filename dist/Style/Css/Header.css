@@ -5,7 +5,7 @@
 #header{
     background-color: #363433;
     display: grid;
-    grid-template-columns: 25% 50% 20%;
+    grid-template-columns: 25% 50% 20% 5%;
     height: 60px;
     color: white;
     padding: 8px;
@@ -20,7 +20,6 @@
     text-align: center;
 }
 
-.userId{
-    padding: 5px;
-    text-align: center;
+.userRow{
+    justify-content:flex-end !important;
 }
