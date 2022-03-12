@@ -73,12 +73,12 @@ function listManagers(server: string, world: World) {
         //Partie Image et nom du managers
         let imageName = document.createElement("div");
         col.appendChild(imageName);
-        imageName.classList.add("col");//"col-4", "col-lg-2"
+        imageName.classList.add("col","imageSection");//"col-4", "col-lg-2"
 
         //Partie Image
         let image = document.createElement("div");
         imageName.appendChild(image);
-        image.classList.add("row", "imageManagers");
+        image.classList.add("row", "imageManagers","box");
 
         let imageManager = document.createElement("img");
         image.appendChild(imageManager);
@@ -90,28 +90,25 @@ function listManagers(server: string, world: World) {
         }
         
 
-        //Partie Nom et prix
-        let namePrice = document.createElement("div")
-        imageName.appendChild(namePrice);
-        namePrice.classList.add("row")
-
         //Partie Nom
         let nameManager = document.createElement("div");
-        namePrice.appendChild(nameManager);
-        nameManager.classList.add("col");
+        imageName.appendChild(nameManager);
+        nameManager.classList.add("col","nameManager");
         nameManager.innerText = pallier.name;
 
-        //Partie Prix
-        let priceManager = document.createElement("div");
-        namePrice.appendChild(priceManager);
-        priceManager.classList.add("col");
-        let cost = transform(pallier.seuil)
-        priceManager.innerHTML = cost;
 
         //Partie bouton d'embauche
         let hire = document.createElement("div");
         col.appendChild(hire);
-        hire.classList.add("col"); //"col-4", "col-lg-2"
+        hire.classList.add("col","hireSection"); //"col-4", "col-lg-2"
+
+        
+        //Partie Prix
+        let priceManager = document.createElement("div");
+        hire.appendChild(priceManager);
+        priceManager.classList.add("col");
+        let cost = transform(pallier.seuil)
+        priceManager.innerHTML = cost;
 
         let buttonHire = document.createElement("button");
         hire.appendChild(buttonHire);

@@ -126,10 +126,11 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     //Colonne 1 : Image
     let imgCol = document.createElement("div")
     container.appendChild(imgCol)
-    imgCol.classList.add("col")
+    imgCol.classList.add("col","box")
 
     let iconCashUp = document.createElement("img")
     imgCol.appendChild(iconCashUp)
+    iconCashUp.id="imgCashUp"+cashUp.name+cashUp.idcible
     iconCashUp.src = server + cashUp.logo
     iconCashUp.classList.add("imgCashUp")
     if (cashUp.unlocked == false) {
@@ -195,7 +196,9 @@ function buyCashUp(cashUp: Pallier, world: World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
     if ((cashUp.seuil <= world.money) && (cashUp.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
+        console.log(world.money)
         world.money -= cashUp.seuil;
+        console.log(world.money)
 
         //Il faut modifier la valeur du calculScore
         if (cashUp.idcible != 0) {
@@ -225,6 +228,7 @@ function buyCashUp(cashUp: Pallier, world: World) {
 
         // On affiche ensuite le nouveau solde
         document.getElementById("worldMoney").innerHTML = transform(world.money);
+
 
         //Changement du bouton Hire en acheté et disabled
         let button = document.getElementById(cashUp.name+cashUp.idcible);

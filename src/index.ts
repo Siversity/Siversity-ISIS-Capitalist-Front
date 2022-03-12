@@ -39,7 +39,7 @@ const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = serverLocal;
+export var serverUrl = serverHeroku;
 
 
 $(document).ready(function () {
