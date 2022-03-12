@@ -1,21 +1,24 @@
 
 .modal-header .btn-close {
+    color:white;
     padding: 0.5rem 0.5rem;
     margin: -0.5rem -0.5rem -0.5rem !important;
 }
 
 .modal-body{
-    background-color:#292827 !important;
+    /*background-color:#292827 !important;
     overflow:  hidden !important ;
-    color:white;
+    color:white;*/
+}
+
+.modal-header{
+    background-color: #292827;
+    color: white;
 }
 
 
 
 .buttonHire{
-    position: absolute;
-    right:    0;
-    bottom:   0;
     margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
@@ -39,6 +42,10 @@
     padding: 5px;
     width: 100px !important;
     height: 100px !important;
+}
+
+.modalCashUpBody{
+    overflow: hidden;
 }
 
 /*.modal-bg{
