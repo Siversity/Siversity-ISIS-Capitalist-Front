@@ -5,7 +5,6 @@ const listbutton: string[] = []
 
 export function displayCashUpgrades(server: string, world: World) {
     creationModal(server, world);
-    //creationBodyCash(server, world)
 
 }
 
@@ -53,7 +52,6 @@ function creationModal(server: string, world: World) {
     optAll.id = "optProduit" + -1
     optAll.value = "-1"
     optAll.text = "Tous les produits"
-    optAll.setAttribute("selected", "")
 
     $.each(world.products.product, function (index, product) {
 
@@ -69,7 +67,7 @@ function creationModal(server: string, world: World) {
     optGlob.id = "optProduit" + 0
     optGlob.value = "" + 0
     optGlob.text = "CashUp globaux"
-
+    optGlob.setAttribute("selected", "")
 
     //Titre de la fenêtre
     let t = document.createElement("h4");
@@ -88,6 +86,8 @@ function creationModal(server: string, world: World) {
         console.log(this.value)
         affichageCashUp(parseInt(this.value), server, world)
     });
+
+    affichageCashUp(0,server,world)
 }
 
 function affichageCashUp(id: number, server: string, world: World) {
@@ -178,6 +178,7 @@ function buyCashUp(cashUp: Pallier, world: World) {
 
         //Il faut modifier la valeur du calculScore
         console.log("Il faut modifier la valeur du calcul score après l'achat d'un CashUp")
+        cashUp.unlocked=true
 
         // On affiche ensuite le nouveau solde
         document.getElementById("worldMoney").innerHTML = transform(world.money);
@@ -216,24 +217,4 @@ export function buyableCashUp(world: World) {
     else {
         notifCashUp.innerText = cashUpDispo.toString();
     }
-}
-
-// Affichage dynamiquement si un manager est achetable
-function verifCashUp(world: World) {
-    // Pour chaque manager
-    $.each(world.upgrades.pallier, function (index, cashUp) {
-        // On récupère son bouton d'achat
-        let button = document.getElementById("buy" + cashUp.idcible);
-
-        // On vérifie que l'on a assez d'argent ou que le manager n'est pas déjà acheté
-        if ((cashUp.seuil > world.money) || (cashUp.unlocked == true)) {
-            // Si c'est le cas, on l'active
-            button.innerHTML = "Acheté";
-            button.setAttribute("disabled", "true");
-        }
-        else {
-            // Sinon on le désactive
-            button.removeAttribute("disabled");
-        }
-    })
 }

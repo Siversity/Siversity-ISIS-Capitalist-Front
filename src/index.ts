@@ -9,6 +9,7 @@ import { displayUnlocks } from "./Modals/Unlocks";
 import { buyableCashUp, displayCashUpgrades } from "./Modals/CashUpgrades";
 import { sendToServer } from "./RestCalls";
 import * as bootstrap from "bootstrap"
+import { displayAngel } from "./Modals/Angel";
 
 // Username
 export var username = localStorage.getItem("username");
@@ -66,6 +67,7 @@ $(document).ready(function () {
         displayManager(serverUrl, world);
         displayUnlocks(serverUrl, world);
         displayCashUpgrades(serverUrl, world);
+        displayAngel(serverUrl,world)
 
 
         // Affichage revenus

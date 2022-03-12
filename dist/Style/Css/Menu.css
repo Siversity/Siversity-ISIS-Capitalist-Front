@@ -19,7 +19,6 @@
   .btn-primary{
     background-color:orangered !important;
     border-color: orange !important;
-    border-radius: 0% !important;
 }
 
 .btn-primary:hover{
@@ -27,3 +26,8 @@
     border-color: orange !important;
 }
 
+.btn-Menu{
+  width: 150px;
+  height: 40px;
+  border-radius: 5%;
+}
