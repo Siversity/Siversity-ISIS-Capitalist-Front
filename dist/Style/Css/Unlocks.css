@@ -34,7 +34,7 @@
   background-color: grey;
 }
 
-#selectBarreUnlocks {
+.styleSelect {
   background-color: #ffffffe0;
   border-radius: 1em;
   border-color: #624129;

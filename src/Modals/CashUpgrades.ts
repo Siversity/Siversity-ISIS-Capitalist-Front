@@ -53,6 +53,7 @@ function creationModal(server: string, world: World) {
     let selectBarre = document.createElement("select")
     mh.appendChild(selectBarre)
     selectBarre.id = "selectBarreCashUp"
+    selectBarre.classList.add("styleSelect")
 
     let optAll = document.createElement("option")
     selectBarre.appendChild(optAll)
@@ -117,16 +118,23 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     let rowCashUp = document.createElement("div")
     let bodyCashUp = document.getElementById("modalCashUpBody")
     bodyCashUp.appendChild(rowCashUp)
-    bodyCashUp.classList.add("row")
 
     let container = document.createElement("div")
     bodyCashUp.appendChild(container)
-    container.classList.add("row", "row-cols-3")
+    container.classList.add("row", "border", "rounded")
+    if (cashUp.unlocked == true) {
+        container.classList.add("unlocked")
+    }
+
+    let imgContainer = document.createElement("div");
+    container.appendChild(imgContainer);
+    imgContainer.classList.add("col", "imgUnlock");
 
     //Colonne 1 : Image
     let imgCol = document.createElement("div")
-    container.appendChild(imgCol)
-    imgCol.classList.add("col","box")
+    imgContainer.appendChild(imgCol)
+    imgCol.classList.add("col")
+    
 
     let iconCashUp = document.createElement("img")
     imgCol.appendChild(iconCashUp)
@@ -140,24 +148,28 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     //Colonne 2 : Description ( Prix + Nom + Bonus )
     let secondCol = document.createElement("div")
     container.appendChild(secondCol)
-    secondCol.classList.add("row")
-
-    let priceCashUp = document.createElement("div")
-    secondCol.appendChild(priceCashUp)
-    priceCashUp.innerHTML = transform(cashUp.seuil) + "$"
+    secondCol.classList.add("col")
 
     let nameCashUp = document.createElement("div")
     secondCol.appendChild(nameCashUp)
+    nameCashUp.classList.add("upgradeTitle")
     nameCashUp.innerText = cashUp.name
 
+    let priceCashUp = document.createElement("div")
+    secondCol.appendChild(priceCashUp)
+    priceCashUp.classList.add("spanUpgrade")
+    priceCashUp.innerHTML = transform(cashUp.seuil)
+
+    
     let bonusCashUp = document.createElement("div")
     secondCol.appendChild(bonusCashUp)
-    bonusCashUp.innerText = cashUp.typeratio + " x" + cashUp.ratio
+    bonusCashUp.classList.add("spanUpgrade")
+    bonusCashUp.innerText = cashUp.typeratio + " : x" + cashUp.ratio
 
     //Colonne 3 : Bouton d'achat
     let butCol = document.createElement("div")
     container.appendChild(butCol)
-    butCol.classList.add("col")
+    butCol.classList.add("col", "btnUnlock")
 
     let buttonBuyCashUp = document.createElement("button")
     butCol.appendChild(buttonBuyCashUp)
@@ -234,6 +246,8 @@ function buyCashUp(cashUp: Pallier, world: World) {
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
+
+        document.getElementById("imgCashUp" + cashUp.name + cashUp.idcible).classList.remove("disabledUnlock")
 
         // sendToServer("upgrade", cashUp);
         let newRequest: ajaxRequest = { type: "upgrade", content: cashUp };

@@ -43,6 +43,7 @@ export function displayUnlocks(server: string, world: World) {
     let selectBarre = document.createElement("select")
     mh.appendChild(selectBarre)
     selectBarre.id = "selectBarreUnlocks"
+    selectBarre.classList.add("styleSelect")
 
     let optAll = document.createElement("option")
     selectBarre.appendChild(optAll)
