@@ -129,68 +129,6 @@ function listManagers(server: string, world: World) {
         $(buttonHire).click(function () {
             buyManager(manager, world);
         });
-        /*
-        let col = document.createElement("div");
-        grid.appendChild(col);
-        col.classList.add("row");
-        col.id = "manager" + pallier.idcible.toString();
-
-        //Partie Image et nom du managers
-        let imageName = document.createElement("div");
-        col.appendChild(imageName);
-        imageName.classList.add("col","imageSection");//"col-4", "col-lg-2"
-
-        //Partie Image
-        let image = document.createElement("div");
-        imageName.appendChild(image);
-        image.classList.add("row", "imageManagers","box");
-
-        let imageManager = document.createElement("img");
-        image.appendChild(imageManager);
-        imageManager.id = "imgMan" + pallier.idcible;
-        imageManager.src = server + pallier.logo;
-        imageManager.classList.add("img-fluid", "rounded")
-        if (pallier.unlocked == false) {
-            imageManager.classList.add("disabledManager");
-        }
-        
-
-        //Partie Nom
-        let nameManager = document.createElement("div");
-        imageName.appendChild(nameManager);
-        nameManager.classList.add("col","nameManager");
-        nameManager.innerText = pallier.name;
-
-
-        //Partie bouton d'embauche
-        let hire = document.createElement("div");
-        col.appendChild(hire);
-        hire.classList.add("col","hireSection"); //"col-4", "col-lg-2"
-
-        
-        //Partie Prix
-        let priceManager = document.createElement("div");
-        hire.appendChild(priceManager);
-        priceManager.classList.add("col","priceManager");
-        let cost = transform(pallier.seuil)
-
-        priceManager.innerHTML = cost + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
-
-        let buttonHire = document.createElement("button");
-        hire.appendChild(buttonHire);
-        buttonHire.id = "hire" + pallier.idcible;
-        buttonHire.classList.add("btn", "btn-primary", "buttonHire");
-        buttonHire.innerText = "Achete Moi !";
-        if (pallier.unlocked == true) {
-            buttonHire.innerText="Acheté"
-            buttonHire.setAttribute("disabled", "true");
-        }
-        else {
-            buttonHire.innerText="Achete moi !"
-        }
-        $(buttonHire).click(function () {
-            buyManager(pallier, world);
-        });*/
     });
 }
 
