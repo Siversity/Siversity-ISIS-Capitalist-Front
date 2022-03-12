@@ -20,7 +20,7 @@ export var username = localStorage.getItem("username");
 // Changement du pseudo
 export function setUsername(newUsername: string) {
     username = newUsername;
-    localStorage.setItem("username", "test");
+    localStorage.setItem("username", username);
 
     $.ajaxSetup({
         headers: { "X-user": username }

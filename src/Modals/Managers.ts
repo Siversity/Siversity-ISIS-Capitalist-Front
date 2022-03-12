@@ -82,9 +82,13 @@ function listManagers(server: string, world: World) {
 
         let imageManager = document.createElement("img");
         image.appendChild(imageManager);
-        imageManager.id = "img" + pallier.idcible;
+        imageManager.id = "imgMan" + pallier.idcible;
         imageManager.src = server + pallier.logo;
         imageManager.classList.add("img-fluid", "rounded")
+        if (pallier.unlocked == false) {
+            imageManager.classList.add("disabledManager");
+        }
+        
 
         //Partie Nom et prix
         let namePrice = document.createElement("div")
@@ -193,6 +197,11 @@ function buyManager(manager: Pallier, world: World) {
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
+
+        console.log("Unlocked" + " imgMan" + manager.idcible)
+
+        // Affichage en clair de l'image
+        document.getElementById("imgMan" + manager.idcible).classList.remove("disabledManager");
 
         displayToaster("success", "New manager hired !");
     }

@@ -44,6 +44,12 @@ export function displayUnlocks(server: string, world: World) {
     mh.appendChild(selectBarre)
     selectBarre.id = "selectBarreUnlocks"
 
+    let optAll = document.createElement("option")
+    selectBarre.appendChild(optAll)
+    optAll.id = "optProduit" + -1
+    optAll.value = "-1";
+    optAll.text = "Tous les produits"
+
     let optGlobal = document.createElement("option")
     selectBarre.appendChild(optGlobal)
     optGlobal.id = "optProduit" + 0
@@ -62,11 +68,7 @@ export function displayUnlocks(server: string, world: World) {
         opt.text = product.name
     })
 
-    let optAll = document.createElement("option")
-    selectBarre.appendChild(optAll)
-    optAll.id = "optProduit" + -1
-    optAll.value = "-1";
-    optAll.text = "Tous les produits"
+    
     
     //Titre de la fenêtre
     let t = document.createElement("h4");

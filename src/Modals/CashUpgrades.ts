@@ -60,8 +60,14 @@ function creationModal(server: string, world: World) {
     optAll.value = "-1"
     optAll.text = "Tous les produits"
 
-    $.each(world.products.product, function (index, product) {
+    let optGlob = document.createElement("option")
+    selectBarre.appendChild(optGlob)
+    optGlob.id = "optProduit" + 0
+    optGlob.value = "" + 0
+    optGlob.text = "CashUp globaux"
+    optGlob.setAttribute("selected", "")
 
+    $.each(world.products.product, function (index, product) {
         let opt = document.createElement("option")
         selectBarre.appendChild(opt)
         opt.id = "optProduit" + product.id
@@ -69,12 +75,7 @@ function creationModal(server: string, world: World) {
         opt.text = product.name
     })
 
-    let optGlob = document.createElement("option")
-    selectBarre.appendChild(optGlob)
-    optGlob.id = "optProduit" + 0
-    optGlob.value = "" + 0
-    optGlob.text = "CashUp globaux"
-    optGlob.setAttribute("selected", "")
+    
 
     //Titre de la fenêtre
     let t = document.createElement("h4");
@@ -131,6 +132,9 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     imgCol.appendChild(iconCashUp)
     iconCashUp.src = server + cashUp.logo
     iconCashUp.classList.add("imgCashUp")
+    if (cashUp.unlocked == false) {
+        iconCashUp.classList.add("disabledUnlock");
+    }
 
     //Colonne 2 : Description ( Prix + Nom + Bonus )
     let secondCol = document.createElement("div")
