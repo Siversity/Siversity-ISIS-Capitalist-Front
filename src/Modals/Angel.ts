@@ -139,7 +139,7 @@ function showAngelsUpgrades(server: string, world: World) {
         secondCol.appendChild(nameCashUp)
         nameCashUp.classList.add("upgradeTitle")
         nameCashUp.innerText = angelUp.name
-        nameCashUp.style.marginTop="10px"
+        nameCashUp.style.marginTop = "10px"
 
         let priceCashUp = document.createElement("div")
         secondCol.appendChild(priceCashUp)
@@ -154,7 +154,7 @@ function showAngelsUpgrades(server: string, world: World) {
         //Colonne 3 : Bouton d'achat
         let butCol = document.createElement("div")
         container.appendChild(butCol)
-        butCol.classList.add("col","colButtonAngel")
+        butCol.classList.add("col", "colButtonAngel")
 
         let buttonBuyCashUp = document.createElement("button")
         butCol.appendChild(buttonBuyCashUp)
@@ -165,7 +165,60 @@ function showAngelsUpgrades(server: string, world: World) {
 
 }
 
+/*
+function buyAngelUp(angel:Pallier,world:World) {
+    // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
+    if ((angel.seuil <= world.totalangels) && (angel.unlocked == false)) {
+        // Si c'est le cas, on soustrait son coût
+        world.money -= angel.seuil;
+
+        //Il faut modifier la valeur du calculScore
+        if (angel.idcible != 0) {
+            // On récupère le produit
+            //let product: Product = findProduct(world, angel.idcible);
+
+            // Dévérouiller l'unlock
+            //displayToaster("success", "New angel upgrade purchased !");
+            angel.unlocked = true;
+
+            //console.log(product.name + " has upgrade a x" + cashUp.ratio + " " + cashUp.typeratio);
+
+            // Appliquer les changements
+
+            //applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
+            //displayRevenu(product);
+        }
+        else if (angel.idcible == 0) {
+            //displayToaster("info", "New global upgrade purchased !");
+            angel.unlocked = true;
+            console.log("World has a global upgrade x" + angel.ratio + " " + angel.typeratio);
+            $.each(world.products.product, function (index, product) {
+                //applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
+                //displayRevenu(product);
+            })
+        }
+
+        // On affiche ensuite le nouveau solde
+        document.getElementById("worldMoney").innerHTML = transform(world.money);
 
 
+        //Changement du bouton Hire en acheté et disabled
+        let button = document.getElementById(angel.name + angel.idcible);
+        button.innerText = "Acheté"
+        button.classList.remove();
+        button.classList.add("btn", "btn-secondary");
+        button.setAttribute("disabled", "true");
+
+        document.getElementById("imgCashUp" + angel.name + angel.idcible).classList.remove("disabledUnlock")
+
+        // sendToServer("upgrade", cashUp);
+        let newRequest: ajaxRequest = { type: "upgrade", content: cashUp };
+        ajaxRequests.push(newRequest);
+    }
+    else {
+        console.log("Pas assez de sous")
+    }
+}
+*/
 
 

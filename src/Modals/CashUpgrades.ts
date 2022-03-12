@@ -57,8 +57,8 @@ function creationModal(server: string, world: World) {
 
     let optAll = document.createElement("option")
     selectBarre.appendChild(optAll)
-    optAll.id = "optProduit" + -1
-    optAll.value = "-1"
+    optAll.id = "optProduit" + -2
+    optAll.value = "-2"
     optAll.text = "Tous les produits"
 
     let optGlob = document.createElement("option")
@@ -75,6 +75,12 @@ function creationModal(server: string, world: World) {
         opt.value = "" + product.id
         opt.text = product.name
     })
+
+    let opt = document.createElement("option")
+    selectBarre.appendChild(opt)
+    opt.id = "optProduit" + -1
+    opt.value = "-1"
+    opt.text = "Angels"
 
     
 
@@ -107,7 +113,7 @@ function affichageCashUp(id: number, server: string, world: World) {
         if (cashUp.idcible == id) {
             selectCashUp(server, cashUp, world)
         }
-        else if (id == -1) {
+        else if (id == -2) {
             selectCashUp(server, cashUp, world)
         }
     })

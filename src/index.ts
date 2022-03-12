@@ -128,7 +128,7 @@ function calcScore(server: string, world: World) {
             // Si le nouveau temps restant est inférieur ou égal à 0
             if (product.timeleft <= 0) {
                 // On ajoute le revenu du produit
-                let revenu: number = product.revenu * product.quantite;
+                let revenu: number = product.revenu * product.quantite *( 1 + world.activeangels * world.angelbonus/100);
                 addScore(world, revenu);
 
                 // On réinitialise la progression de la production

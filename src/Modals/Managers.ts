@@ -82,7 +82,7 @@ function listManagers(server: string, world: World) {
         // Image (ligne)
         let managerImage = document.createElement("div");
         col.appendChild(managerImage);
-        managerImage.classList.add("row", "productImage");
+        managerImage.classList.add("row", "managerImage");
         let image = document.createElement("img");
         managerImage.appendChild(image);
         image.id = "imgMan" + manager.idcible;
