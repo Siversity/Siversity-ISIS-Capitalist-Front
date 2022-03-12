@@ -16,6 +16,10 @@
     color: rgb(245, 111, 22);
 }
 
+.buttonReset{
+    height: 50px;
+    text-align: right;
+}
 
 
 
@@ -25,8 +29,9 @@
 }*/
 
 .buttonHire{
-    width: 100px;
+    width: 120px;
     height: 40px;
+    border-width: 3px !important;
 }
 
 .imgDeviseManager{

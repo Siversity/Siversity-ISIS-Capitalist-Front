@@ -76,6 +76,7 @@ function showResetAngel(world: World) {
     let firstCol = document.createElement("div")
     container.appendChild(firstCol)
     firstCol.classList.add("col")
+    firstCol.style.textAlign="center"
 
     //Nbre total d'angel
     let angelNumber = document.createElement("span")
@@ -94,11 +95,12 @@ function showResetAngel(world: World) {
     let secondCol = document.createElement("div")
     container.appendChild(secondCol)
     secondCol.classList.add("col")
+    secondCol.style.textAlign="right"
 
     //Bouton reset partie
     let buttonReset = document.createElement("button")
     secondCol.appendChild(buttonReset)
-    buttonReset.classList.add("btn", "btn-primary", "buttonReset")
+    buttonReset.classList.add("btn", "btn-primary", "buttonReset","bccFont")
     let nbrAngels = 150 * Math.sqrt(world.score / Math.pow(10, 15)) - world.totalangels
     buttonReset.innerHTML = "Reset your account for: " +transform(nbrAngels) + " Angels"
 }
@@ -133,7 +135,7 @@ function showAngelsUpgrades(server: string, world: World) {
 
         let priceCashUp = document.createElement("div")
         secondCol.appendChild(priceCashUp)
-        priceCashUp.innerHTML = transform(angelUp.seuil) + "$"
+        priceCashUp.innerHTML = transform(angelUp.seuil) + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
 
         let nameCashUp = document.createElement("div")
         secondCol.appendChild(nameCashUp)

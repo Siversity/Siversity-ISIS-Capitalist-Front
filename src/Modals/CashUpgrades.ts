@@ -196,9 +196,7 @@ function buyCashUp(cashUp: Pallier, world: World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
     if ((cashUp.seuil <= world.money) && (cashUp.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
-        console.log(world.money)
         world.money -= cashUp.seuil;
-        console.log(world.money)
 
         //Il faut modifier la valeur du calculScore
         if (cashUp.idcible != 0) {
