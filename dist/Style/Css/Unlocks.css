@@ -2,3 +2,42 @@
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
   }
+
+  .imgUnlock{
+    padding: 5px;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.unlockTitle {
+  margin-top: 10px;
+  border-radius: 25%;
+  border: 1px solid orange;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  font-family: bccFont;
+}
+
+.spanUnlock {
+  background-color: orange;
+  border: 3px solid rgb(56, 44, 12);
+  border-radius: 3em;
+  margin-top: 2em;
+  text-align: center;
+  width: 100%;
+}
+
+.unlocked {
+  background-color: grey;
+}
+
+#selectBarreUnlocks {
+  background-color: #ffffffe0;
+  border-radius: 1em;
+  border-color: #624129;
+  text-align: center;
+  color: #973c05;
+}

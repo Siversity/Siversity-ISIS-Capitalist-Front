@@ -115,14 +115,21 @@ function affichage(server: String, unlock: Pallier) {
     let gridUnlock = document.getElementById("gridUnlock")
     let col = document.createElement("div");
     gridUnlock.appendChild(col);
-    col.classList.add("col");
-    col.id = "unlock" + unlock.idcible;
+    col.classList.add("col", "rounded", "border");
+    col.id = "unlock" + unlock.name + unlock.idcible;
+
+    let rowUnlock = document.createElement("div");
+    col.appendChild(rowUnlock);
+    rowUnlock.classList.add("row");
+    if (unlock.unlocked == true) {
+        rowUnlock.classList.add("unlocked");
+    }
 
     //division de la ligne en deux parties (Image+Description // Unlocked ou non)
     let colImageDesc = document.createElement("div")//Image Description
     let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
-    col.appendChild(colImageDesc)
-    col.appendChild(colUnlocked)
+    rowUnlock.appendChild(colImageDesc)
+    rowUnlock.appendChild(colUnlocked)
     colImageDesc.classList.add("col","box")
     colUnlocked.classList.add("col")
 
@@ -130,22 +137,25 @@ function affichage(server: String, unlock: Pallier) {
     let iconUnlock = document.createElement("img")
     colImageDesc.appendChild(iconUnlock)
     iconUnlock.src = server + unlock.logo
-    iconUnlock.classList.add("imgUnlock")
+    iconUnlock.classList.add("imgUnlock", "rounded-circle")
     if (unlock.unlocked == false) {
         iconUnlock.classList.add("disabledUnlock");
     }
 
-    let nomUnlock = document.createElement("h3")
+    let nomUnlock = document.createElement("div")
     colUnlocked.appendChild(nomUnlock)
     nomUnlock.innerText = unlock.name
+    nomUnlock.classList.add("unlockTitle")
 
-    let descrUnlock = document.createElement("span")
+    let descrUnlock = document.createElement("div")
     colUnlocked.appendChild(descrUnlock)
-    descrUnlock.innerText = "Augmentation de " + unlock.typeratio + " x" + unlock.ratio
+    descrUnlock.classList.add("spanUnlock");
+    descrUnlock.innerText = unlock.typeratio + " : x" + unlock.ratio
 
-    let seuilUnlock = document.createElement("span")
+    let seuilUnlock = document.createElement("div")
     colUnlocked.appendChild(seuilUnlock)
-    seuilUnlock.innerText = "  Seuil: " + unlock.seuil
+    seuilUnlock.classList.add("spanUnlock");
+    seuilUnlock.innerText = "SEUIL : " + unlock.seuil
 }
 
 
