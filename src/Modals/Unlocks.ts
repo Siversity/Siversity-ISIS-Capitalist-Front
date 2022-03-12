@@ -1,6 +1,8 @@
 import { findProduct } from "../index";
 import { World, Product, Pallier } from "../Classes/world";
 import {applyBonusProduct} from "../index";
+import { displayRevenu } from "../App/Products";
+import { displayToaster } from "../App/Toaster";
 
 
 // Affichage des unlocks
@@ -160,11 +162,13 @@ export function verifUnlock(world: World) {
                 // On vérifie que l'on a dépassé le seuil produit
                 if (product.quantite >= unlock.seuil) {
                     // Dévérouiller l'unlock
+                    displayToaster("info", "New unlock !");
                     unlock.unlocked = true;
                     
                     console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
 
                     // Appliquer les changements
+                    displayRevenu(product);
                     applyBonusProduct(product, unlock.ratio, unlock.typeratio);
                 }
             }
@@ -182,9 +186,11 @@ export function verifUnlock(world: World) {
 
                 // Si tous les produits valident les seuils, on applique le changement
                 if (status == true) {
+                    displayToaster("info", "New global unlock !");
                     unlock.unlocked = true;
                     console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
                     $.each(world.products.product, function(index, product) {
+                        displayRevenu(product);
                         applyBonusProduct(product, unlock.ratio, unlock.typeratio);
                     })
                 }

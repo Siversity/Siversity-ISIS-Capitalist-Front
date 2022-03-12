@@ -66,6 +66,9 @@ export function showProducts(server: string, world: World) {
         level.id = "qte" + product.id;
         level.classList.add("bccFont");
         level.innerHTML = product.quantite.toString();
+        level.setAttribute("data-bs-toggle", "tooltip");
+        level.setAttribute("data-bs-placement", "top");
+        level.setAttribute("title", "+" + (product.revenu * product.quantite).toString());
 
 
         // Container (ligne)
@@ -148,6 +151,8 @@ function addProduct(world: World, product: Product) {
         modifyProduct(world, product, max, cost);
     }
 
+    
+    displayRevenu(product);
     verifUnlock(world);
     console.log(product.vitesse);
     console.log(product.timeleft);
@@ -186,4 +191,11 @@ function modifyProduct(world: World, product: Product, quantity: number, cost: n
             imageProduct.classList.remove("disabledProduct");
         }
     }
+}
+
+
+
+export function displayRevenu(product: Product) {
+    document.getElementById("qte" + product.id).title = "+" + (product.revenu * product.quantite).toString()
+    document.getElementById("qte" + product.id).setAttribute("data-bs-original-title", "+" + (product.revenu * product.quantite).toString())
 }

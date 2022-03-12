@@ -6,9 +6,9 @@ import { addSelected, buyableProducts, showSideBar } from "./App/SideBar";
 import { displayMenu } from "./App/Menu";
 import { buyableManagers, displayManager, verifManagers } from "./Modals/Managers";
 import { displayUnlocks } from "./Modals/Unlocks";
-import { buyableCashUp, displayCashUpgrades} from "./Modals/CashUpgrades";
+import { buyableCashUp, displayCashUpgrades } from "./Modals/CashUpgrades";
 import { sendToServer } from "./RestCalls";
-
+import * as bootstrap from "bootstrap"
 
 // Username
 export var username = localStorage.getItem("username");
@@ -19,8 +19,8 @@ export function setUsername(newUsername: string) {
     localStorage.setItem("username", newUsername);
 
     $.ajaxSetup({
-        headers: {"X-user": username}
-        });
+        headers: { "X-user": username }
+    });
 }
 
 
@@ -39,6 +39,9 @@ export var serverUrl = serverTest;
 
 
 $(document).ready(function () {
+
+
+
     // Chargement du pseudo du joueur
     console.log(username);
     setUsername(username);
@@ -49,6 +52,8 @@ $(document).ready(function () {
         console.log(world)
         console.log("TIMELEFT = " + world.products.product[4].timeleft);
         fillLastUpdate(world);
+
+
 
         // Initialisation argent de base
         // world.money = 2000;
@@ -62,14 +67,22 @@ $(document).ready(function () {
         displayUnlocks(serverUrl, world);
         displayCashUpgrades(serverUrl, world);
 
+
+        // Affichage revenus
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl: any) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
         // Actions dynamiques
         setInterval(function () {
+
             // Calcul du score
             calcScore(serverUrl, world);
 
             // Vérification achats managers
             if (document.getElementById("modalManager").classList.contains("show")) {
-                verifManagers(world); 
+                verifManagers(world);
             }
 
             // Affichage achetables
@@ -144,7 +157,7 @@ export function matchId(manager: Pallier, world: World) {
         if (manager.idcible == product.id) {
             product.managerUnlocked = true;
             console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
-            
+
             sendToServer("manager", manager);
         }
     })
@@ -154,7 +167,7 @@ export function matchId(manager: Pallier, world: World) {
 // Retrouver un produit à partir d'un id
 export function findProduct(world: World, idProduct: number): Product {
     let p: Product = null;
-    $.each(world.products.product, function(index, product) {
+    $.each(world.products.product, function (index, product) {
         if (product.id.toString() == idProduct.toString()) {
             p = product
             return p;
@@ -167,11 +180,14 @@ export function findProduct(world: World, idProduct: number): Product {
 
 // Applique un bonus 
 export function applyBonusProduct(product: Product, ratio: number, type: string) {
-    switch(type) {
+    console.log(type)
+    switch (type) {
         case "VITESSE":
             product.vitesse = product.vitesse / ratio;
             product.timeleft = product.timeleft / ratio;
+            break;
         case "GAIN":
             product.revenu = product.revenu * ratio;
+            break
     }
 }

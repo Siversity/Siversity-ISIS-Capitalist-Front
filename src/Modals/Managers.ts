@@ -2,6 +2,7 @@ import { matchId } from "..";
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
 import { sendToServer } from "../RestCalls";
+import { displayToaster } from "../App/Toaster";
 
 
 // Affichage des managers
@@ -200,7 +201,7 @@ function buyManager(manager: Pallier, world: World) {
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
 
-        ;
+        displayToaster("success", "New manager hired !");
     }
 }
 
