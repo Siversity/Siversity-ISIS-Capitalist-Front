@@ -1,5 +1,10 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
+import { verifUnlock } from "./Unlocks";
+import { applyBonusProduct, findProduct } from "..";
+import { displayRevenu } from "../App/Products";
+import { displayToaster } from "../App/Toaster";
+import { sendToServer } from "../RestCalls";
 
 const listbutton: string[] = []
 
@@ -15,7 +20,7 @@ function creationModal(server: string, world: World) {
 
     $(m).on('hidden.bs.modal', function () {
         $('#selectBarreCashUp').val(0)
-        affichageCashUp(0,server,world)
+        affichageCashUp(0, server, world)
     });
 
 
@@ -153,6 +158,12 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     buttonBuyCashUp.id = "buy" + cashUp.idcible;
     buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
     buttonBuyCashUp.innerText = "Achete Moi !";
+    if (cashUp.unlocked == true) {
+        buttonBuyCashUp.innerText = "Acheté"
+        buttonBuyCashUp.classList.remove();
+        buttonBuyCashUp.classList.add("btn", "btn-secondary");
+        buttonBuyCashUp.setAttribute("disabled", "true");
+    }
 
 
     if (cashUp.seuil > world.money) {
@@ -171,13 +182,36 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
 // Achat d'un cashUpgrade
 function buyCashUp(cashUp: Pallier, world: World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
-    if (cashUp.seuil <= world.money) {
+    if ((cashUp.seuil <= world.money) && (cashUp.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
         world.money -= cashUp.seuil;
 
-
         //Il faut modifier la valeur du calculScore
         console.log("Il faut modifier la valeur du calcul score après l'achat d'un CashUp")
+        if (cashUp.idcible != 0) {
+            // On récupère le produit
+            let product: Product = findProduct(world, cashUp.idcible);
+
+            // Dévérouiller l'unlock
+            displayToaster("success", "New upgrade purchased !");
+            cashUp.unlocked = true;
+
+            console.log(product.name + " has upgrade a x" + cashUp.ratio + " " + cashUp.typeratio);
+
+            // Appliquer les changements
+
+            applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
+            displayRevenu(product);
+        }
+        else if (cashUp.idcible == 0) {
+            displayToaster("info", "New global upgrade purchased !");
+            cashUp.unlocked = true;
+            console.log("World has a global upgrade x" + cashUp.ratio + " " + cashUp.typeratio);
+            $.each(world.products.product, function (index, product) {
+                applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
+                displayRevenu(product);
+            })
+        }
 
         // On affiche ensuite le nouveau solde
         document.getElementById("worldMoney").innerHTML = transform(world.money);
@@ -188,6 +222,8 @@ function buyCashUp(cashUp: Pallier, world: World) {
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
+
+        sendToServer("upgrade", cashUp);
     }
     else {
         console.log("pas assez de sous")

@@ -12,7 +12,7 @@ export const lastUpdateList : number[] = [];
 
 
 export function fillLastUpdate(world: World) {
-    for (let i = 1; i < world.products.product.length; i++) {
+    for (let i = 1; i <= world.products.product.length; i++) {
         lastUpdateList[i] = Date.now();
     }
 }

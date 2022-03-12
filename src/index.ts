@@ -50,7 +50,7 @@ $(document).ready(function () {
     $.getJSON(serverUrl + "adventureisis/generic/world", function (world: World) {
         // Affichage du monde chargé
         console.log(world)
-        console.log("TIMELEFT = " + world.products.product[4].timeleft);
+        console.log("TIMELEFT = " + world.products.product[1].timeleft);
         fillLastUpdate(world);
 
 
@@ -112,9 +112,11 @@ function calcScore(server: string, world: World) {
 
             // On calcule le pourcentage de production restant et on actualise la bar de progression
             let pourcentage: number = product.timeleft / product.vitesse;
-            console.log(product.timeleft)
-            console.log(pourcentage);
             setProgressBar(product.id, pourcentage);
+            if (product.id == 2) {
+                // console.log(pourcentage);
+            }
+            
 
             // Si le nouveau temps restant est inférieur ou égal à 0
             if (product.timeleft <= 0) {

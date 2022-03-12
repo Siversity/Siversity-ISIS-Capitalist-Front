@@ -13,7 +13,7 @@ export function sendToServer(type: string, content: any) {
             }
         },
         error: function () {
-            // echec de la requête
+            console.log(content);
         }
     });
 }
