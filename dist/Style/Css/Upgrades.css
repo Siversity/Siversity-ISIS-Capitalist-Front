@@ -1,0 +1,29 @@
+.upgradeTitle {
+    margin-top: 10px;
+    border-radius: 25%;
+    border: 1px solid orange;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+    font-family: bccFont;
+  }
+
+
+  .spanUpgrade {
+    background-color: orange;
+    border: 3px solid rgb(56, 44, 12);
+    border-radius: 3em;
+    margin-top: 8px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .imgUnlock {
+      text-align: center;
+      vertical-align: middle;
+  }
+
+  .btnUnlock {
+    text-align: center;
+    margin-top: 40px !important;
+}
