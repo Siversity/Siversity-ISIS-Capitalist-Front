@@ -13,7 +13,7 @@ export function displayManager(server: string, world: World) {
     //Balise Modal Dialogue
     let md = document.createElement("div");
     m.appendChild(md);
-    md.classList.add("modal-dialog", "modal-lg");
+    md.classList.add("modal-dialog", "modal-xl");
     md.setAttribute("role", "document");
 
     //Balise Modal Content
@@ -29,7 +29,7 @@ export function displayManager(server: string, world: World) {
     //Bouton Fermer la fenêtre
     let b = document.createElement("button");
     mh.appendChild(b);
-    b.classList.add("btn-close","btn-close-white")
+    b.classList.add("btn-close", "btn-close-white")
     b.setAttribute("type", "button");
     b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");
@@ -58,14 +58,78 @@ function listManagers(server: string, world: World) {
     let body = document.getElementById("modalBody");
     let container = document.createElement("div");
     body.appendChild(container);
-    container.classList.add("container");
+    container.classList.add("row");
 
-    let grid = document.createElement("div");
+    /*let grid = document.createElement("div");
     container.appendChild(grid);
     grid.classList.add("row", "row-cols-2");
-    grid.style.justifyContent="space-between";
+    grid.style.justifyContent="space-between";*/
 
-    $.each(world.managers.pallier, function (index, pallier) {
+    $.each(world.managers.pallier, function (index, manager) {
+
+
+        let col = document.createElement("div");
+        container.appendChild(col);
+        col.id = "p" + manager.idcible
+        col.classList.add("col", "doubleBorderManager");
+
+        // Titre (ligne)
+        let managerTitle = document.createElement("div");
+        col.appendChild(managerTitle);
+        managerTitle.classList.add("row", "justify-content-center", "text-center", "bccFont");
+        managerTitle.innerHTML = manager.name;
+
+        // Image (ligne)
+        let managerImage = document.createElement("div");
+        col.appendChild(managerImage);
+        managerImage.classList.add("row", "productImage");
+        let image = document.createElement("img");
+        managerImage.appendChild(image);
+        image.id = "img" + manager.idcible;
+        image.classList.add("managerIcon")
+
+        // Si ce produit n'a pas été débloqué, on l'affiche en gris
+        if (manager.unlocked == false) {
+            image.classList.add("disabledProduct");
+        }
+        image.src = server + manager.logo
+
+        // Container (ligne)
+        let productContainer = document.createElement("div");
+        col.appendChild(productContainer);
+        productContainer.classList.add("row", "mt-3");
+
+        //Prix
+        let priceManager = document.createElement("div");
+        col.appendChild(priceManager);
+        priceManager.classList.add("col");
+        priceManager.style.textAlign="center"
+        let cost = transform(manager.seuil)
+
+        priceManager.innerHTML = cost + '<img class="imgDeviseManager" src="../../Style/Images/devise.png"/>';
+
+        //Partie bouton d'embauche
+        let hire = document.createElement("div");
+        col.appendChild(hire);
+        hire.classList.add("col", "hireSection"); //"col-4", "col-lg-2"
+        hire.style.textAlign="center"
+
+        let buttonHire = document.createElement("button");
+        hire.appendChild(buttonHire);
+        buttonHire.id = "hire" + manager.idcible;
+        buttonHire.classList.add("btn", "btn-primary", "buttonHire");
+        buttonHire.innerText = "Recruter";
+        if (manager.unlocked == true) {
+            buttonHire.innerText="Recruté"
+            buttonHire.setAttribute("disabled", "true");
+        }
+        else {
+            buttonHire.innerText="Recruter"
+        }
+        $(buttonHire).click(function () {
+            buyManager(manager, world);
+        });
+        /*
         let col = document.createElement("div");
         grid.appendChild(col);
         col.classList.add("row");
@@ -126,7 +190,7 @@ function listManagers(server: string, world: World) {
         }
         $(buttonHire).click(function () {
             buyManager(pallier, world);
-        });
+        });*/
     });
 }
 
@@ -164,7 +228,7 @@ export function buyableManagers(world: World) {
             managerDispo++;
         };
     })
-    
+
     // S'il n'y a aucun manager achetable, on affiche rien
     if (managerDispo == 0) {
         notifManager.innerText = null;
@@ -192,7 +256,7 @@ function buyManager(manager: Pallier, world: World) {
 
         // Changement du bouton Hire en acheté et disabled
         let button = document.getElementById("hire" + manager.idcible);
-        button.innerText = "Acheté"
+        button.innerText = "Recruté"
         button.classList.remove();
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
@@ -206,13 +270,13 @@ function buyManager(manager: Pallier, world: World) {
     }
 }
 
-function getImage(id:number,world:World){
-$.each(world.products.product, function(index,produit){
-    let src=""
-    if(produit.id==id){
-        src=produit.logo
-        console.log("Source image:"+produit.logo)
-        return src;
-    }
-})
+function getImage(id: number, world: World) {
+    $.each(world.products.product, function (index, produit) {
+        let src = ""
+        if (produit.id == id) {
+            src = produit.logo
+            console.log("Source image:" + produit.logo)
+            return src;
+        }
+    })
 }
