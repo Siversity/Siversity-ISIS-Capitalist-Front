@@ -62,7 +62,8 @@ function listManagers(server: string, world: World) {
 
     let grid = document.createElement("div");
     container.appendChild(grid);
-    grid.classList.add("row", "row-cols-2");//"row", "row-cols-2"
+    grid.classList.add("row", "row-cols-2");
+    grid.style.justifyContent="space-between";
 
     $.each(world.managers.pallier, function (index, pallier) {
         let col = document.createElement("div");
@@ -106,7 +107,7 @@ function listManagers(server: string, world: World) {
         //Partie Prix
         let priceManager = document.createElement("div");
         hire.appendChild(priceManager);
-        priceManager.classList.add("col");
+        priceManager.classList.add("col","priceManager");
         let cost = transform(pallier.seuil)
         priceManager.innerHTML = cost;
 
