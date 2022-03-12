@@ -17,7 +17,7 @@ export function displayMenu(world: World) {
     //Bouton Unlocks
     let buttonUnlock = document.createElement("button")
     unlocks.appendChild(buttonUnlock);
-    buttonUnlock.classList.add("btn", "btn-primary","btn-Menu")
+    buttonUnlock.classList.add("btn","btn-Menu", "bccFont")
     buttonUnlock.setAttribute("data-bs-toggle", "modal")
     buttonUnlock.setAttribute("data-bs-target", "#modalUnlock")
     buttonUnlock.innerText = "Unlocks ";
@@ -31,7 +31,7 @@ export function displayMenu(world: World) {
     //Bouton Upgrades
     let buttonCashUp = document.createElement("button")
     cash.appendChild(buttonCashUp);
-    buttonCashUp.classList.add("btn", "btn-primary","btn-Menu")
+    buttonCashUp.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonCashUp.setAttribute("data-bs-toggle", "modal")
     buttonCashUp.setAttribute("data-bs-target", "#modalCashUp")
     buttonCashUp.innerText = "CashUpgrades ";
@@ -50,7 +50,7 @@ export function displayMenu(world: World) {
 
     let buttonAngel = document.createElement("button")
     angels.appendChild(buttonAngel);
-    buttonAngel.classList.add("btn", "btn-primary","btn-Menu")
+    buttonAngel.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonAngel.setAttribute("data-bs-toggle", "modal")
     buttonAngel.setAttribute("data-bs-target", "#modalAngel")
     buttonAngel.innerText = "Angels ";
@@ -63,7 +63,7 @@ export function displayMenu(world: World) {
     //Bouton Manager
     let buttonManager = document.createElement("button")
     managers.appendChild(buttonManager);
-    buttonManager.classList.add("btn", "btn-primary","btn-Menu")
+    buttonManager.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonManager.setAttribute("data-bs-toggle", "modal")
     buttonManager.setAttribute("data-bs-target", "#modalManager")
     buttonManager.innerText = "Managers ";
