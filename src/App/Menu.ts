@@ -20,7 +20,7 @@ export function displayMenu(world: World) {
     buttonUnlock.classList.add("btn","btn-Menu", "bccFont")
     buttonUnlock.setAttribute("data-bs-toggle", "modal")
     buttonUnlock.setAttribute("data-bs-target", "#modalUnlock")
-    buttonUnlock.innerText = "Unlocks ";
+    buttonUnlock.innerText = "Unlocks";
 
 
     //création cash upgrades
@@ -34,13 +34,13 @@ export function displayMenu(world: World) {
     buttonCashUp.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonCashUp.setAttribute("data-bs-toggle", "modal")
     buttonCashUp.setAttribute("data-bs-target", "#modalCashUp")
-    buttonCashUp.innerText = "CashUpgrades ";
+    buttonCashUp.innerText = "Upgrades  ";
 
     //Création badge
     let badgeCashUp = document.createElement("span");
     buttonCashUp.appendChild(badgeCashUp);
     badgeCashUp.id = "badgeCashUp"
-    badgeCashUp.classList.add("badge", "bg-secondary");
+    badgeCashUp.classList.add("badge", "bg-secondary", "bsFont");
 
 
     //Création angels upgrades
@@ -53,7 +53,7 @@ export function displayMenu(world: World) {
     buttonAngel.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonAngel.setAttribute("data-bs-toggle", "modal")
     buttonAngel.setAttribute("data-bs-target", "#modalAngel")
-    buttonAngel.innerText = "Angels ";
+    buttonAngel.innerText = "Angels";
 
     //Création managers
     let managers = document.createElement("div");
@@ -66,12 +66,12 @@ export function displayMenu(world: World) {
     buttonManager.classList.add("btn", "btn-primary","btn-Menu", "bccFont")
     buttonManager.setAttribute("data-bs-toggle", "modal")
     buttonManager.setAttribute("data-bs-target", "#modalManager")
-    buttonManager.innerText = "Managers ";
+    buttonManager.innerText = "Managers  ";
 
     //Création badge
     let badgeManager = document.createElement("span");
     buttonManager.appendChild(badgeManager);
     badgeManager.id = "badgeManager"
-    badgeManager.classList.add("badge", "bg-secondary");
+    badgeManager.classList.add("badge", "bg-secondary", "bsFont");
 
 }

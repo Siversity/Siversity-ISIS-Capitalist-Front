@@ -55,7 +55,7 @@ function creationModal(server: string, world: World) {
     mh.appendChild(t);
     t.classList.add("modal-title");
     t.setAttribute("id", "myModalLabel");
-    t.innerText = "Les Angels";
+    t.innerText = "Muzan";
 
     //Création Body
     let bodyM = document.createElement("div");
@@ -125,8 +125,9 @@ function showAngelsUpgrades(server: string, world: World) {
 
         let iconCashUp = document.createElement("img")
         imgCol.appendChild(iconCashUp)
-        iconCashUp.src = server + angelUp.logo
         iconCashUp.classList.add("imgCashUp")
+        console.log("ANGEL : " + angelUp.logo)
+        iconCashUp.src = server + angelUp.logo
 
         //Colonne 2 : Description ( Prix + Nom + Bonus )
         let secondCol = document.createElement("div")

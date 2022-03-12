@@ -36,7 +36,7 @@ export function showProducts(server: string, world: World) {
         // Titre (ligne)
         let productTitle = document.createElement("div");
         col.appendChild(productTitle);
-        productTitle.classList.add("row", "justify-content-center", "bccFont");
+        productTitle.classList.add("row", "justify-content-center", "bsFont");
         productTitle.innerHTML = product.name;
 
         // Image (ligne)
@@ -67,7 +67,7 @@ export function showProducts(server: string, world: World) {
         let level = document.createElement("span");
         productQte.appendChild(level);
         level.id = "qte" + product.id;
-        level.classList.add("bccFont");
+        level.classList.add("bsFont");
         level.innerHTML = product.quantite.toString();
         level.setAttribute("data-bs-toggle", "tooltip");
         level.setAttribute("data-bs-placement", "top");
@@ -87,7 +87,7 @@ export function showProducts(server: string, world: World) {
         productAdd.appendChild(productButton);
         productButton.id = "add" + product.id
         productButton.type = "button";
-        productButton.classList.add("addProduct", "align-middle");
+        productButton.classList.add("addProduct", "align-middle", "bsFont");
         $(productButton).click(function () {
             addProduct(world, product);
         });

@@ -83,7 +83,7 @@ function creationModal(server: string, world: World) {
     mh.appendChild(t);
     t.classList.add("modal-title");
     t.setAttribute("id", "myModalLabel");
-    t.innerText = "Les CashUpgrades";
+    t.innerText = "Upgrades";
 
     //Création Body
     let bodyM = document.createElement("div");

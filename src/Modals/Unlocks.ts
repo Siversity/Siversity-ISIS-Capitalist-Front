@@ -76,7 +76,7 @@ export function displayUnlocks(server: string, world: World) {
     mh.appendChild(t);
     t.classList.add("modal-title");
     t.setAttribute("id", "myModalLabel");
-    t.innerText = "Les Unlocks";
+    t.innerText = "Unlocks";
 
     //Création Body
     let bodyM = document.createElement("div");
