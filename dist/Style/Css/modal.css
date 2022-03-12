@@ -91,3 +91,27 @@
     bottom: 0.2em;
     pointer-events: none;
   }
+
+.colButtonAngel{
+    position: relative;
+}
+
+  .buttonBuyAngel{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left:35%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .angelNumber{
+    position: absolute;
+    left: 50%;
+  }
+
+  .textAngel{
+    position: absolute;
+    top:50%;
+    left: 50%;
+  }

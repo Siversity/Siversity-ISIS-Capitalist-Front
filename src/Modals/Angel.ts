@@ -76,17 +76,17 @@ function showResetAngel(world: World) {
     let firstCol = document.createElement("div")
     container.appendChild(firstCol)
     firstCol.classList.add("col")
-    firstCol.style.textAlign = "center"
+    firstCol.style.position = "relative"
 
     //Nbre total d'angel
-    let angelNumber = document.createElement("span")
+    let angelNumber = document.createElement("div")
     firstCol.appendChild(angelNumber)
     angelNumber.id = "angelNumber"
-    angelNumber.classList.add("angelNumber", "row", "textAngel")
+    angelNumber.classList.add("angelNumber", "row")
     angelNumber.innerHTML = transform(world.totalangels) + " Totals angels"
 
     //Description
-    let angelDesc = document.createElement("span")
+    let angelDesc = document.createElement("div")
     firstCol.appendChild(angelDesc)
     angelDesc.classList.add("row", "textAngel")
     angelDesc.innerText = "2% Bonus per Angels"
@@ -153,12 +153,12 @@ function showAngelsUpgrades(server: string, world: World) {
         //Colonne 3 : Bouton d'achat
         let butCol = document.createElement("div")
         container.appendChild(butCol)
-        butCol.classList.add("col")
+        butCol.classList.add("col","colButtonAngel")
 
         let buttonBuyCashUp = document.createElement("button")
         butCol.appendChild(buttonBuyCashUp)
         buttonBuyCashUp.id = "buy" + angelUp.idcible;
-        buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
+        buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyAngel");
         buttonBuyCashUp.innerText = "Achete Moi !";
     })
 
