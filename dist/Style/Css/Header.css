@@ -31,3 +31,7 @@
     justify-content:flex-end !important;
     align-items: center;
 }
+
+#worldName {
+    -webkit-text-fill-color: #000000;
+}

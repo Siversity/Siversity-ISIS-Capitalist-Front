@@ -87,6 +87,7 @@ button.toast-close-button {
 .toast-bottom-left {
   bottom: 80px;
   left: 12px;
+  font-size: large;
 }
 #toast-container {
   position: fixed;

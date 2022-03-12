@@ -37,6 +37,8 @@
   height: 40px;
   border-radius: 5%;
   font-family: bccFont;
+  font-size: large !important;
+  font-weight: bold !important;
  
 }
 

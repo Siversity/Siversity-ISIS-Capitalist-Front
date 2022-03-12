@@ -20,6 +20,7 @@ export function displayHeader(server: string, world: World) {
     //Nom
     let name = document.createElement("span");
     monde.appendChild(name);
+    name.id = "worldName";
     name.classList.add("name");
     name.innerHTML = " " + world.name;
 
@@ -98,7 +99,7 @@ export function transform(valeur: number): string {
         res = valeur.toFixed(0);
     else if (valeur >= 1000000) {
         res = valeur.toPrecision(4);
-        res = res.replace(/e\+(.*)/, " 10<sup class='bccFontBis'>$1</sup>");
+        res = res.replace(/e\+(.*)/, " 10<sup>$1</sup>");
     }
     return res;
 }
