@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #333;
+    background-color: #363433;
     overflow: hidden;
     position: fixed;
     bottom: 0;
@@ -26,10 +26,17 @@
     border-color: rgb(250, 126, 44) !important;
 }
 
+
+@font-face {
+  font-family: bccFont;
+  src: url(../../Style/Fonts/bcc-font.woff);
+}
+
 .btn-Menu{
   width: 170px;
   height: 40px;
   border-radius: 5%;
+  font-family: bccFont;
  
 }
 

@@ -6,12 +6,16 @@
 
 .modal-body{
     background-color:#292827 !important;
+    overflow:  hidden !important ;
     color:white;
 }
 
 
 
 .buttonHire{
+    position: absolute;
+    right:    0;
+    bottom:   0;
     margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
