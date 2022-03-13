@@ -1,5 +1,10 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
+import { displayToaster } from "../App/Toaster";
+import type { ajaxRequest } from "../RestCalls";
+import { ajaxRequests } from "../RestCalls";
+import { displayRevenu } from "../App/Products";
+import { applyBonusProduct, findProduct } from "..";
 
 export function displayAngel(server: string, world: World) {
     creationModal(server, world)
@@ -102,7 +107,7 @@ function showResetAngel(world: World) {
     secondCol.appendChild(buttonReset)
     buttonReset.classList.add("btn", "btn-primary", "buttonReset", "bccFont")
     let nbrAngels = 150 * Math.sqrt(world.score / Math.pow(10, 10)) - world.totalangels
-    buttonReset.innerHTML = "Reset your account for: " + transform(nbrAngels) + " Angels"
+    buttonReset.innerHTML = "Reset your account for: " + transform(nbrAngels) + '<img class="imgDeviseManager" src="../../Style/Images/deviseAngel.png"/>'
 }
 
 
@@ -113,21 +118,28 @@ function showAngelsUpgrades(server: string, world: World) {
     body.appendChild(hr)
     hr.classList.add("my-4")
 
-    let container = document.createElement("div")
-    body.appendChild(container)
-    container.classList.add("row", "row-cols-3", "border", "rounded")
+
 
     $.each(world.angelupgrades.pallier, function (index, angelUp) {
+        let container = document.createElement("div")
+        body.appendChild(container)
+        container.classList.add("row", "row-cols-3", "border", "rounded")
+
         //Colonne 1 : Image
         let imgCol = document.createElement("div")
         container.appendChild(imgCol)
         imgCol.classList.add("col")
 
-        let iconCashUp = document.createElement("img")
-        imgCol.appendChild(iconCashUp)
-        iconCashUp.classList.add("imgCashUp")
+        let iconAngelUp = document.createElement("img")
+        imgCol.appendChild(iconAngelUp)
+        iconAngelUp.classList.add("imgCashUp")
+        iconAngelUp.id="iconAngelUp"+angelUp.name+angelUp.idcible
         console.log("ANGEL : " + angelUp.logo)
-        iconCashUp.src = server + angelUp.logo
+        iconAngelUp.src = server + angelUp.logo
+
+        if (angelUp.unlocked == false) {
+            iconAngelUp.classList.add("disabledUnlock");
+        }
 
         //Colonne 2 : Description ( Prix + Nom + Bonus )
         let secondCol = document.createElement("div")
@@ -156,16 +168,35 @@ function showAngelsUpgrades(server: string, world: World) {
         container.appendChild(butCol)
         butCol.classList.add("col", "colButtonAngel")
 
-        let buttonBuyCashUp = document.createElement("button")
-        butCol.appendChild(buttonBuyCashUp)
-        buttonBuyCashUp.id = "buy" + angelUp.idcible;
-        buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyAngel");
-        buttonBuyCashUp.innerText = "Achete Moi !";
+        let buttonBuyAngelUp = document.createElement("button")
+        butCol.appendChild(buttonBuyAngelUp)
+        buttonBuyAngelUp.id = angelUp.name + angelUp.idcible;
+        buttonBuyAngelUp.classList.add("btn", "btn-primary", "buttonBuyAngel");
+        buttonBuyAngelUp.innerText = "Achete Moi !";
+        if (angelUp.unlocked == true) {
+            buttonBuyAngelUp.innerText = "Acheté"
+            buttonBuyAngelUp.classList.remove();
+            buttonBuyAngelUp.classList.add("btn", "btn-secondary");
+            buttonBuyAngelUp.setAttribute("disabled", "true");
+        }
+
+        if (angelUp.seuil > world.money || angelUp.unlocked==true) {
+            buttonBuyAngelUp.setAttribute("disabled", "true")
+        }
+        else {
+            buttonBuyAngelUp.removeAttribute("disabled")
+        }
+    
+    
+        $(buttonBuyAngelUp).click(function () {
+            buyAngelUp( angelUp, world)
+        });
+
     })
 
 }
 
-/*
+/**/
 function buyAngelUp(angel:Pallier,world:World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
     if ((angel.seuil <= world.totalangels) && (angel.unlocked == false)) {
@@ -173,33 +204,36 @@ function buyAngelUp(angel:Pallier,world:World) {
         world.money -= angel.seuil;
 
         //Il faut modifier la valeur du calculScore
-        if (angel.idcible != 0) {
+        if (angel.idcible > 0) {
             // On récupère le produit
-            //let product: Product = findProduct(world, angel.idcible);
+            let product: Product = findProduct(world, angel.idcible);
 
             // Dévérouiller l'unlock
-            //displayToaster("success", "New angel upgrade purchased !");
+            displayToaster("success", "New angel upgrade purchased !");
             angel.unlocked = true;
 
-            //console.log(product.name + " has upgrade a x" + cashUp.ratio + " " + cashUp.typeratio);
+            console.log(product.name + " has upgrade a x" + angel.ratio + " " + angel.typeratio);
 
             // Appliquer les changements
-
-            //applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
-            //displayRevenu(product);
+            applyBonusProduct(product, angel.ratio, angel.typeratio);
+            displayRevenu(product);
         }
         else if (angel.idcible == 0) {
-            //displayToaster("info", "New global upgrade purchased !");
+            displayToaster("info", "New global angel upgrade purchased !");
             angel.unlocked = true;
-            console.log("World has a global upgrade x" + angel.ratio + " " + angel.typeratio);
+            console.log("World has a global angel upgrade x" + angel.ratio + " " + angel.typeratio);
             $.each(world.products.product, function (index, product) {
-                //applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
-                //displayRevenu(product);
+                applyBonusProduct(product, angel.ratio, angel.typeratio);
+                displayRevenu(product);
             })
+        }
+        else if(angel.idcible == -1){
+            //Bonus angel
+
         }
 
         // On affiche ensuite le nouveau solde
-        document.getElementById("worldMoney").innerHTML = transform(world.money);
+        document.getElementById("angelNumber").innerHTML = transform(world.activeangels);
 
 
         //Changement du bouton Hire en acheté et disabled
@@ -209,16 +243,16 @@ function buyAngelUp(angel:Pallier,world:World) {
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
 
-        document.getElementById("imgCashUp" + angel.name + angel.idcible).classList.remove("disabledUnlock")
+        document.getElementById("iconAngelUp" + angel.name + angel.idcible).classList.remove("disabledUnlock")
 
         // sendToServer("upgrade", cashUp);
-        let newRequest: ajaxRequest = { type: "upgrade", content: cashUp };
-        ajaxRequests.push(newRequest);
+        //let newRequest: ajaxRequest = { type: "upgrade", content: angel };
+        //ajaxRequests.push(newRequest);
     }
     else {
         console.log("Pas assez de sous")
     }
 }
-*/
+
 
 

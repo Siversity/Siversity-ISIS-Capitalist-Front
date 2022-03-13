@@ -197,12 +197,6 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
         buttonBuyCashUp.removeAttribute("disabled")
     }
 
-    if(cashUp.unlocked==true){
-        buttonBuyCashUp.innerText="Acheté"
-    }
-    else {
-        buttonBuyCashUp.innerText="Achete moi"
-    }
 
     $(buttonBuyCashUp).click(function () {
         buyCashUp(cashUp, world)
