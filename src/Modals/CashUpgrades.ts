@@ -181,7 +181,7 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
     butCol.appendChild(buttonBuyCashUp)
     buttonBuyCashUp.id = cashUp.name+cashUp.idcible;
     buttonBuyCashUp.classList.add("btn", "btn-primary", "buttonBuyCashUp");
-    buttonBuyCashUp.innerText = "Achete Moi !";
+    buttonBuyCashUp.innerText = "Acheter";
     if (cashUp.unlocked == true) {
         buttonBuyCashUp.innerText = "Acheté"
         buttonBuyCashUp.classList.remove();
