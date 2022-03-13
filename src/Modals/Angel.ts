@@ -4,7 +4,12 @@ import { displayToaster } from "../App/Toaster";
 import type { ajaxRequest } from "../RestCalls";
 import { ajaxRequests } from "../RestCalls";
 import { displayRevenu } from "../App/Products";
+<<<<<<< HEAD
 import { applyBonusProduct, applyBonusWorld, findProduct } from "..";
+=======
+import { applyBonusProduct, findProduct } from "..";
+import { resetWorld } from "../RestCalls";
+>>>>>>> af7be7eb4bf3f3c98fce6e1483510de7c7bf72e8
 
 export function displayAngel(server: string, world: World) {
     creationModal(server, world)
@@ -106,11 +111,19 @@ function showResetAngel(server:string,world: World) {
     let buttonReset = document.createElement("button")
     secondCol.appendChild(buttonReset)
     buttonReset.classList.add("btn", "btn-primary", "buttonReset", "bccFont")
+<<<<<<< HEAD
     let nbrAngels =( 150 * Math.sqrt(world.score / Math.pow(10, 15))) - world.totalangels
     buttonReset.innerHTML = "Reset your account for: " + transform(nbrAngels) + '<img class="imgDeviseManager" src="../../Style/Images/deviseAngel.png"/>'
 
     $(buttonReset).click(function(){
         resetWorld(server)
+=======
+    let nbrAngels = (150 * Math.sqrt(world.score / Math.pow(10, 15))) - world.totalangels
+    console.log("NBRANGELS " + nbrAngels);
+    buttonReset.innerHTML = "Reset your account in exchange of " + transform(nbrAngels) + '<img class="imgDeviseManager" src="../../Style/Images/deviseAngel.png"/>'
+    $(buttonReset).click(function() {
+        resetWorld();
+>>>>>>> af7be7eb4bf3f3c98fce6e1483510de7c7bf72e8
     })
 }
 
@@ -252,9 +265,9 @@ function buyAngelUp(angel:Pallier,world:World) {
 
         document.getElementById("iconAngelUp" + angel.name + angel.idcible).classList.remove("disabledUnlock")
 
-        // sendToServer("upgrade", cashUp);
-        //let newRequest: ajaxRequest = { type: "upgrade", content: angel };
-        //ajaxRequests.push(newRequest);
+        // sendToServer("angelupgrade", angel);
+        let newRequest: ajaxRequest = { type: "angelupgrade", content: angel };
+        ajaxRequests.push(newRequest);
     }
     else {
         console.log("Pas assez de sous")

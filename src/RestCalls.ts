@@ -23,12 +23,9 @@ export function nextAjaxCall() {
 }
 
 
-
-
-
 // Envoi au serveur
 export function sendToServer({ type, content }: ajaxRequest) {
-    
+
     $.ajax(serverUrl + "adventureisis/generic/" + type, {
         type: "PUT",
         contentType: "application/json",
@@ -42,4 +39,20 @@ export function sendToServer({ type, content }: ajaxRequest) {
             console.log(content);
         }
     });
+}
+
+
+// Reset world
+export function resetWorld() {
+    $.ajax(serverUrl + "adventureisis/generic/world", {
+        type: "DELETE",
+        statusCode: {
+            304: function () {
+                console.log("Echec du reset");
+            }
+        },
+        error: function () {
+            console.log("Echec de la requete");
+        }
+    }).done(function () { location.reload(); });
 }
