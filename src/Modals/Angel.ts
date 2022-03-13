@@ -221,7 +221,7 @@ function buyAngelUp(angel:Pallier,world:World) {
 
             // Appliquer les changements
             applyBonusProduct(product, angel.ratio, angel.typeratio);
-            displayRevenu(product);
+            displayRevenu(world, product);
         }
         else if (angel.idcible == 0) {
             displayToaster("info", "New global angel upgrade purchased !");
@@ -229,7 +229,7 @@ function buyAngelUp(angel:Pallier,world:World) {
             console.log("World has a global angel upgrade x" + angel.ratio + " " + angel.typeratio);
             $.each(world.products.product, function (index, product) {
                 applyBonusProduct(product, angel.ratio, angel.typeratio);
-                displayRevenu(product);
+                displayRevenu(world, product);
             })
         }
         else if(angel.idcible == -1){

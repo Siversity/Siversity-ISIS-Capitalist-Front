@@ -224,14 +224,14 @@ function buyCashUp(cashUp: Pallier, world: World) {
             // Appliquer les changements
 
             applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
-            displayRevenu(product);
+            displayRevenu(world, product);
         }
         else if ((cashUp.idcible == 0) && (cashUp.typeratio != "ANGE")) {
             displayToaster("info", "New global upgrade purchased !");
             console.log("World has a global upgrade x" + cashUp.ratio + " " + cashUp.typeratio);
             $.each(world.products.product, function (index, product) {
                 applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
-                displayRevenu(product);
+                displayRevenu(world, product);
             })
         }
         else if ((cashUp.idcible == -1) && (cashUp.typeratio == "ANGE")) {

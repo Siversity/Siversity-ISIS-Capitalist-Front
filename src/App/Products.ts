@@ -160,7 +160,7 @@ function addProduct(world: World, product: Product) {
     }
 
 
-    displayRevenu(product);
+    displayRevenu(world, product);
     verifUnlock(world);
 
     // On envoie les données au serveur
@@ -205,7 +205,7 @@ function modifyProduct(world: World, product: Product, quantity: number, cost: n
 
 
 
-export function displayRevenu(product: Product) {
-    document.getElementById("qte" + product.id).title = "+" + (product.revenu * product.quantite).toString()
-    document.getElementById("qte" + product.id).setAttribute("data-bs-original-title", "+" + (product.revenu * product.quantite).toString())
+export function displayRevenu(world: World, product: Product) {
+    document.getElementById("qte" + product.id).title = "+" + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100)).toString()
+    document.getElementById("qte" + product.id).setAttribute("data-bs-original-title", "+" + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100)).toString())
 }

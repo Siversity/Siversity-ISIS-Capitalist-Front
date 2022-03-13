@@ -184,7 +184,7 @@ export function verifUnlock(world: World) {
                     if (unlock.typeratio != "ANGE") {
                         displayToaster("info", "New unlock !");
                         applyBonusProduct(product, unlock.ratio, unlock.typeratio);
-                        displayRevenu(product);
+                        displayRevenu(world, product);
                     }
                     else {
                         displayToaster("info", "New angel unlock !");
@@ -215,7 +215,7 @@ export function verifUnlock(world: World) {
                         displayToaster("info", "New global unlock !");
                         $.each(world.products.product, function (index, product) {
                             applyBonusProduct(product, unlock.ratio, unlock.typeratio);
-                            displayRevenu(product);
+                            displayRevenu(world, product);
                         })
                     }
                     else if (unlock.typeratio == "ANGE") {
