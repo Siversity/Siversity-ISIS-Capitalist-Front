@@ -163,7 +163,7 @@ function showAngelsUpgrades(server: string, world: World) {
         butCol.appendChild(buttonBuyAngelUp)
         buttonBuyAngelUp.id = angelUp.name + angelUp.idcible;
         buttonBuyAngelUp.classList.add("btn", "btn-primary", "buttonBuyAngel");
-        buttonBuyAngelUp.innerText = "Achete Moi !";
+        buttonBuyAngelUp.innerText = "Acheter";
         if (angelUp.unlocked == true) {
             buttonBuyAngelUp.innerText = "Acheté"
             buttonBuyAngelUp.classList.remove();
@@ -192,7 +192,7 @@ function buyAngelUp(angel:Pallier,world:World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
     if ((angel.seuil <= world.totalangels) && (angel.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
-        world.money -= angel.seuil;
+        world.activeangels -= angel.seuil;
 
         //Il faut modifier la valeur du calculScore
         if (angel.idcible > 0) {
