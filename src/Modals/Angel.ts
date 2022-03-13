@@ -148,7 +148,7 @@ function showAngelsUpgrades(server: string, world: World) {
 
         let bonusCashUp = document.createElement("div")
         secondCol.appendChild(bonusCashUp)
-        bonusCashUp.innerText = angelUp.typeratio + " x" + angelUp.ratio
+        bonusCashUp.innerText = angelUp.typeratio + " : x" + angelUp.ratio
         bonusCashUp.classList.add("spanUpgrade")
 
         //Colonne 3 : Bouton d'achat

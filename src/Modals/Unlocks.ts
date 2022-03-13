@@ -1,8 +1,9 @@
 import { findProduct } from "../index";
 import { World, Product, Pallier } from "../Classes/world";
-import {applyBonusProduct} from "../index";
+import { applyBonusProduct } from "../index";
 import { displayRevenu } from "../App/Products";
 import { displayToaster } from "../App/Toaster";
+import { applyBonusWorld } from "../index";
 
 
 // Affichage des unlocks
@@ -19,7 +20,7 @@ export function displayUnlocks(server: string, world: World) {
     $(m).on('hidden.bs.modal', function () {
         $('#selectBarreUnlocks').val(0);
         listUnlocks(0, server, world);
-      });
+    });
 
     //Balise Modal Content
     let mc = document.createElement("div");
@@ -34,7 +35,7 @@ export function displayUnlocks(server: string, world: World) {
     //Bouton Fermer la fenêtre
     let b = document.createElement("button");
     mh.appendChild(b);
-    b.classList.add("btn-close","btn-close-white")
+    b.classList.add("btn-close", "btn-close-white")
     b.setAttribute("type", "button");
     b.setAttribute("data-bs-dismiss", "modal");
     b.setAttribute("aria-label", "Close");
@@ -56,9 +57,9 @@ export function displayUnlocks(server: string, world: World) {
     optGlobal.id = "optProduit" + 0
     optGlobal.value = "" + 0
     optGlobal.text = "Unlocks globaux"
-    optGlobal.setAttribute("selected","")
+    optGlobal.setAttribute("selected", "")
 
-    
+
 
     $.each(world.products.product, function (index, product) {
 
@@ -69,8 +70,8 @@ export function displayUnlocks(server: string, world: World) {
         opt.text = product.name
     })
 
-    
-    
+
+
     //Titre de la fenêtre
     let t = document.createElement("h4");
     mh.appendChild(t);
@@ -84,7 +85,7 @@ export function displayUnlocks(server: string, world: World) {
     bodyM.classList.add("modal-body");
     bodyM.id = "modalUnlockBody";
 
- 
+
     $(selectBarre).change(function () {
         listUnlocks(parseInt(this.value), server, world)
     });
@@ -104,10 +105,10 @@ function listUnlocks(id: number, server: String, world: World) {
     $.each(world.allunlocks.pallier, function (index, unlock) {
 
         if (unlock.idcible == id) {
-            affichage(server,unlock)
+            affichage(server, unlock)
         }
         else if (id == -1) {
-            affichage(server,unlock)
+            affichage(server, unlock)
         }
     })
 }
@@ -131,7 +132,7 @@ function affichage(server: String, unlock: Pallier) {
     let colUnlocked = document.createElement("div")//Affichage est il dévérouillé ?
     rowUnlock.appendChild(colImageDesc)
     rowUnlock.appendChild(colUnlocked)
-    colImageDesc.classList.add("col","box")
+    colImageDesc.classList.add("col", "box")
     colUnlocked.classList.add("col")
 
     //Affichage Icon Unlock
@@ -163,7 +164,7 @@ function affichage(server: String, unlock: Pallier) {
 // Vérifie si un unlock doit être dévérouille
 export function verifUnlock(world: World) {
     // Pour tous les unlocks
-    $.each(world.allunlocks.pallier, function(index, unlock){
+    $.each(world.allunlocks.pallier, function (index, unlock) {
         // On vérifie que l'unlock n'est pas déjà dévérouillé
         if (unlock.unlocked == false) {
             // Si c'est un unlock pour un produit particulier
@@ -174,23 +175,31 @@ export function verifUnlock(world: World) {
                 // On vérifie que l'on a dépassé le seuil produit
                 if (product.quantite >= unlock.seuil) {
                     // Dévérouiller l'unlock
-                    displayToaster("info", "New unlock !");
-                    unlock.unlocked = true;
                     
+                    unlock.unlocked = true;
+
                     console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
 
                     // Appliquer les changements
-                    applyBonusProduct(product, unlock.ratio, unlock.typeratio);
-                    displayRevenu(product);
+                    if (unlock.typeratio != "ANGE") {
+                        displayToaster("info", "New unlock !");
+                        applyBonusProduct(product, unlock.ratio, unlock.typeratio);
+                        displayRevenu(product);
+                    }
+                    else {
+                        displayToaster("info", "New angel unlock !");
+                        applyBonusWorld(world, unlock.ratio, unlock.typeratio);
+                    }
+                    
                 }
             }
-            
+
             // Si c'est un unlock global
             else if (unlock.idcible == 0) {
                 let status: boolean = true;
-                
+
                 // On vérifie que tous les produits valident les seuils
-                $.each(world.products.product, function(index, product) {
+                $.each(world.products.product, function (index, product) {
                     if (product.quantite < unlock.seuil) {
                         status = false;
                     }
@@ -198,13 +207,22 @@ export function verifUnlock(world: World) {
 
                 // Si tous les produits valident les seuils, on applique le changement
                 if (status == true) {
-                    displayToaster("info", "New global unlock !");
+                    
                     unlock.unlocked = true;
                     console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
-                    $.each(world.products.product, function(index, product) {
-                        applyBonusProduct(product, unlock.ratio, unlock.typeratio);
-                        displayRevenu(product);
-                    })
+                    // On vérifie que le bonus ne concerne pas les anges
+                    if (unlock.typeratio != "ANGE") {
+                        displayToaster("info", "New global unlock !");
+                        $.each(world.products.product, function (index, product) {
+                            applyBonusProduct(product, unlock.ratio, unlock.typeratio);
+                            displayRevenu(product);
+                        })
+                    }
+                    else if (unlock.typeratio == "ANGE") {
+                        displayToaster("info", "New angel unlock !");
+                        applyBonusWorld(world, unlock.ratio, unlock.typeratio);
+                    }
+
                 }
             }
         }

@@ -39,7 +39,7 @@ const serverTest: string = "https://isiscapitalist.kk.kurasawa.fr/";
 
 
 // Serveur utilisé
-export var serverUrl = serverHeroku;
+export var serverUrl = serverLocal;
 
 
 $(document).ready(function () {
@@ -189,7 +189,7 @@ export function findProduct(world: World, idProduct: number): Product {
 }
 
 
-// Applique un bonus 
+// Applique un bonus de gain ou de vitesse sur les produits
 export function applyBonusProduct(product: Product, ratio: number, type: string) {
     switch (type) {
         case "VITESSE":
@@ -199,5 +199,14 @@ export function applyBonusProduct(product: Product, ratio: number, type: string)
         case "GAIN":
             product.revenu = product.revenu * ratio;
             break
+    }
+}
+
+
+// Applique un bonus d'ange sur le monde
+export function applyBonusWorld(world: World, ratio: number, type: string) {
+    if (type == "ANGE") {
+        world.angelbonus = world.angelbonus + ratio;
+        console.log("BONUS ANGE : " + world.angelbonus)
     }
 }

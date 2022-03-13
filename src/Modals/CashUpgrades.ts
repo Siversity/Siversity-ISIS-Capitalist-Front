@@ -1,7 +1,7 @@
 import { World, Product, Pallier } from "../Classes/world";
 import { transform } from "../App/Header";
 import { verifUnlock } from "./Unlocks";
-import { applyBonusProduct, findProduct } from "..";
+import { applyBonusProduct, applyBonusWorld, findProduct } from "..";
 import { displayRevenu } from "../App/Products";
 import { displayToaster } from "../App/Toaster";
 import { sendToServer } from "../RestCalls";
@@ -209,15 +209,15 @@ function buyCashUp(cashUp: Pallier, world: World) {
     if ((cashUp.seuil <= world.money) && (cashUp.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
         world.money -= cashUp.seuil;
+        cashUp.unlocked = true;
 
         //Il faut modifier la valeur du calculScore
-        if (cashUp.idcible != 0) {
+        if ((cashUp.idcible != 0) && (cashUp.typeratio != "ANGE")) {
             // On récupère le produit
             let product: Product = findProduct(world, cashUp.idcible);
 
             // Dévérouiller l'unlock
-            displayToaster("success", "New upgrade purchased !");
-            cashUp.unlocked = true;
+            displayToaster("success", "New product upgrade purchased !");
 
             console.log(product.name + " has upgrade a x" + cashUp.ratio + " " + cashUp.typeratio);
 
@@ -226,14 +226,17 @@ function buyCashUp(cashUp: Pallier, world: World) {
             applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
             displayRevenu(product);
         }
-        else if (cashUp.idcible == 0) {
+        else if ((cashUp.idcible == 0) && (cashUp.typeratio != "ANGE")) {
             displayToaster("info", "New global upgrade purchased !");
-            cashUp.unlocked = true;
             console.log("World has a global upgrade x" + cashUp.ratio + " " + cashUp.typeratio);
             $.each(world.products.product, function (index, product) {
                 applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
                 displayRevenu(product);
             })
+        }
+        else if ((cashUp.idcible == -1) && (cashUp.typeratio == "ANGE")) {
+            displayToaster("info", "New angel upgrade purchased !");
+            applyBonusWorld(world, cashUp.ratio, cashUp.typeratio);
         }
 
         // On affiche ensuite le nouveau solde
