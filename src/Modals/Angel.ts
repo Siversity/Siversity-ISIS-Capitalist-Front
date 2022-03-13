@@ -75,7 +75,7 @@ function showResetAngel(server:string,world: World) {
     firstCol.appendChild(angelNumber)
     angelNumber.id = "angelNumber"
     angelNumber.classList.add("angelNumber", "row")
-    angelNumber.innerHTML = transform(world.totalangels) + " Totals angels"
+    angelNumber.innerHTML = transform(world.activeangels) + " active angels"
 
     //Description
     let angelDesc = document.createElement("div")
@@ -171,7 +171,7 @@ function showAngelsUpgrades(server: string, world: World) {
             buttonBuyAngelUp.setAttribute("disabled", "true");
         }
 
-        if (angelUp.seuil > world.activeangels || angelUp.unlocked==true) {
+        if (angelUp.seuil > world.activeangels || angelUp.unlocked == true) {
             buttonBuyAngelUp.setAttribute("disabled", "true")
         }
         else {
@@ -190,7 +190,7 @@ function showAngelsUpgrades(server: string, world: World) {
 /**/
 function buyAngelUp(angel:Pallier,world:World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
-    if ((angel.seuil <= world.totalangels) && (angel.unlocked == false)) {
+    if ((angel.seuil <= world.activeangels) && (angel.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
         world.activeangels -= angel.seuil;
 
@@ -227,7 +227,7 @@ function buyAngelUp(angel:Pallier,world:World) {
         }
 
         // On affiche ensuite le nouveau solde
-        document.getElementById("angelNumber").innerHTML = transform(world.activeangels);
+        document.getElementById("angelNumber").innerHTML = transform(world.activeangels)+ " active angels";
 
 
         //Changement du bouton Hire en acheté et disabled
