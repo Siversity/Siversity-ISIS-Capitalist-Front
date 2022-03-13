@@ -171,7 +171,7 @@ function showAngelsUpgrades(server: string, world: World) {
             buttonBuyAngelUp.setAttribute("disabled", "true");
         }
 
-        if (angelUp.seuil > world.activeangels || angelUp.unlocked==true) {
+        if (angelUp.seuil > world.activeangels || angelUp.unlocked == true) {
             buttonBuyAngelUp.setAttribute("disabled", "true")
         }
         else {
@@ -190,9 +190,9 @@ function showAngelsUpgrades(server: string, world: World) {
 /**/
 function buyAngelUp(angel:Pallier,world:World) {
     // On vérifie que l'on a assez d'argent pour acheter le cash upgrade
-    if ((angel.seuil <= world.totalangels) && (angel.unlocked == false)) {
+    if ((angel.seuil <= world.activeangels) && (angel.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
-        world.money -= angel.seuil;
+        world.activeangels -= angel.seuil;
 
         //Il faut modifier la valeur du calculScore
         if (angel.idcible > 0) {
