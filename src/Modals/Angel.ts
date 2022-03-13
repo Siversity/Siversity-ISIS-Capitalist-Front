@@ -4,28 +4,28 @@ import { displayToaster } from "../App/Toaster";
 import type { ajaxRequest } from "../RestCalls";
 import { ajaxRequests } from "../RestCalls";
 import { displayRevenu } from "../App/Products";
-import { applyBonusProduct, findProduct } from "..";
+import { applyBonusProduct, applyBonusWorld, findProduct } from "..";
 
 export function displayAngel(server: string, world: World) {
     creationModal(server, world)
-    showResetAngel(world)
+    showResetAngel(server,world)
     showAngelsUpgrades(server, world)
 }
-/*
+
 function resetWorld(server:string) {
     $.ajax(server + "webresources/generic/world", {
      type: "DELETE",
      statusCode: {
      304: function () {
-     syncError("Echec du reset");
+     console.log("Echec du reset");
      }
      },
      error: function () {
-     syncError("Echec de la requete");
+     console.log("Echec de la requete");
      }
      }).done(function () { location.reload(); });
     }
-    */
+    
 
 function creationModal(server: string, world: World) {
     // Container
@@ -70,7 +70,7 @@ function creationModal(server: string, world: World) {
 }
 
 
-function showResetAngel(world: World) {
+function showResetAngel(server:string,world: World) {
     let body = document.getElementById("modalAngelBody")
 
     let container = document.createElement("div")
@@ -106,8 +106,12 @@ function showResetAngel(world: World) {
     let buttonReset = document.createElement("button")
     secondCol.appendChild(buttonReset)
     buttonReset.classList.add("btn", "btn-primary", "buttonReset", "bccFont")
-    let nbrAngels = 150 * Math.sqrt(world.score / Math.pow(10, 10)) - world.totalangels
+    let nbrAngels =( 150 * Math.sqrt(world.score / Math.pow(10, 15))) - world.totalangels
     buttonReset.innerHTML = "Reset your account for: " + transform(nbrAngels) + '<img class="imgDeviseManager" src="../../Style/Images/deviseAngel.png"/>'
+
+    $(buttonReset).click(function(){
+        resetWorld(server)
+    })
 }
 
 
@@ -229,6 +233,9 @@ function buyAngelUp(angel:Pallier,world:World) {
         }
         else if(angel.idcible == -1){
             //Bonus angel
+            displayToaster("info", "New angel bonus purchased !")
+            angel.unlocked=true
+            applyBonusWorld(world,angel.ratio,angel.typeratio)
 
         }
 
