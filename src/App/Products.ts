@@ -71,7 +71,7 @@ export function showProducts(server: string, world: World) {
         level.innerHTML = product.quantite.toString();
         level.setAttribute("data-bs-toggle", "tooltip");
         level.setAttribute("data-bs-placement", "top");
-        level.setAttribute("title", "+" + (product.revenu * product.quantite).toString());
+        level.setAttribute("title", "+" + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100) ).toString());
 
 
         // Container (ligne)
@@ -206,6 +206,7 @@ function modifyProduct(world: World, product: Product, quantity: number, cost: n
 
 
 export function displayRevenu(world: World, product: Product) {
+    console.log(product.name + " " + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100)))
     document.getElementById("qte" + product.id).title = "+" + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100)).toString()
     document.getElementById("qte" + product.id).setAttribute("data-bs-original-title", "+" + (product.revenu * product.quantite * (1 + (world.activeangels * world.angelbonus) / 100)).toString())
 }

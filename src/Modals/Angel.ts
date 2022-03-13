@@ -4,29 +4,15 @@ import { displayToaster } from "../App/Toaster";
 import type { ajaxRequest } from "../RestCalls";
 import { ajaxRequests } from "../RestCalls";
 import { displayRevenu } from "../App/Products";
-import { applyBonusProduct, findProduct } from "..";
+import { applyBonusProduct, applyBonusWorld, findProduct } from "../index";
 import { resetWorld } from "../RestCalls";
 
 export function displayAngel(server: string, world: World) {
     creationModal(server, world)
-    showResetAngel(world)
+    showResetAngel(server,world)
     showAngelsUpgrades(server, world)
 }
-/*
-function resetWorld(server:string) {
-    $.ajax(server + "webresources/generic/world", {
-     type: "DELETE",
-     statusCode: {
-     304: function () {
-     syncError("Echec du reset");
-     }
-     },
-     error: function () {
-     syncError("Echec de la requete");
-     }
-     }).done(function () { location.reload(); });
-    }
-    */
+    
 
 function creationModal(server: string, world: World) {
     // Container
@@ -71,7 +57,7 @@ function creationModal(server: string, world: World) {
 }
 
 
-function showResetAngel(world: World) {
+function showResetAngel(server:string,world: World) {
     let body = document.getElementById("modalAngelBody")
 
     let container = document.createElement("div")
@@ -234,6 +220,9 @@ function buyAngelUp(angel:Pallier,world:World) {
         }
         else if(angel.idcible == -1){
             //Bonus angel
+            displayToaster("info", "New angel bonus purchased !")
+            angel.unlocked=true
+            applyBonusWorld(world,angel.ratio,angel.typeratio)
 
         }
 
