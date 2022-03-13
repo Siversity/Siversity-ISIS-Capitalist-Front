@@ -180,7 +180,7 @@ function showAngelsUpgrades(server: string, world: World) {
             buttonBuyAngelUp.setAttribute("disabled", "true");
         }
 
-        if (angelUp.seuil > world.money || angelUp.unlocked==true) {
+        if (angelUp.seuil > world.activeangels || angelUp.unlocked==true) {
             buttonBuyAngelUp.setAttribute("disabled", "true")
         }
         else {
