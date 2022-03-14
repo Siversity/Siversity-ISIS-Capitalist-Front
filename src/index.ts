@@ -56,8 +56,6 @@ $(document).ready(function () {
         console.log(world)
         fillLastUpdate(world);
 
-
-
         // Initialisation argent de base
         // world.money = 2000;
 
@@ -165,7 +163,6 @@ export function matchId(manager: Pallier, world: World) {
     $.each(world.products.product, function (index, product) {
         if (manager.idcible == product.id) {
             product.managerUnlocked = true;
-            //console.log("produit: " + product.name + " unlocked:" + product.managerUnlocked);
 
             // sendToServer("manager", manager);
             let newRequest: ajaxRequest = {type: "manager", content: manager};
@@ -207,6 +204,5 @@ export function applyBonusProduct(product: Product, ratio: number, type: string)
 export function applyBonusWorld(world: World, ratio: number, type: string) {
     if (type == "ANGE") {
         world.angelbonus = world.angelbonus + ratio;
-        console.log("BONUS ANGE : " + world.angelbonus)
     }
 }

@@ -199,22 +199,9 @@ function buyManager(manager: Pallier, world: World) {
         button.classList.add("btn", "btn-secondary");
         button.setAttribute("disabled", "true");
 
-        console.log("Unlocked" + " imgMan" + manager.idcible)
-
         // Affichage en clair de l'image
         document.getElementById("imgMan" + manager.idcible).classList.remove("disabledProduct");
 
         displayToaster("success", "New manager hired !");
     }
-}
-
-function getImage(id: number, world: World) {
-    $.each(world.products.product, function (index, produit) {
-        let src = ""
-        if (produit.id == id) {
-            src = produit.logo
-            console.log("Source image:" + produit.logo)
-            return src;
-        }
-    })
 }

@@ -222,10 +222,7 @@ function buyCashUp(cashUp: Pallier, world: World) {
             // Dévérouiller l'unlock
             displayToaster("success", "New product upgrade purchased !");
 
-            console.log(product.name + " has upgrade a x" + cashUp.ratio + " " + cashUp.typeratio);
-
             // Appliquer les changements
-
             applyBonusProduct(product, cashUp.ratio, cashUp.typeratio);
             displayRevenu(world, product);
         }
@@ -258,9 +255,6 @@ function buyCashUp(cashUp: Pallier, world: World) {
         // sendToServer("upgrade", cashUp);
         let newRequest: ajaxRequest = { type: "upgrade", content: cashUp };
         ajaxRequests.push(newRequest);
-    }
-    else {
-        console.log("Pas assez de sous")
     }
 }
 

@@ -32,11 +32,11 @@ export function sendToServer({ type, content }: ajaxRequest) {
         data: JSON.stringify(content),
         statusCode: {
             304: function () {
-                // Action non prise en compte
+                console.log("Echec du reset");
             }
         },
         error: function () {
-            console.log(content);
+            console.log("Echec de la requete");
         }
     });
 }

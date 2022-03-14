@@ -81,7 +81,7 @@ function showResetAngel(server:string,world: World) {
     let angelDesc = document.createElement("div")
     firstCol.appendChild(angelDesc)
     angelDesc.classList.add("row", "textAngel")
-    angelDesc.innerText = 2 * (1 + world.activeangels * world.angelbonus / 100) + "% Bonus per Angels"
+    angelDesc.innerText = ((world.activeangels * world.angelbonus)).toFixed(2) + "% Total bonus (2% per Angels)"
 
     //Seconde colonne
     let secondCol = document.createElement("div")
@@ -126,7 +126,6 @@ function showAngelsUpgrades(server: string, world: World) {
         imgCol.appendChild(iconAngelUp)
         iconAngelUp.classList.add("imgCashUp")
         iconAngelUp.id="iconAngelUp"+angelUp.name+angelUp.idcible
-        console.log("ANGEL : " + angelUp.logo)
         iconAngelUp.src = server + angelUp.logo
 
         if (angelUp.unlocked == false) {
@@ -205,8 +204,6 @@ function buyAngelUp(angel:Pallier,world:World) {
             displayToaster("success", "New angel upgrade purchased !");
             angel.unlocked = true;
 
-            console.log(product.name + " has upgrade a x" + angel.ratio + " " + angel.typeratio);
-
             // Appliquer les changements
             applyBonusProduct(product, angel.ratio, angel.typeratio);
             displayRevenu(world, product);
@@ -214,7 +211,6 @@ function buyAngelUp(angel:Pallier,world:World) {
         else if (angel.idcible == 0) {
             displayToaster("info", "New global angel upgrade purchased !");
             angel.unlocked = true;
-            console.log("World has a global angel upgrade x" + angel.ratio + " " + angel.typeratio);
             $.each(world.products.product, function (index, product) {
                 applyBonusProduct(product, angel.ratio, angel.typeratio);
                 displayRevenu(world, product);
@@ -244,9 +240,6 @@ function buyAngelUp(angel:Pallier,world:World) {
         // sendToServer("angelupgrade", angel);
         let newRequest: ajaxRequest = { type: "angelupgrade", content: angel };
         ajaxRequests.push(newRequest);
-    }
-    else {
-        console.log("Pas assez de sous")
     }
 }
 

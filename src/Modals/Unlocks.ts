@@ -178,8 +178,6 @@ export function verifUnlock(world: World) {
                     
                     unlock.unlocked = true;
 
-                    console.log(product.name + " has unlocked a x" + unlock.ratio + " " + unlock.typeratio);
-
                     // Appliquer les changements
                     if (unlock.typeratio != "ANGE") {
                         displayToaster("info", "New unlock !");
@@ -209,7 +207,7 @@ export function verifUnlock(world: World) {
                 if (status == true) {
                     
                     unlock.unlocked = true;
-                    console.log("World has a global unlock x" + unlock.ratio + " " + unlock.typeratio);
+
                     // On vérifie que le bonus ne concerne pas les anges
                     if (unlock.typeratio != "ANGE") {
                         displayToaster("info", "New global unlock !");
