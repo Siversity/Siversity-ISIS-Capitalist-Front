@@ -81,7 +81,7 @@ function showResetAngel(server:string,world: World) {
     let angelDesc = document.createElement("div")
     firstCol.appendChild(angelDesc)
     angelDesc.classList.add("row", "textAngel")
-    angelDesc.innerText = "2% Bonus per Angels"
+    angelDesc.innerText = 2 * (1 + world.activeangels * world.angelbonus / 100) + "% Bonus per Angels"
 
     //Seconde colonne
     let secondCol = document.createElement("div")
