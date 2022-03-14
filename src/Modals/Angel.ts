@@ -114,6 +114,7 @@ function showAngelsUpgrades(server: string, world: World) {
     $.each(world.angelupgrades.pallier, function (index, angelUp) {
         let container = document.createElement("div")
         body.appendChild(container)
+        container.id = "rowAngelUp" + angelUp.name + angelUp.idcible
         container.classList.add("row", "row-cols-3", "border", "rounded")
 
         //Colonne 1 : Image
@@ -193,6 +194,7 @@ function buyAngelUp(angel:Pallier,world:World) {
     if ((angel.seuil <= world.activeangels) && (angel.unlocked == false)) {
         // Si c'est le cas, on soustrait son coût
         world.activeangels -= angel.seuil;
+        document.getElementById("rowAngelUp" + angel.name + angel.idcible).classList.add("unlocked");
 
         //Il faut modifier la valeur du calculScore
         if (angel.idcible > 0) {

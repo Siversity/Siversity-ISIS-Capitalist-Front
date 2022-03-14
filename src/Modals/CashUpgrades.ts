@@ -127,6 +127,7 @@ function selectCashUp(server: string, cashUp: Pallier, world: World) {
 
     let container = document.createElement("div")
     bodyCashUp.appendChild(container)
+    container.id = "rowCashUp" + cashUp.name + cashUp.idcible;
     container.classList.add("row", "border", "rounded")
     if (cashUp.unlocked == true) {
         container.classList.add("unlocked")
@@ -210,6 +211,8 @@ function buyCashUp(cashUp: Pallier, world: World) {
         // Si c'est le cas, on soustrait son coût
         world.money -= cashUp.seuil;
         cashUp.unlocked = true;
+
+        document.getElementById("rowCashUp" + cashUp.name + cashUp.idcible).classList.add("unlocked");
 
         //Il faut modifier la valeur du calculScore
         if ((cashUp.idcible != 0) && (cashUp.typeratio != "ANGE")) {
